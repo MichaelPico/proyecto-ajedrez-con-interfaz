@@ -86,6 +86,9 @@ namespace AjedrezMichaelPicoProyecto
             return tablero[fila, columna];
         }
 
+        //Metodo que recibe una casilla y devuelve un int[] 
+
+        //Infierno de botones: 
         private void a1(object sender, RoutedEventArgs e)
         {
             this.casillaSelecionada = "a1";
