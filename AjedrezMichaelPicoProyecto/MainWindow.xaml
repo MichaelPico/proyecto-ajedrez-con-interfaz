@@ -31,7 +31,7 @@
             <!-- Row 0 -->
             <Grid Grid.Row="0" Grid.Column="0">
                 <Button x:Name="casilla_a8"  Click="a8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="8" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="8" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <Button x:Name="casilla_b8"  Click="b8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -58,7 +58,7 @@
             <!-- Row 1 -->
             <Grid Grid.Row="1" Grid.Column="0">
                 <Button x:Name="casilla_a7"  Click="a7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="7" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="7" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Button x:Name="casilla_b7"  Click="b7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -85,7 +85,7 @@
             <!-- Row 2 -->
             <Grid Grid.Row="2" Grid.Column="0">
                 <Button x:Name="casilla_a6"  Click="a6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="6" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="6" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
                 <Button x:Name="casilla_b6"  Click="b6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -112,7 +112,7 @@
             <!-- Row 3 -->
             <Grid Grid.Row="3" Grid.Column="0">
                 <Button x:Name="casilla_a5"  Click="a5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="5" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="5" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1">
                 <Button x:Name="casilla_b5"  Click="b5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -139,7 +139,7 @@
             <!-- Row 4 -->
             <Grid Grid.Row="4" Grid.Column="0">
                 <Button x:Name="casilla_a4"  Click="a4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="4" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="4" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1">
                 <Button x:Name="casilla_b4"  Click="b4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -166,7 +166,7 @@
             <!-- Row 5 -->
             <Grid Grid.Row="5" Grid.Column="0">
                 <Button x:Name="casilla_a3"  Click="a3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="3" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="3" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="5" Grid.Column="1">
                 <Button x:Name="casilla_b3"  Click="b3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -193,7 +193,7 @@
             <!-- Row 6 -->
             <Grid Grid.Row="6" Grid.Column="0">
                 <Button x:Name="casilla_a2"  Click="a2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="2" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label  Content="2" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1">
                 <Button x:Name="casilla_b2"  Click="b2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -220,37 +220,36 @@
             <!-- Row 7 -->
             <Grid Grid.Row="7" Grid.Column="0">
                 <Button x:Name="casilla_a1"  Click="a1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="a" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
-                <TextBox   TextWrapping="Wrap" Text="1" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                <Label   Content="a" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label  Content="1" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="1">
                 <Button x:Name="casilla_b1"  Click="b1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-                <TextBox   TextWrapping="Wrap" Text="b" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="b" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="2">
                 <Button x:Name="casilla_c1"  Click="c1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="c" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="c" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="3">
                 <Button x:Name="casilla_d1"  Click="d1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="d" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="d" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="4">
                 <Button x:Name="casilla_e1"  Click="e1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="e" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="e" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="5">
                 <Button x:Name="casilla_f1"  Click="f1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="f" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="f" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="6">
                 <Button x:Name="casilla_g1"  Click="g1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="g" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="g" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="7">
                 <Button x:Name="casilla_h1"  Click="h1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <TextBox   TextWrapping="Wrap" Text="h" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <Label   Content="h" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
             </Grid>
         </Grid>
     </Grid>
