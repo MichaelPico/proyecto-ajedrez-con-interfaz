@@ -22,10 +22,12 @@ namespace AjedrezMichaelPicoProyecto
     {
 
         String casillaSelecionada = "";
+        char[,] tablero = IniciarTablero();
 
         public MainWindow()
         {
             InitializeComponent();
+            ActualizarTablero();
         }
 
         //NOTA: Cuando se accede a un array bidimensional
@@ -52,7 +54,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         //Metodo que inicia el tablero
-        private char[,] inciarTablero()
+        public static char[,] IniciarTablero()
         {
             char[,] respuesta = new char[,]
             {
@@ -71,7 +73,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //Metodo que devuelve true si la casilla posee un caracter vacio
-        private Boolean estaVacio(char casilla)
+        private Boolean EstaVacio(char casilla)
         {
             if (casilla == '•')
             {
@@ -81,12 +83,73 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //Metodo que recibe un char array, fila y columna y devuelve la casilla de esa columna
-        private char obtenerCasilla(int fila, int columna, char[,] tablero)
+        private char ObtenerCasilla(int fila, int columna, char[,] tablero)
         {
             return tablero[fila, columna];
         }
 
-        //Metodo que recibe una casilla y devuelve un int[] 
+        //TESTEADO
+        //Metodo que recibe una casilla y devuelve un int[] correspondientes a las coordenadas de un array
+        //El metodo recibe una casilla en formato columna-fila, ejemplo: la casilla a2 pasaria a ser [6,0]
+        //Las columnas van de (a-h) correspondiendo con coordenadas (0-7) siendo "a" la coordenada 0, "b" -> 1, "c" -> 2...
+        //Las filas van de (1-8) correspondiendo con coordenadas (0-7) siendo la fila 1 la coordenada 7, la fila 2 -> coordenada 6...
+        private int[] TraducirCasillaCoordenadas(String casilla)
+        {
+            char[] auxiliarColumna = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+            };
+            
+            char columna = casilla[0];
+            int fila = casilla[1]- '0'; //Asi se castea un char a int
+            fila = 8 - fila;  //Cambio su valor al contrario del rango, si era 0 ahora es 7, 3->4...
+
+            for(int i = 0; i < auxiliarColumna.Length; i++)
+            {
+                if (columna == auxiliarColumna[i])
+                {
+                    return new int[]
+                    {
+                        i, fila
+                    };
+                }
+            }
+            return null;
+        }
+
+        //TESTEADO
+        //Metodo que recibe una coordenada del array y la traduce a casilla de tablero
+        private String TraducirCoordenadaToCasilla(int[] coordenada)
+        {
+            char[] auxiliarColumna = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+            };
+
+            char letra = auxiliarColumna[coordenada[1]];
+            int numero = 8 - coordenada[0];
+
+            return "" + letra + numero;
+        }
+
+        List<Button> botones = new List<Button>();
+
+
+
+        //Metodo que sincroniza la parte visual con el array del tablero
+        public void ActualizarTablero()
+        {
+            
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++) {
+                    int[] coordenada = { i, j };
+                    String casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
+                    Button boton = this.FindName(casilla) as Button;
+                    boton.Content = tablero[i,j];
+                }
+            }
+        }
 
         //Infierno de botones: 
         private void a1(object sender, RoutedEventArgs e)
