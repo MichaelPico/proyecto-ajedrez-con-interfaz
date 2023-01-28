@@ -5,82 +5,253 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
-        Title="Juego" Height="435" Width="730" WindowStartupLocation="CenterScreen">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Margin="0,0,0,0" Source="tablero.png" Stretch="None"/>
+        Title="Juego" Height="565.16" Width="730" WindowStartupLocation="CenterScreen">
+    <Grid Background="Black">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!-- Row 0 -->
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Button x:Name="casilla_a8"  Click="a8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="8" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Button x:Name="casilla_b8"  Click="b8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Button x:Name="casilla_c8"  Click="c8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="3">
+                <Button x:Name="casilla_d8"  Click="d8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="4">
+                <Button x:Name="casilla_e8"  Click="e8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="5">
+                <Button x:Name="casilla_f8"  Click="f8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="6">
+                <Button x:Name="casilla_g8"  Click="g8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="7">
+                <Button x:Name="casilla_h8"  Click="h8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
 
-        <Button x:Name="casilla_a1"  Click="a1" Content="" HorizontalAlignment="Left" Margin="186,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b1"  Click="b1" Content="" HorizontalAlignment="Left" Margin="230,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c1"  Click="c1" Content="" HorizontalAlignment="Left" Margin="274,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d1"  Click="d1" Content="" HorizontalAlignment="Left" Margin="318,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e1"  Click="e1" Content="" HorizontalAlignment="Left" Margin="362,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f1"  Click="f1" Content="" HorizontalAlignment="Left" Margin="406,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g1"  Click="g1" Content="" HorizontalAlignment="Left" Margin="450,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h1"  Click="h1" Content="" HorizontalAlignment="Left" Margin="494,333,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a2"  Click="a2" Content="" HorizontalAlignment="Left" Margin="186,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b2"  Click="b2" Content="" HorizontalAlignment="Left" Margin="230,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c2"  Click="c2" Content="" HorizontalAlignment="Left" Margin="274,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d2"  Click="d2" Content="" HorizontalAlignment="Left" Margin="318,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e2"  Click="e2" Content="" HorizontalAlignment="Left" Margin="362,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f2"  Click="f2" Content="" HorizontalAlignment="Left" Margin="406,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g2"  Click="g2" Content="" HorizontalAlignment="Left" Margin="450,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h2"  Click="h2" Content="" HorizontalAlignment="Left" Margin="494,289,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a3"  Click="a3" Content="" HorizontalAlignment="Left" Margin="186,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b3"  Click="b3" Content="" HorizontalAlignment="Left" Margin="230,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c3"  Click="c3" Content="" HorizontalAlignment="Left" Margin="274,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d3"  Click="d3" Content="" HorizontalAlignment="Left" Margin="318,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e3"  Click="e3" Content="" HorizontalAlignment="Left" Margin="362,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="12.619,5.286"/>
-        <Button x:Name="casilla_f3"  Click="f3" Content="" HorizontalAlignment="Left" Margin="406,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g3"  Click="g3" Content="" HorizontalAlignment="Left" Margin="450,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h3"  Click="h3" Content="" HorizontalAlignment="Left" Margin="494,245,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a4"  Click="a4" Content="" HorizontalAlignment="Left" Margin="186,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b4"  Click="b4" Content="" HorizontalAlignment="Left" Margin="230,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c4"  Click="c4" Content="" HorizontalAlignment="Left" Margin="274,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d4"  Click="d4" Content="" HorizontalAlignment="Left" Margin="318,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e4"  Click="e4" Content="" HorizontalAlignment="Left" Margin="362,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f4"  Click="f4" Content="" HorizontalAlignment="Left" Margin="406,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g4"  Click="g4" Content="" HorizontalAlignment="Left" Margin="450,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h4"  Click="h4" Content="" HorizontalAlignment="Left" Margin="494,201,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a5"  Click="a5" Content="" HorizontalAlignment="Left" Margin="186,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b5"  Click="b5" Content="" HorizontalAlignment="Left" Margin="230,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c5"  Click="c5" Content="" HorizontalAlignment="Left" Margin="274,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d5"  Click="d5" Content="" HorizontalAlignment="Left" Margin="318,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e5"  Click="e5" Content="" HorizontalAlignment="Left" Margin="362,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f5"  Click="f5" Content="" HorizontalAlignment="Left" Margin="406,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g5"  Click="g5" Content="" HorizontalAlignment="Left" Margin="450,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h5"  Click="h5" Content="" HorizontalAlignment="Left" Margin="494,157,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a6"  Click="a6" Content="" HorizontalAlignment="Left" Margin="186,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b6"  Click="b6" Content="" HorizontalAlignment="Left" Margin="230,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c6"  Click="c6" Content="" HorizontalAlignment="Left" Margin="274,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d6"  Click="d6" Content="" HorizontalAlignment="Left" Margin="318,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e6"  Click="e6" Content="" HorizontalAlignment="Left" Margin="362,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f6"  Click="f6" Content="" HorizontalAlignment="Left" Margin="406,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g6"  Click="g6" Content="" HorizontalAlignment="Left" Margin="450,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h6"  Click="h6" Content="" HorizontalAlignment="Left" Margin="494,113,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a7"  Click="a7" Content="" HorizontalAlignment="Left" Margin="186,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b7"  Click="b7" Content="" HorizontalAlignment="Left" Margin="230,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c7"  Click="c7" Content="" HorizontalAlignment="Left" Margin="274,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d7"  Click="d7" Content="" HorizontalAlignment="Left" Margin="318,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e7"  Click="e7" Content="" HorizontalAlignment="Left" Margin="362,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f7"  Click="f7" Content="" HorizontalAlignment="Left" Margin="406,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g7"  Click="g7" Content="" HorizontalAlignment="Left" Margin="450,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h7"  Click="h7" Content="" HorizontalAlignment="Left" Margin="494,69,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="casilla_a8"  Click="a8" Content="" HorizontalAlignment="Left" Margin="186,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_b8"  Click="b8" Content="" HorizontalAlignment="Left" Margin="230,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_c8"  Click="c8" Content="" HorizontalAlignment="Left" Margin="274,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_d8"  Click="d8" Content="" HorizontalAlignment="Left" Margin="318,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_e8"  Click="e8" Content="" HorizontalAlignment="Left" Margin="362,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_f8"  Click="f8" Content="" HorizontalAlignment="Left" Margin="406,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_g8"  Click="g8" Content="" HorizontalAlignment="Left" Margin="450,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="casilla_h8"  Click="h8" Content="" HorizontalAlignment="Left" Margin="494,25,0,0" VerticalAlignment="Top" Width="42" Height="42" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <!-- Row 1 -->
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Button x:Name="casilla_a7"  Click="a7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="7" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Button x:Name="casilla_b7"  Click="b7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Button x:Name="casilla_c7"  Click="c7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="3">
+                <Button x:Name="casilla_d7"  Click="d7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Button x:Name="casilla_e7"  Click="e7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="5">
+                <Button x:Name="casilla_f7"  Click="f7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="6">
+                <Button x:Name="casilla_g7"  Click="g7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="7">
+                <Button x:Name="casilla_h7"  Click="h7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
 
+            <!-- Row 2 -->
+            <Grid Grid.Row="2" Grid.Column="0">
+                <Button x:Name="casilla_a6"  Click="a6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="6" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Button x:Name="casilla_b6"  Click="b6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="2">
+                <Button x:Name="casilla_c6"  Click="c6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="3">
+                <Button x:Name="casilla_d6"  Click="d6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="4">
+                <Button x:Name="casilla_e6"  Click="e6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="5">
+                <Button x:Name="casilla_f6"  Click="f6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="6">
+                <Button x:Name="casilla_g6"  Click="g6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="7">
+                <Button x:Name="casilla_h6"  Click="h6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
 
+            <!-- Row 3 -->
+            <Grid Grid.Row="3" Grid.Column="0">
+                <Button x:Name="casilla_a5"  Click="a5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="5" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Button x:Name="casilla_b5"  Click="b5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="2">
+                <Button x:Name="casilla_c5"  Click="c5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="3">
+                <Button x:Name="casilla_d5"  Click="d5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="4">
+                <Button x:Name="casilla_e5"  Click="e5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="5">
+                <Button x:Name="casilla_f5"  Click="f5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="6">
+                <Button x:Name="casilla_g5"  Click="g5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="7">
+                <Button x:Name="casilla_h5"  Click="h5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+
+            <!-- Row 4 -->
+            <Grid Grid.Row="4" Grid.Column="0">
+                <Button x:Name="casilla_a4"  Click="a4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="4" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Button x:Name="casilla_b4"  Click="b4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="2">
+                <Button x:Name="casilla_c4"  Click="c4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="3">
+                <Button x:Name="casilla_d4"  Click="d4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="4">
+                <Button x:Name="casilla_e4"  Click="e4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="5">
+                <Button x:Name="casilla_f4"  Click="f4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="6">
+                <Button x:Name="casilla_g4"  Click="g4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="7">
+                <Button x:Name="casilla_h4"  Click="h4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+
+            <!-- Row 5 -->
+            <Grid Grid.Row="5" Grid.Column="0">
+                <Button x:Name="casilla_a3"  Click="a3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="3" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Button x:Name="casilla_b3"  Click="b3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="2">
+                <Button x:Name="casilla_c3"  Click="c3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="3">
+                <Button x:Name="casilla_d3"  Click="d3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="4">
+                <Button x:Name="casilla_e3"  Click="e3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="5">
+                <Button x:Name="casilla_f3"  Click="f3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="6">
+                <Button x:Name="casilla_g3"  Click="g3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="7">
+                <Button x:Name="casilla_h3"  Click="h3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+
+            <!-- Row 6 -->
+            <Grid Grid.Row="6" Grid.Column="0">
+                <Button x:Name="casilla_a2"  Click="a2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="2" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="1">
+                <Button x:Name="casilla_b2"  Click="b2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="2">
+                <Button x:Name="casilla_c2"  Click="c2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="3">
+                <Button x:Name="casilla_d2"  Click="d2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="4">
+                <Button x:Name="casilla_e2"  Click="e2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="5">
+                <Button x:Name="casilla_f2"  Click="f2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="6">
+                <Button x:Name="casilla_g2"  Click="g2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="7">
+                <Button x:Name="casilla_h2"  Click="h2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+
+            <!-- Row 7 -->
+            <Grid Grid.Row="7" Grid.Column="0">
+                <Button x:Name="casilla_a1"  Click="a1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="a" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                <TextBox   TextWrapping="Wrap" Text="1" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="1">
+                <Button x:Name="casilla_b1"  Click="b1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                <TextBox   TextWrapping="Wrap" Text="b" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="2">
+                <Button x:Name="casilla_c1"  Click="c1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="c" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="3">
+                <Button x:Name="casilla_d1"  Click="d1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="d" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="4">
+                <Button x:Name="casilla_e1"  Click="e1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="e" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="5">
+                <Button x:Name="casilla_f1"  Click="f1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="f" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="6">
+                <Button x:Name="casilla_g1"  Click="g1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#84a27d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="g" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="7">
+                <Button x:Name="casilla_h1"  Click="h1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#d2d0b2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox   TextWrapping="Wrap" Text="h" Background="Transparent" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
