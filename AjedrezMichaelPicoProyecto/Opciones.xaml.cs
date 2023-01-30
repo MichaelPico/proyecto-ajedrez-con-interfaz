@@ -10,34 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AjedrezMichaelPicoProyecto
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para Opciones.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Opciones : Window
     {
-        public MainWindow()
+        public Opciones()
         {
             InitializeComponent();
         }
-
-        private void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
+        //Si el boton "contra la maquina" no esta activado, no se podra cambiar la dificultad
+        private void RadioBotonContraLaMaquina(object sender, RoutedEventArgs e)
         {
-            Juego ventanaJuego = new Juego();
-            ventanaJuego.Show();
-            this.Close();
+            ComboBoxOpcionDificultad.IsEnabled = (bool)((RadioButton)sender).IsChecked;
         }
 
-        private void BotonOpciones_Click(object sender, RoutedEventArgs e)
+        private void RadioBotonDosJugadores(object sender, RoutedEventArgs e)
         {
 
-            Opciones ventanaOpciones = new Opciones();
-            ventanaOpciones.Show();
-            this.Close();
         }
     }
 }
