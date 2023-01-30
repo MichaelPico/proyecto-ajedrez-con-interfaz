@@ -5,11 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
-        Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+        Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    
+    <Window.Background>
+        <ImageBrush ImageSource="fondoAjedrezDos.jpg" Stretch="Fill"></ImageBrush>
+    </Window.Background>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#E87B18"/>
+            <Setter Property="FontFamily" Value="Georgia" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="20,20,80,20" />
+            <Setter Property="Template">
+                <!-- Sin este Setter.Value el color de fondo de el boton nunca cambia en hover trigger-->
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#BD4000"/>
+                    <Setter Property="FontSize" Value="28" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <Button x:Name="BotonContinuarJuego" IsEnabled="False" Content="Continuar Juego" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Click="BotonContinuarJuego_Click"></Button>
-        <Button x:Name="BotonNuevoJuego" Content="Nuevo Juego" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" Click="BotonNuevoJuego_Click"></Button>
-        <Button x:Name="BotonOpciones" Content="Opciones" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120,0,0" Click="BotonOpciones_Click"></Button>
-        <Button x:Name="BotonSalir" Content="Salir" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,180,0,0" Click="BotonSalir_Click"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridContenedorTitulo" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="80,0,0,0">
+            <Viewbox Stretch="Uniform">
+                <Image Source="Titulo.png" Margin="50"/>
+            </Viewbox>
+        </Grid>
+        <Grid x:Name="GridContenedorBotones" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button x:Name="BotonContinuarJuego" IsEnabled="False" Content="Continuar Juego" Grid.Row="0" MouseEnter="SonidoBoton_MouseEnter" Click="BotonContinuarJuego_Click"></Button>
+            <Button x:Name="BotonNuevoJuego" Content="Nuevo Juego" Grid.Row="1" MouseEnter="SonidoBoton_MouseEnter" Click="BotonNuevoJuego_Click"></Button>
+            <Button x:Name="BotonOpciones" Content="Opciones" Grid.Row="2" MouseEnter="SonidoBoton_MouseEnter" Click="BotonOpciones_Click"></Button>
+            <Button x:Name="BotonSalir" Content="Salir" Grid.Row="3" MouseEnter="SonidoBoton_MouseEnter" Click="BotonSalir_Click"></Button>
+
+        </Grid>
     </Grid>
 </Window>

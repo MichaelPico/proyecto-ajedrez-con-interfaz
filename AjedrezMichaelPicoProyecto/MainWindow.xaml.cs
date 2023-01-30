@@ -20,9 +20,19 @@ namespace AjedrezMichaelPicoProyecto
     /// </summary>
     public partial class MainWindow : Window
     {
+        System.Media.SoundPlayer PlayerBoton;
+
         public MainWindow()
         {
             InitializeComponent();
+            CargarSonidoBotones();
+        }
+
+        public void CargarSonidoBotones()
+        {
+            System.IO.Stream recursoaudio = Properties.Resources.sonidoBoton;
+            PlayerBoton = new System.Media.SoundPlayer(recursoaudio);
+            PlayerBoton.Load();
         }
 
         private void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
@@ -48,6 +58,12 @@ namespace AjedrezMichaelPicoProyecto
         private void BotonSalir_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SonidoBoton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            PlayerBoton.Play();
+
         }
     }
 }

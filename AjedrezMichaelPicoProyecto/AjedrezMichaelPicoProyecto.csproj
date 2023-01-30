@@ -117,5 +117,18 @@
   <ItemGroup>
     <Resource Include="logo.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="fondoAjedrezUno.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="fondoAjedrezDos.jpg" />
+    <Resource Include="fondoAjedrezTres.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Titulo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="sonidoBoton.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
