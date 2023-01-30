@@ -216,7 +216,7 @@ namespace AjedrezMichaelPicoProyecto
             if (!menuDebuguear)
             {
                 GridDebug.Visibility = Visibility.Hidden;
-                Grid ElTablero = (Grid)this.FindName("GridTablero");
+                Viewbox ElTablero = (Viewbox)this.FindName("ViewBoxTablero");
                 Grid.SetColumnSpan(ElTablero, 6);
 
             }

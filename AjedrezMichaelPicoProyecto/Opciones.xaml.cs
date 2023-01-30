@@ -26,7 +26,9 @@ namespace AjedrezMichaelPicoProyecto
         //Si el boton "contra la maquina" no esta activado, no se podra cambiar la dificultad
         private void RadioBotonContraLaMaquina(object sender, RoutedEventArgs e)
         {
-            ComboBoxOpcionDificultad.IsEnabled = (bool)((RadioButton)sender).IsChecked;
+            bool ContraLaMaquina = (bool)((RadioButton)sender).IsChecked;
+            ComboBoxOpcionDificultad.IsEnabled = ContraLaMaquina;
+            
         }
 
         private void RadioBotonDosJugadores(object sender, RoutedEventArgs e)

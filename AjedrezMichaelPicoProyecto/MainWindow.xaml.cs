@@ -39,5 +39,15 @@ namespace AjedrezMichaelPicoProyecto
             ventanaOpciones.Show();
             this.Close();
         }
+
+        private void BotonContinuarJuego_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BotonSalir_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

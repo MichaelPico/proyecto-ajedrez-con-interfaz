@@ -36,7 +36,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Viewbox Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,10,0,0">
-                    <RadioButton GroupName="ModoJuego" Checked="RadioBotonDosJugadores" IsChecked="True">Dos jugadores</RadioButton>
+                    <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonDosJugadores" IsChecked="True">Dos jugadores</RadioButton>
                 </Viewbox>
             </Grid>
             <Grid Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10">

@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="BotonNuevoJuego" Content="Nuevo Juego" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Click="BotonNuevoJuego_Click"></Button>
-        <Button x:Name="BotonOpciones" Content="Opciones" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60" Click="BotonOpciones_Click"></Button>
+        <Button x:Name="BotonContinuarJuego" IsEnabled="False" Content="Continuar Juego" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Click="BotonContinuarJuego_Click"></Button>
+        <Button x:Name="BotonNuevoJuego" Content="Nuevo Juego" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" Click="BotonNuevoJuego_Click"></Button>
+        <Button x:Name="BotonOpciones" Content="Opciones" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120,0,0" Click="BotonOpciones_Click"></Button>
+        <Button x:Name="BotonSalir" Content="Salir" Width="200" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,180,0,0" Click="BotonSalir_Click"></Button>
     </Grid>
 </Window>
