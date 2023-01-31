@@ -28,6 +28,14 @@ namespace AjedrezMichaelPicoProyecto
             CargarSonidoBotones();
         }
 
+        //Testeado
+        public void mostrarBotonContinuar()
+        {
+            BotonContinuarJuego.Visibility = Visibility.Visible;
+            BotonContinuarJuego.IsEnabled = true;
+        }
+
+        //Carga el sonido de el boton para asi evitar el retraso en la primera vez que se usa el sonido
         public void CargarSonidoBotones()
         {
             System.IO.Stream recursoaudio = Properties.Resources.sonidoBoton;
@@ -52,7 +60,7 @@ namespace AjedrezMichaelPicoProyecto
 
         private void BotonContinuarJuego_Click(object sender, RoutedEventArgs e)
         {
-
+            //Para implementar este boton hay que hacer un constructor en la clase juego el cual reciba un booleano o algo asi para distinguir de un juego nuevo
         }
 
         private void BotonSalir_Click(object sender, RoutedEventArgs e)
