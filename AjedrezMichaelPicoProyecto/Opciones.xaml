@@ -9,6 +9,8 @@
     <Window.Background>
         <ImageBrush ImageSource="fondoAjedrezTres.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
+    
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -42,7 +44,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Viewbox Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" >
-                            <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonDosJugadores" IsChecked="True">Dos jugadores</RadioButton>
+                            <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonDosJugadores" IsChecked="True" Margin="10,0,0,0">Dos jugadores</RadioButton>
                         </Viewbox>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -50,19 +52,101 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Viewbox Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0">
                             <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonContraLaMaquina">Contra la Maquina</RadioButton>
                         </Viewbox>
-                        <Label Content="Dificultad:" FontSize="20" Grid.Row="1"></Label>
-                        <ComboBox Name="ComboBoxOpcionDificultad" FontSize="20" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="2" Margin="0,10,0,0">
+                        <Label Content="Dificultad:" FontSize="20" Grid.Row="1" Margin="0,10,0,0"></Label>
+                        <ComboBox Name="ComboBoxOpcionDificultad" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="1" Margin="100,10,0,0" VerticalContentAlignment="Center">
                             <ComboBoxItem IsSelected="True">Aleatoria</ComboBoxItem>
                             <ComboBoxItem>800 de Elo (Facil)</ComboBoxItem>
                             <ComboBoxItem>1200 de Elo (Normal)</ComboBoxItem>
                             <ComboBoxItem>1500 de Elo (Dificil)</ComboBoxItem>
                             <ComboBoxItem>3000 de Elo (Imposible)</ComboBoxItem>
                         </ComboBox>
+                        <Label Content="Color:" FontSize="20" Grid.Row="2" Margin="0,10,0,0"></Label>
+                        <ComboBox Name="ComboBoxOpcionColor" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="2" Margin="100,10,0,0" VerticalContentAlignment="Center">
+                            <ComboBoxItem IsSelected="True">Aleatorio</ComboBoxItem>
+                            <ComboBoxItem>Empezar Siendo Blanco</ComboBoxItem>
+                            <ComboBoxItem>Empezar Siendo Negro</ComboBoxItem>
+                        </ComboBox>
                     </Grid>
+                </Grid>
+                <Label HorizontalAlignment="Stretch">
+                    <TextBlock TextDecorations="Underline" FontSize="30">Pantalla:</TextBlock>
+                </Label>
+                <!-- Para dar funcionalidad hay que cambiar el Window.style de cada clase de cada ventana, sin bordes = none, ventana es defecto, full screen no recuerdo-->
+                <ComboBox Name="ComboBoxModoPantalla" FontSize="17" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Margin="10,5,0,0" VerticalContentAlignment="Center">
+                    <ComboBoxItem IsSelected="True">Modo Ventana</ComboBoxItem>
+                    <ComboBoxItem>Ventana sin Bordes</ComboBoxItem>
+                    <ComboBoxItem>Pantalla Completa</ComboBoxItem>
+                </ComboBox>
+
+                <Label HorizontalAlignment="Stretch">
+                    <TextBlock TextDecorations="Underline" FontSize="30" Margin="0,20,0,0">Personalizacion:</TextBlock>
+                </Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25">Paleta:</TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25">Fichas:</TextBlock>
+                    </Grid>
+
+                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="0">
+                        <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta1" IsChecked="True" Margin="10,0,0,0">Defecto</RadioButton>
+                    </Viewbox>
+                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" >
+                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" IsChecked="True" Margin="10,0,0,0" >Defecto</RadioButton>
+                    </Viewbox>
+
+                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="0">
+                        <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta2" Margin="10,0,0,0">Paleta 2</RadioButton>
+                    </Viewbox>
+                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1">
+                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas2" Margin="10,0,0,0">Fichas 2</RadioButton>
+                    </Viewbox>
+
+                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="0">
+                        <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta3" Margin="10,0,0,0">Paleta 3</RadioButton>
+                    </Viewbox>
+                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1">
+                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" Margin="10,0,0,0">Fichas 2</RadioButton>
+                    </Viewbox>
+
+                    <Grid Grid.Column="4" Grid.RowSpan="2" VerticalAlignment="Center">
+                        <Grid MaxWidth="90" HorizontalAlignment="Left" Margin="22,5,0,0" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Width="45" Height="45" Background="Red" Grid.Column="0" Content=""></Button>
+                            <Button Width="45" Height="45" Background="Red" Grid.Column="1" Content=""></Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Margin="0,50,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="BotonAplicarCambios" Content="Aplicar Cambios" Grid.Column="0" MouseEnter="BotonAplicarCambios_MouseEnter" Click="BotonAplicarCambios_Click"></Button>
+                    <Button x:Name="BotonVolverInicio" Content="Volver Inicio" Grid.Column="1" MouseEnter="BotonAplicarCambios_MouseEnter" Click="BotonVolverInicio_Click"></Button>
                 </Grid>
             </StackPanel>
         </Grid>

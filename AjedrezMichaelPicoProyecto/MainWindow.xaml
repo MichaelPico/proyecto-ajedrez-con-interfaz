@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
-        Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     
     <Window.Background>
         <ImageBrush ImageSource="fondoAjedrezDos.jpg" Stretch="Fill"></ImageBrush>

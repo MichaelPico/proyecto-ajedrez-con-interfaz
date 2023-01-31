@@ -41,6 +41,7 @@ namespace AjedrezMichaelPicoProyecto
             System.IO.Stream recursoaudio = Properties.Resources.sonidoBoton;
             PlayerBoton = new System.Media.SoundPlayer(recursoaudio);
             PlayerBoton.Load();
+            PlayerBoton.Play();
         }
 
         private void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
