@@ -1,0 +1,25 @@
+### Ventana Inicio:
+Darle funcionalidad al boton cargar partida
+
+### Ventana Opciones:
+Añadir en las opciones de el modo de contra la maquina tres radioButton o un menubox donde elegir si empezar con las blancas, las negras o aleatorio
+Añadir opciones para cambiar la resolucion / poner la pantalla completa, modo ventana, modo ventana sin bordes
+Añadir un boton para "guardar opciones" y otro para volver a la ventana principal (en la parte de abajo estarian bien)
+Añadir opciones para cambiar la paleta de colores de el tablero con una vista previa
+Añadir opciones para cambiar los caracteres ascii que se usan en la partida
+
+### Ventana Juego: 
+Rediseñar la ventana
+Añadir espacio para el nombre de cada jugador
+Añadir un label debajo de cada nombre para colocar en el futuro las piezas capturadas y las puntuaciones
+Añadir un espacio para en el futuro implementar la notacion
+
+
+### Codigo Juego: 
+Implementar unas 3 paletas de colores con 6 colores cada una: 
+ColorClaroBase
+ColorClaroCamino (el camino es mas claro que el nomral) 
+ColorClaroRastro (el rastro es mas oscuro que el normal)
+ColorOscuroBase
+ColorOscuroCamino
+ColorOscuroRastro 
