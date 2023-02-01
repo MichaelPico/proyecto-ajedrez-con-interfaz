@@ -3,12 +3,7 @@ Darle funcionalidad al boton cargar partida
 Añadir un sonido de click a los botones
 
 ### Ventana Opciones:
-~~Añadir en las opciones de el modo de contra la maquina tres radioButton o un menubox donde elegir si empezar con las blancas, las negras o aleatorio~~
-Cambiar la fuente de el menu de opciones
-Añadir opciones para cambiar la resolucion / poner la pantalla completa, modo ventana, modo ventana sin bordes
-Añadir un boton para "guardar opciones" y otro para volver a la ventana principal (en la parte de abajo estarian bien)
-Añadir opciones para cambiar la paleta de colores de el tablero con una vista previa
-Añadir opciones para cambiar los caracteres ascii que se usan en la partida
+Dar style y sonidos a los botones de aplicar cambios, dar funcionalidad a todos los botones y caracteristicas añadidas
 
 ### Ventana Juego: 
 Crear un style para los botones y los grid (probablemente sea bueno mirar un tutorial)
