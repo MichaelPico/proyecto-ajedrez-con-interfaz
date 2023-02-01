@@ -11,10 +11,10 @@
         <ImageBrush ImageSource="fondoAjedrezTres.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
 
-    <Window.Resources><!--
+    <Window.Resources>
         <Style TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Georgia" />
-        </Style> -->
+        </Style>
         <Style TargetType="{x:Type Button}" x:Key="BotonDeMenu">
             <Setter Property="Background" Value="{StaticResource colorBotonSistema}"/>
             <Setter Property="FontFamily" Value="Georgia" />
@@ -148,10 +148,10 @@
                     </Grid>
 
                     <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="0">
-                        <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta1" IsChecked="True" Margin="10,0,0,0">Defecto</RadioButton>
+                        <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta1" IsChecked="True" Margin="10,0,0,0">Paleta 1</RadioButton>
                     </Viewbox>
                     <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" >
-                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" IsChecked="True" Margin="10,0,0,0" >Defecto</RadioButton>
+                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" IsChecked="True" Margin="10,0,0,0" >Fichas 1</RadioButton>
                     </Viewbox>
 
                     <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="0">
@@ -178,10 +178,10 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Button x:Name="vistaPrevia1" Width="45" Height="45" Background="{StaticResource colorOscuroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="0" Content="♛" FontSize="30"></Button>
-                            <Button x:Name="vistaPrevia2" Width="45" Height="45" Background="{StaticResource colorClaroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="0" Content="♟" FontSize="30"></Button>
-                            <Button x:Name="vistaPrevia3" Width="45" Height="45" Background="{StaticResource colorClaroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="1" Content="♘" FontSize="30"></Button>
-                            <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{StaticResource colorOscuroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia1" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="0" Content="♛" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia2" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="0" Content="♟" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia3" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="1" Content="♘" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30"></Button>
                         </Grid>
                     </Grid>
                 </Grid>

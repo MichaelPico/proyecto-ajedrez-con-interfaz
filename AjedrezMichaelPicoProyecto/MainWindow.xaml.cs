@@ -21,7 +21,8 @@ namespace AjedrezMichaelPicoProyecto
     public partial class MainWindow : Window
     {
         public int IndexPaletaDeColor { get; set; }
-        public Opciones opcionesJuego;
+        public OpcionesElegidas opcionesJuego;
+        public Opciones ventanaOpciones;
         bool cambiado = false;
         
 
@@ -30,22 +31,10 @@ namespace AjedrezMichaelPicoProyecto
         public MainWindow()
         {
             InitializeComponent();
-            opcionesJuego = new Opciones(this);
-            //CambiarFuente();
+            opcionesJuego = new OpcionesElegidas();
+            ventanaOpciones = new Opciones(this);
             CargarSonidoBotones();
             IndexPaletaDeColor = 0;
-        }
-
-        public void CambiarFuente()
-        {
-            if (!cambiado)
-            {
-                FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
-                {
-                    DefaultValue = FindResource(typeof(Window))
-                });
-                cambiado = true;
-            }
         }
 
         //Testeado
@@ -64,16 +53,24 @@ namespace AjedrezMichaelPicoProyecto
             PlayerBoton.Play();
         }
 
-        private void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
+        public void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
         {
             Juego ventanaJuego = new Juego();
+            if(opcionesJuego.pantalla == 1)
+            {
+                ventanaJuego.WindowStyle = WindowStyle.None;
+            } else if (opcionesJuego.pantalla == 2)
+            {
+                ventanaJuego.WindowStyle = WindowStyle.None;
+                ventanaJuego.WindowState = WindowState.Maximized;
+            }
             ventanaJuego.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void BotonOpciones_Click(object sender, RoutedEventArgs e)
         {
-            opcionesJuego.Show();
+            ventanaOpciones.Show();
             this.Hide();
         }
 
@@ -84,7 +81,7 @@ namespace AjedrezMichaelPicoProyecto
 
         private void BotonSalir_Click(object sender, RoutedEventArgs e)
         {
-            opcionesJuego.Close();
+            ventanaOpciones.Close();
             this.Close();
         }
 

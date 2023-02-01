@@ -17,7 +17,7 @@ namespace AjedrezMichaelPicoProyecto
     /// <summary>
     /// Lógica de interacción para Opciones.xaml
     /// </summary>
-    public partial class Opciones : Window
+    public partial class Opciones: Window
     {
         MainWindow Inicio;
 
@@ -41,23 +41,66 @@ namespace AjedrezMichaelPicoProyecto
 
         private void RadioBotonPaleta1(object sender, RoutedEventArgs e)
         {
+            //Get
+            SolidColorBrush colorClaroBaseAux = (SolidColorBrush)App.Current.Resources["colorClaroBase1"];
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino1"];
+            SolidColorBrush colorClaroRastroAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro1"];
+            SolidColorBrush colorOscuroBaseAux = (SolidColorBrush)App.Current.Resources["colorOscuroBase1"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino1"];
+            SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro1"];
 
+            //Set
+            App.Current.Resources["colorClaroBase"] = colorClaroBaseAux;
+            App.Current.Resources["colorClaroCamino"] = colorClaroCaminoAux;
+            App.Current.Resources["colorClaroRastro"] = colorClaroRastroAux;
+            App.Current.Resources["colorOscuroBase"] = colorOscuroBaseAux;
+            App.Current.Resources["colorOscuroCamino"] = colorOscuroCaminoAux;
+            App.Current.Resources["colorOscuroRastro"] = colorOscuroRastroAux;
         }
 
         private void RadioBotonPaleta2(object sender, RoutedEventArgs e)
         {
+            //Get
+            SolidColorBrush colorClaroBaseAux = (SolidColorBrush)App.Current.Resources["colorClaroBase2"];
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino2"];
+            SolidColorBrush colorClaroRastroAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro2"];
+            SolidColorBrush colorOscuroBaseAux = (SolidColorBrush)App.Current.Resources["colorOscuroBase2"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino2"];
+            SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro2"];
 
+            //Set
+            Application.Current.Resources["colorClaroBase"] = colorClaroBaseAux;
+            App.Current.Resources["colorClaroCamino"] = colorClaroCaminoAux;
+            App.Current.Resources["colorClaroRastro"] = colorClaroRastroAux;
+            App.Current.Resources["colorOscuroBase"] = colorOscuroBaseAux;
+            App.Current.Resources["colorOscuroCamino"] = colorOscuroCaminoAux;
+            App.Current.Resources["colorOscuroRastro"] = colorOscuroRastroAux;
         }
 
         private void RadioBotonPaleta3(object sender, RoutedEventArgs e)
         {
+            //Get
+            SolidColorBrush colorClaroBaseAux = (SolidColorBrush)App.Current.Resources["colorClaroBase3"];
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino3"];
+            SolidColorBrush colorClaroRastroAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro3"];
+            SolidColorBrush colorOscuroBaseAux = (SolidColorBrush)App.Current.Resources["colorOscuroBase3"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino3"];
+            SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro3"];
+
+            //Set
+            App.Current.Resources["colorClaroBase"] = colorClaroBaseAux;
+            App.Current.Resources["colorClaroCamino"] = colorClaroCaminoAux;
+            App.Current.Resources["colorClaroRastro"] = colorClaroRastroAux;
+            App.Current.Resources["colorOscuroBase"] = colorOscuroBaseAux;
+            App.Current.Resources["colorOscuroCamino"] = colorOscuroCaminoAux;
+            App.Current.Resources["colorOscuroRastro"] = colorOscuroRastroAux;
 
         }
 
         private void RadioBotonFichas1(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas1 = (FontFamily)App.Current.Resources["Arial"];
-            App.Current.Resources["recursoPiezas"] = fichas1;
+            FontFamily fichas1 = (FontFamily)App.Current.Resources["Arial"]; //Get
+            App.Current.Resources["recursoPiezas"] = fichas1; //Set
         }
 
         private void RadioBotonFichas2(object sender, RoutedEventArgs e)

@@ -5,14 +5,25 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Colores para los botones de la ventana de inicio y de opciones -->
             <SolidColorBrush x:Key="colorBotonSistema" Color="#E87B18"></SolidColorBrush>
             <SolidColorBrush x:Key="colorBotonSistemaActivo" Color="#BD4000"></SolidColorBrush>
 
+            <!-- Este recurso es el que usan todas las casilla y se cambia en el menu de opciones-->
             <FontFamily x:Key="recursoPiezas">pack://application:,,,/Fonts/#Arial</FontFamily>
 
+            <!-- Estos recursos son los usados para cambiar el de arriba -->
             <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>
             <FontFamily x:Key="Arial">pack://application:,,,/Fonts/#Arial</FontFamily>
             <FontFamily x:Key="Quivira">pack://application:,,,/Fonts/#Quivira</FontFamily>
+            
+            <!-- Paleta base la cual sera cambiada en el menu de opciones-->
+            <SolidColorBrush x:Key="colorClaroBase" Color="#C7C394"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino" Color="#E3E1CF"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro" Color="#49472A"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroBase" Color="#84A27D"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino" Color="#FFB6C8B1"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro" Color="#263123"></SolidColorBrush>
 
             <!-- Paleta 1 -->
             <SolidColorBrush x:Key="colorClaroBase1" Color="#C7C394"></SolidColorBrush>
@@ -21,6 +32,22 @@
             <SolidColorBrush x:Key="colorOscuroBase1" Color="#84A27D"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroCamino1" Color="#FFB6C8B1"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroRastro1" Color="#263123"></SolidColorBrush>
+
+            <!-- Paleta 2 -->
+            <SolidColorBrush x:Key="colorClaroBase2" Color="#7094b9"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino2" Color="#94b9de"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro2" Color="#4e6c8d"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroBase2" Color="#555555"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino2" Color="#767676"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro2" Color="#333333"></SolidColorBrush>
+
+            <!-- Paleta 3 -->
+            <SolidColorBrush x:Key="colorClaroBase3" Color="#9e9e9e"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino3" Color="#d3d3d3"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro3" Color="#696969"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroBase3" Color="#f9a23c"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino3" Color="#f8a444"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro3" Color="#f49434"></SolidColorBrush>
             
         </ResourceDictionary>
     </Application.Resources>

@@ -70,7 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Opciones.cs" />
+    <Compile Include="OpcionesElegidas.cs" />
     <Compile Include="Juego.xaml.cs">
       <DependentUpon>Juego.xaml</DependentUpon>
     </Compile>

@@ -6,23 +6,19 @@ using System.Threading.Tasks;
 
 namespace AjedrezMichaelPicoProyecto
 {
-    partial class Opciones
+    public partial class OpcionesElegidas
     {
         public bool ModoDosJugadores { get; set; }
-        int dificultad { get; set; }
-        int color { get; set; }
-        int pantalla { get; set; }
-        int paleta { get; set; }
-        int Ficha { get; set; }
+        public int dificultad { get; set; }
+        public int color { get; set; }
+        public int pantalla { get; set; }
 
-        public Opciones()
+        public OpcionesElegidas()
         {
             ModoDosJugadores = true;
             dificultad = 0;
             color = 0; //0 = Aleatorio, 1 = Blancas, 2 = Negras
             pantalla = 0; //0 = ModoVentana, 1 = ModoSinBordes, 2 = PantallaCompleta
-            paleta = 0; //0 = paleta1, 1 = paleta2...
-            Ficha = 0; //0 = Fichas1, 1 = Fichas2...
         }
 
         

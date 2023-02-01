@@ -24,19 +24,14 @@ namespace AjedrezMichaelPicoProyecto
         private const string FondoVerde = "#FF84A27D";
         private const string FondoAmarillo = "#FFD2D0B2";
 
-        Boolean menuDebuguear = false;
-
-
-
-        String casillaSeleccionadaAnterior = "";
-        String casillaSeleccionada = "";
+        string casillaSeleccionadaAnterior = "";
+        string casillaSeleccionada = "";
         char[,] tablero = IniciarTablero();
 
         public Juego()
         {
             InitializeComponent();
             InicializarTablero();
-            inicializarDebug();
         }
 
         //NOTA: Cuando se accede a un array bidimensional
@@ -102,7 +97,7 @@ namespace AjedrezMichaelPicoProyecto
         //El metodo recibe una casilla en formato columna-fila, ejemplo: la casilla a2 pasaria a ser [6,0]
         //Las columnas van de (a-h) correspondiendo con coordenadas (0-7) siendo "a" la coordenada 0, "b" -> 1, "c" -> 2...
         //Las filas van de (1-8) correspondiendo con coordenadas (0-7) siendo la fila 1 la coordenada 7, la fila 2 -> coordenada 6...
-        private int[] TraducirCasillaCoordenadas(String casilla)
+        private int[] TraducirCasillaCoordenadas(string casilla)
         {
             char[] auxiliarColumna = new char[]
             {
@@ -128,7 +123,7 @@ namespace AjedrezMichaelPicoProyecto
 
         //TESTEADO
         //Metodo que recibe una coordenada del array y la traduce a casilla de tablero
-        private String TraducirCoordenadaToCasilla(int[] coordenada)
+        private string TraducirCoordenadaToCasilla(int[] coordenada)
         {
             char[] auxiliarColumna = new char[]
             {
@@ -154,7 +149,7 @@ namespace AjedrezMichaelPicoProyecto
                 for (int j = 0; j < 8; j++)
                 {
                     int[] coordenada = { i, j };
-                    String casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
+                    string casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
                     Button boton = this.FindName(casilla) as Button;
                     boton.Content = tablero[i, j];
 
@@ -163,26 +158,18 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //Metodo que resibe una casilla objetivo y actualiza su contenido
-        public void ActualizarCasilla(String Casilla, String NuevoContenido)
+        public void ActualizarCasilla(string Casilla, string NuevoContenido)
         {
-            String Objetivo = "casilla_" + Casilla;
+            string Objetivo = "casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             Boton.Content = NuevoContenido;
         }
 
-        public String getContenidoCasilla(String Casilla)
+        public string getContenidoCasilla(string Casilla)
         {
-            String Objetivo = "casilla_" + Casilla;
+            string Objetivo = "casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             return Boton.Content.ToString();
-        }
-
-        public String getBackgroundCasilla(String Casilla)
-        {
-            String Objetivo = "casilla_" + Casilla;
-            Button Boton = this.FindName(Objetivo) as Button;
-            FondoCasillaSeleccionada.Text = Boton.Background.ToString();
-            return Boton.Background.ToString();
         }
 
         public void moverPieza()
@@ -211,23 +198,11 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
-        public void inicializarDebug()
-        {
-            if (!menuDebuguear)
-            {
-                GridDebug.Visibility = Visibility.Hidden;
-                Viewbox ElTablero = (Viewbox)this.FindName("ViewBoxTablero");
-                Grid.SetColumnSpan(ElTablero, 6);
-
-            }
-        }
-
         //Infierno de botones: 
         private void a1(object sender, RoutedEventArgs e)
         {
             this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
             this.casillaSeleccionada = "a1";
-            getBackgroundCasilla("a1");
             moverPieza();
         }
 
@@ -235,7 +210,6 @@ namespace AjedrezMichaelPicoProyecto
         {
             this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
             this.casillaSeleccionada = "b1";
-            getBackgroundCasilla("b1");
             moverPieza();
         }
 

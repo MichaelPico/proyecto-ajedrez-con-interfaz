@@ -6,6 +6,24 @@
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
         Title="Juego" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <SolidColorBrush Color="#696969"></SolidColorBrush>
+    </Window.Background>
+
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="Casilla">
+            <Setter Property="Content" Value="" />
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="{DynamicResource recursoPiezas}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="1,1,1,1" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -14,17 +32,49 @@
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="GridDebug" Grid.Column="5">
-            <StackPanel Margin="5">
-                <Label Content="Color de Fondo:" Target="{Binding ElementName=FondoCasillaSeleccionada}" />
-                <TextBox Name="FondoCasillaSeleccionada" />
-                <Label Content="_Mail:" Target="{Binding ElementName=txtMail}" />
-                <TextBox Name="txtMail" />
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <!-- Informacion jugador arriba -->
+        <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="0" Grid.RowSpan="1" Background="#3A3B3C">
+            
+        </Grid>    
+        <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="9" Grid.RowSpan="1" Background="#3A3B3C">
+            
+        </Grid>    
+        
+        <!-- Parte Izquierda de el tablero -->
+        <Grid Grid.Column="1" Grid.RowSpan="10" Background="#3A3B3C">
+            
         </Grid>
-        <Viewbox  x:Name="ViewBoxTablero" Grid.ColumnSpan="5" Grid.Column="0" Stretch="Uniform" >
+        
+        <!-- Parte de la notacion -->
+        <Grid Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="10" Background="#3A3B3C">
+            
+        </Grid>
+        
+        <!-- Tablero -->
+        <Viewbox  x:Name="ViewBoxTablero" Stretch="Fill" StretchDirection="Both" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="8">
             <Grid x:Name="GridTablero" Background="Black" MinWidth="640" MinHeight="640">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -46,227 +96,228 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+                
                 <!-- Row 0 -->
                 <Grid Grid.Row="0" Grid.Column="0">
-                    <Button x:Name="casilla_a8"  Click="a8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a8"  Click="a8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="8" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="1">
-                    <Button x:Name="casilla_b8"  Click="b8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b8"  Click="b8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="2">
-                    <Button x:Name="casilla_c8"  Click="c8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c8"  Click="c8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="3">
-                    <Button x:Name="casilla_d8"  Click="d8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d8"  Click="d8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="4">
-                    <Button x:Name="casilla_e8"  Click="e8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e8"  Click="e8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="5">
-                    <Button x:Name="casilla_f8"  Click="f8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f8"  Click="f8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="6">
-                    <Button x:Name="casilla_g8"  Click="g8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g8"  Click="g8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="7">
-                    <Button x:Name="casilla_h8"  Click="h8" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h8"  Click="h8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 1 -->
                 <Grid Grid.Row="1" Grid.Column="0">
-                    <Button x:Name="casilla_a7"  Click="a7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a7"  Click="a7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label  Content="7" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
-                    <Button x:Name="casilla_b7"  Click="b7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b7"  Click="b7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="2">
-                    <Button x:Name="casilla_c7"  Click="c7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c7"  Click="c7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="3">
-                    <Button x:Name="casilla_d7"  Click="d7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d7"  Click="d7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="4">
-                    <Button x:Name="casilla_e7"  Click="e7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e7"  Click="e7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="5">
-                    <Button x:Name="casilla_f7"  Click="f7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f7"  Click="f7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="6">
-                    <Button x:Name="casilla_g7"  Click="g7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g7"  Click="g7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="7">
-                    <Button x:Name="casilla_h7"  Click="h7" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h7"  Click="h7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
 
                 <!-- Row 2 -->
                 <Grid Grid.Row="2" Grid.Column="0">
-                    <Button x:Name="casilla_a6"  Click="a6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a6"  Click="a6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="6" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1">
-                    <Button x:Name="casilla_b6"  Click="b6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b6"  Click="b6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="2">
-                    <Button x:Name="casilla_c6"  Click="c6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c6"  Click="c6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="3">
-                    <Button x:Name="casilla_d6"  Click="d6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d6"  Click="d6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="4">
-                    <Button x:Name="casilla_e6"  Click="e6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e6"  Click="e6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="5">
-                    <Button x:Name="casilla_f6"  Click="f6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f6"  Click="f6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="6">
-                    <Button x:Name="casilla_g6"  Click="g6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g6"  Click="g6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="7">
-                    <Button x:Name="casilla_h6"  Click="h6" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h6"  Click="h6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 3 -->
                 <Grid Grid.Row="3" Grid.Column="0">
-                    <Button x:Name="casilla_a5"  Click="a5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a5"  Click="a5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label  Content="5" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="1">
-                    <Button x:Name="casilla_b5"  Click="b5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b5"  Click="b5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="2">
-                    <Button x:Name="casilla_c5"  Click="c5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c5"  Click="c5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="3">
-                    <Button x:Name="casilla_d5"  Click="d5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d5"  Click="d5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="4">
-                    <Button x:Name="casilla_e5"  Click="e5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e5"  Click="e5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="5">
-                    <Button x:Name="casilla_f5"  Click="f5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f5"  Click="f5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="6">
-                    <Button x:Name="casilla_g5"  Click="g5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g5"  Click="g5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="7">
-                    <Button x:Name="casilla_h5"  Click="h5" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h5"  Click="h5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
 
                 <!-- Row 4 -->
                 <Grid Grid.Row="4" Grid.Column="0">
-                    <Button x:Name="casilla_a4"  Click="a4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a4"  Click="a4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="4" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="1">
-                    <Button x:Name="casilla_b4"  Click="b4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b4"  Click="b4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="2">
-                    <Button x:Name="casilla_c4"  Click="c4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c4"  Click="c4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="3">
-                    <Button x:Name="casilla_d4"  Click="d4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d4"  Click="d4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="4">
-                    <Button x:Name="casilla_e4"  Click="e4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e4"  Click="e4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="5">
-                    <Button x:Name="casilla_f4"  Click="f4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f4"  Click="f4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="6">
-                    <Button x:Name="casilla_g4"  Click="g4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g4"  Click="g4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="7">
-                    <Button x:Name="casilla_h4"  Click="h4" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h4"  Click="h4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 5 -->
                 <Grid Grid.Row="5" Grid.Column="0">
-                    <Button x:Name="casilla_a3"  Click="a3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a3"  Click="a3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label  Content="3" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="1">
-                    <Button x:Name="casilla_b3"  Click="b3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b3"  Click="b3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="2">
-                    <Button x:Name="casilla_c3"  Click="c3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c3"  Click="c3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="3">
-                    <Button x:Name="casilla_d3"  Click="d3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d3"  Click="d3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="4">
-                    <Button x:Name="casilla_e3"  Click="e3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e3"  Click="e3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="5">
-                    <Button x:Name="casilla_f3"  Click="f3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f3"  Click="f3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="6">
-                    <Button x:Name="casilla_g3"  Click="g3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g3"  Click="g3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="7">
-                    <Button x:Name="casilla_h3"  Click="h3" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h3"  Click="h3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
 
                 <!-- Row 6 -->
                 <Grid Grid.Row="6" Grid.Column="0">
-                    <Button x:Name="casilla_a2"  Click="a2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a2"  Click="a2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="2" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="1">
-                    <Button x:Name="casilla_b2"  Click="b2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b2"  Click="b2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="2">
-                    <Button x:Name="casilla_c2"  Click="c2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c2"  Click="c2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="3">
-                    <Button x:Name="casilla_d2"  Click="d2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d2"  Click="d2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="4">
-                    <Button x:Name="casilla_e2"  Click="e2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e2"  Click="e2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="5">
-                    <Button x:Name="casilla_f2"  Click="f2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f2"  Click="f2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="6">
-                    <Button x:Name="casilla_g2"  Click="g2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g2"  Click="g2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="7">
-                    <Button x:Name="casilla_h2"  Click="h2" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h2"  Click="h2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 7 -->
                 <Grid Grid.Row="7" Grid.Column="0">
-                    <Button x:Name="casilla_a1"  Click="a1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_a1"  Click="a1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="a" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                     <Label  Content="1" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="1">
-                    <Button x:Name="casilla_b1"  Click="b1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_b1"  Click="b1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="b" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="2">
-                    <Button x:Name="casilla_c1"  Click="c1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_c1"  Click="c1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="c" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="3">
-                    <Button x:Name="casilla_d1"  Click="d1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_d1"  Click="d1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="d" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="4">
-                    <Button x:Name="casilla_e1"  Click="e1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_e1"  Click="e1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="e" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="5">
-                    <Button x:Name="casilla_f1"  Click="f1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_f1"  Click="f1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="f" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="6">
-                    <Button x:Name="casilla_g1"  Click="g1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FF84A27D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_g1"  Click="g1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="g" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="7">
-                    <Button x:Name="casilla_h1"  Click="h1" Content="" FontSize="60" HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Stretch" Background="#FFD2D0B2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="casilla_h1"  Click="h1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="h" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
                 </Grid>
             </Grid>
