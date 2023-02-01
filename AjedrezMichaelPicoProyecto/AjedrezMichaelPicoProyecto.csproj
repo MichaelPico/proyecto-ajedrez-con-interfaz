@@ -70,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Opciones.cs" />
     <Compile Include="Juego.xaml.cs">
       <DependentUpon>Juego.xaml</DependentUpon>
     </Compile>
@@ -100,9 +101,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Pecita.ttf" />
+    <Resource Include="Fonts\Quivira.ttf" />
+    <Resource Include="Fonts\arial.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -130,5 +134,9 @@
   <ItemGroup>
     <Resource Include="sonidoBoton.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Opciones.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

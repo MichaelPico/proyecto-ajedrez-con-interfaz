@@ -4,6 +4,24 @@
              xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="colorBotonSistema" Color="#E87B18"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorBotonSistemaActivo" Color="#BD4000"></SolidColorBrush>
+
+            <FontFamily x:Key="recursoPiezas">pack://application:,,,/Fonts/#Arial</FontFamily>
+
+            <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>
+            <FontFamily x:Key="Arial">pack://application:,,,/Fonts/#Arial</FontFamily>
+            <FontFamily x:Key="Quivira">pack://application:,,,/Fonts/#Quivira</FontFamily>
+
+            <!-- Paleta 1 -->
+            <SolidColorBrush x:Key="colorClaroBase1" Color="#C7C394"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino1" Color="#E3E1CF"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro1" Color="#49472A"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroBase1" Color="#84A27D"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino1" Color="#FFB6C8B1"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro1" Color="#263123"></SolidColorBrush>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

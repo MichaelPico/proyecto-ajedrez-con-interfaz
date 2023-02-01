@@ -20,12 +20,32 @@ namespace AjedrezMichaelPicoProyecto
     /// </summary>
     public partial class MainWindow : Window
     {
+        public int IndexPaletaDeColor { get; set; }
+        public Opciones opcionesJuego;
+        bool cambiado = false;
+        
+
         System.Media.SoundPlayer PlayerBoton;
 
         public MainWindow()
         {
             InitializeComponent();
+            opcionesJuego = new Opciones(this);
+            //CambiarFuente();
             CargarSonidoBotones();
+            IndexPaletaDeColor = 0;
+        }
+
+        public void CambiarFuente()
+        {
+            if (!cambiado)
+            {
+                FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+                {
+                    DefaultValue = FindResource(typeof(Window))
+                });
+                cambiado = true;
+            }
         }
 
         //Testeado
@@ -53,10 +73,8 @@ namespace AjedrezMichaelPicoProyecto
 
         private void BotonOpciones_Click(object sender, RoutedEventArgs e)
         {
-
-            Opciones ventanaOpciones = new Opciones();
-            ventanaOpciones.Show();
-            this.Close();
+            opcionesJuego.Show();
+            this.Hide();
         }
 
         private void BotonContinuarJuego_Click(object sender, RoutedEventArgs e)
@@ -66,10 +84,11 @@ namespace AjedrezMichaelPicoProyecto
 
         private void BotonSalir_Click(object sender, RoutedEventArgs e)
         {
+            opcionesJuego.Close();
             this.Close();
         }
 
-        private void SonidoBoton_MouseEnter(object sender, MouseEventArgs e)
+        public void SonidoBoton_MouseEnter(object sender, MouseEventArgs e)
         {
             PlayerBoton.Play();
 

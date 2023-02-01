@@ -4,13 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="VentanaOpciones" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
 
     <Window.Background>
         <ImageBrush ImageSource="fondoAjedrezTres.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
-    
-    
+
+    <Window.Resources><!--
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Georgia" />
+        </Style> -->
+        <Style TargetType="{x:Type Button}" x:Key="BotonDeMenu">
+            <Setter Property="Background" Value="{StaticResource colorBotonSistema}"/>
+            <Setter Property="FontFamily" Value="Georgia" />
+            <Setter Property="FontSize" Value="23" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="10,0,10,10" />
+            <Setter Property="Height" Value="70" />
+            <Setter Property="Template">
+                <!-- Sin este Setter.Value el color de fondo de el boton nunca cambia en hover trigger-->
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource colorBotonSistemaActivo}"/>
+                    <Setter Property="FontSize" Value="25" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Viewbox}" x:Key="ContenedorRadioButton">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+    </Window.Resources>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -28,12 +65,12 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center">
-                <TextBlock TextDecorations="Underline" FontWeight="Bold" FontSize="50">OPCIONES</TextBlock>
-            </Label>
+            <Viewbox Stretch="Uniform">
+                <Image Source="Opciones.png" Margin="50"/>
+            </Viewbox>
         </Grid>
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
-            <StackPanel Margin="60,0,60,20">
+            <StackPanel Margin="60,0,60,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Label HorizontalAlignment="Stretch">
                     <TextBlock TextDecorations="Underline" FontSize="30">Modo de juego:</TextBlock>
                 </Label>
@@ -48,25 +85,29 @@
                         </Viewbox>
                     </Grid>
                     <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="149*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Viewbox Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0">
+                        <Viewbox Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Grid.ColumnSpan="2">
                             <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonContraLaMaquina">Contra la Maquina</RadioButton>
                         </Viewbox>
-                        <Label Content="Dificultad:" FontSize="20" Grid.Row="1" Margin="0,10,0,0"></Label>
-                        <ComboBox Name="ComboBoxOpcionDificultad" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="1" Margin="100,10,0,0" VerticalContentAlignment="Center">
+                        <Label Content="Dificultad:" FontSize="20" Grid.Row="1" Margin="0,9.667,0,0" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Name="ComboBoxOpcionDificultad" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="1" Margin="76.333,9.667,0,0" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOpcionDificultad_SelectionChanged" Grid.Column="1">
                             <ComboBoxItem IsSelected="True">Aleatoria</ComboBoxItem>
                             <ComboBoxItem>800 de Elo (Facil)</ComboBoxItem>
                             <ComboBoxItem>1200 de Elo (Normal)</ComboBoxItem>
                             <ComboBoxItem>1500 de Elo (Dificil)</ComboBoxItem>
                             <ComboBoxItem>3000 de Elo (Imposible)</ComboBoxItem>
                         </ComboBox>
-                        <Label Content="Color:" FontSize="20" Grid.Row="2" Margin="0,10,0,0"></Label>
-                        <ComboBox Name="ComboBoxOpcionColor" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="2" Margin="100,10,0,0" VerticalContentAlignment="Center">
+                        <Label Content="Color:" FontSize="20" Grid.Row="2" Margin="0,10,0,-0.333" Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
+                        <ComboBox Name="ComboBoxOpcionColor" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="2" Margin="76.333,10,0,-0.333" VerticalContentAlignment="Center" Grid.Column="1" Grid.RowSpan="2" SelectionChanged="ComboBoxOpcionColor_SelectionChanged">
                             <ComboBoxItem IsSelected="True">Aleatorio</ComboBoxItem>
                             <ComboBoxItem>Empezar Siendo Blanco</ComboBoxItem>
                             <ComboBoxItem>Empezar Siendo Negro</ComboBoxItem>
@@ -77,7 +118,7 @@
                     <TextBlock TextDecorations="Underline" FontSize="30">Pantalla:</TextBlock>
                 </Label>
                 <!-- Para dar funcionalidad hay que cambiar el Window.style de cada clase de cada ventana, sin bordes = none, ventana es defecto, full screen no recuerdo-->
-                <ComboBox Name="ComboBoxModoPantalla" FontSize="17" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Margin="10,5,0,0" VerticalContentAlignment="Center">
+                <ComboBox Name="ComboBoxModoPantalla" FontSize="17" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Margin="10,5,0,0" VerticalContentAlignment="Center" SelectionChanged="ComboBoxModoPantalla_SelectionChanged">
                     <ComboBoxItem IsSelected="True">Modo Ventana</ComboBoxItem>
                     <ComboBoxItem>Ventana sin Bordes</ComboBoxItem>
                     <ComboBoxItem>Pantalla Completa</ComboBoxItem>
@@ -106,25 +147,25 @@
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25">Fichas:</TextBlock>
                     </Grid>
 
-                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="0">
+                    <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="0">
                         <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta1" IsChecked="True" Margin="10,0,0,0">Defecto</RadioButton>
                     </Viewbox>
-                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" >
+                    <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" >
                         <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" IsChecked="True" Margin="10,0,0,0" >Defecto</RadioButton>
                     </Viewbox>
 
-                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="0">
+                    <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="0">
                         <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta2" Margin="10,0,0,0">Paleta 2</RadioButton>
                     </Viewbox>
-                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1">
+                    <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1">
                         <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas2" Margin="10,0,0,0">Fichas 2</RadioButton>
                     </Viewbox>
 
-                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="0">
+                    <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="0">
                         <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta3" Margin="10,0,0,0">Paleta 3</RadioButton>
                     </Viewbox>
-                    <Viewbox Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1">
-                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" Margin="10,0,0,0">Fichas 2</RadioButton>
+                    <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1">
+                        <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas3" Margin="10,0,0,0">Fichas 3</RadioButton>
                     </Viewbox>
 
                     <Grid Grid.Column="4" Grid.RowSpan="2" VerticalAlignment="Center">
@@ -133,20 +174,25 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Width="45" Height="45" Background="Red" Grid.Column="0" Content=""></Button>
-                            <Button Width="45" Height="45" Background="Red" Grid.Column="1" Content=""></Button>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="vistaPrevia1" Width="45" Height="45" Background="{StaticResource colorOscuroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="0" Content="♛" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia2" Width="45" Height="45" Background="{StaticResource colorClaroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="0" Content="♟" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia3" Width="45" Height="45" Background="{StaticResource colorClaroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="1" Content="♘" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{StaticResource colorOscuroBase1}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30"></Button>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid Margin="0,50,0,0">
+                <Grid Margin="0,30,0,0" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="BotonAplicarCambios" Content="Aplicar Cambios" Grid.Column="0" MouseEnter="BotonAplicarCambios_MouseEnter" Click="BotonAplicarCambios_Click"></Button>
-                    <Button x:Name="BotonVolverInicio" Content="Volver Inicio" Grid.Column="1" MouseEnter="BotonAplicarCambios_MouseEnter" Click="BotonVolverInicio_Click"></Button>
+                    <Button x:Name="BotonVolverInicio"  Style="{StaticResource BotonDeMenu}"  Content="Volver Inicio" Grid.Column="0" MouseEnter="BotonAplicarCambios_MouseEnter" Click="BotonVolverInicio_Click" VerticalAlignment="Bottom"></Button>
                 </Grid>
             </StackPanel>
         </Grid>
