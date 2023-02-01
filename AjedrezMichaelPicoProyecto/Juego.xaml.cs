@@ -173,15 +173,12 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         public void moverPieza()
-        {
-            if (this.casillaSeleccionadaAnterior.Equals(""))
+        {   if (this.casillaSeleccionada.Equals(this.casillaSeleccionadaAnterior))
             {
-                return;
-            }
-            else if (getContenidoCasilla(this.casillaSeleccionadaAnterior).Equals(EspacioVacio))
+
+            } else if (this.casillaSeleccionadaAnterior.Equals(EspacioVacio) || this.casillaSeleccionadaAnterior.Equals("") || getContenidoCasilla(this.casillaSeleccionadaAnterior).Equals(EspacioVacio))
             {
                 this.casillaSeleccionadaAnterior = "";
-
             }
             else if (!this.casillaSeleccionadaAnterior.Equals(""))
             {

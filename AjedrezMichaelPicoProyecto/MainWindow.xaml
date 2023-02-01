@@ -7,15 +7,18 @@
         mc:Ignorable="d"
         Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
 
+
+    <!-- Fondo de la ventana -->
     <Window.Background>
         <ImageBrush ImageSource="fondoAjedrezDos.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
+    
     <Window.Resources>
         <!-- El siguiente bloque cambia la fuente de toda la ventana -->
         <Style TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Georgia" />
         </Style>
-        <!-- El siquiente bloque cambia el Stylo de todos los botones de la ventana -->
+        <!-- El siquiente bloque cambia el estilo de todos los botones de la ventana -->
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="{StaticResource colorBotonSistema}"/>
             <Setter Property="FontFamily" Value="Georgia" />
@@ -44,6 +47,7 @@
     </Window.Resources>
 
     <Grid>
+        <!-- Definicion de el grid de la ventana-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -55,11 +59,15 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
+        <!-- Bloque para posicionar el titulo -->
         <Grid x:Name="GridContenedorTitulo" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="80,0,0,0">
             <Viewbox Stretch="Uniform">
                 <Image Source="Titulo.png" Margin="50"/>
             </Viewbox>
         </Grid>
+
+        <!-- Bloque contenedor de los botones -->
         <Grid x:Name="GridContenedorBotones" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition />

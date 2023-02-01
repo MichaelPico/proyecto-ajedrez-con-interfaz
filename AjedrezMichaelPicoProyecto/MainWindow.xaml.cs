@@ -23,7 +23,6 @@ namespace AjedrezMichaelPicoProyecto
         public int IndexPaletaDeColor { get; set; }
         public OpcionesElegidas opcionesJuego;
         public Opciones ventanaOpciones;
-        bool cambiado = false;
         
 
         System.Media.SoundPlayer PlayerBoton;

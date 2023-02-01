@@ -7,48 +7,21 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="VentanaOpciones" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
 
+    <!-- Fondo de la ventana -->
     <Window.Background>
         <ImageBrush ImageSource="fondoAjedrezTres.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
 
     <Window.Resources>
+        <!-- Cambio la fuente de toda la ventana-->
         <Style TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Georgia" />
-        </Style>
-        <Style TargetType="{x:Type Button}" x:Key="BotonDeMenu">
-            <Setter Property="Background" Value="{StaticResource colorBotonSistema}"/>
-            <Setter Property="FontFamily" Value="Georgia" />
-            <Setter Property="FontSize" Value="23" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Margin" Value="10,0,10,10" />
-            <Setter Property="Height" Value="70" />
-            <Setter Property="Template">
-                <!-- Sin este Setter.Value el color de fondo de el boton nunca cambia en hover trigger-->
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" >
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource colorBotonSistemaActivo}"/>
-                    <Setter Property="FontSize" Value="25" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type Viewbox}" x:Key="ContenedorRadioButton">
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Height" Value="25"/>
         </Style>
     </Window.Resources>
 
 
     <Grid>
+        <!-- Definicion de el grid de la ventana -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -64,16 +37,19 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <!-- Grid para posicionar el titulo de la ventana -->
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
-            <Viewbox Stretch="Uniform">
+            <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="30,0,0,0">
                 <Image Source="Opciones.png" Margin="50"/>
             </Viewbox>
         </Grid>
+        <!-- Grid contenedor de todas las opciones  -->
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
             <StackPanel Margin="60,0,60,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Label HorizontalAlignment="Stretch">
                     <TextBlock TextDecorations="Underline" FontSize="30">Modo de juego:</TextBlock>
                 </Label>
+                <!-- Modo de juegeo -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -114,6 +90,8 @@
                         </ComboBox>
                     </Grid>
                 </Grid>
+
+                <!-- Pantalla -->
                 <Label HorizontalAlignment="Stretch">
                     <TextBlock TextDecorations="Underline" FontSize="30">Pantalla:</TextBlock>
                 </Label>
@@ -124,6 +102,7 @@
                     <ComboBoxItem>Pantalla Completa</ComboBoxItem>
                 </ComboBox>
 
+                <!-- Personalizacion -->
                 <Label HorizontalAlignment="Stretch">
                     <TextBlock TextDecorations="Underline" FontSize="30" Margin="0,20,0,0">Personalizacion:</TextBlock>
                 </Label>
@@ -185,6 +164,8 @@
                         </Grid>
                     </Grid>
                 </Grid>
+
+                <!-- Boton de salir y futuros botones -->
                 <Grid Margin="0,30,0,0" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

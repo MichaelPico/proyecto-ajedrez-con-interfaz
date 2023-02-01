@@ -7,24 +7,34 @@
         mc:Ignorable="d"
         Title="Juego" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
 
+    <!-- Fondo de la ventana -->
     <Window.Background>
         <SolidColorBrush Color="#696969"></SolidColorBrush>
     </Window.Background>
 
-
+    <!-- Recursos de la ventana -->
     <Window.Resources>
-        <Style TargetType="{x:Type Button}" x:Key="Casilla">
-            <Setter Property="Content" Value="" />
-            <Setter Property="FontSize" Value="35" />
-            <Setter Property="FontFamily" Value="{DynamicResource recursoPiezas}" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Margin" Value="1,1,1,1" />
+        <Style x:Key="labelNumero" TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="2,2,2,2"/>
+        </Style>
+
+        <Style x:Key="labelLetra" TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="2,2,2,2"/>
         </Style>
     </Window.Resources>
+
     <Grid>
+        <!-- Definicion de el grid de la ventana -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -54,26 +64,48 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <!-- Informacion jugador arriba -->
         <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="0" Grid.RowSpan="1" Background="#3A3B3C">
-            
-        </Grid>    
-        <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="9" Grid.RowSpan="1" Background="#3A3B3C">
-            
-        </Grid>    
-        
-        <!-- Parte Izquierda de el tablero -->
-        <Grid Grid.Column="1" Grid.RowSpan="10" Background="#3A3B3C">
-            
+
         </Grid>
-        
+
+        <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="9" Grid.RowSpan="1" Background="#3A3B3C">
+
+        </Grid>
+
+
         <!-- Parte de la notacion -->
         <Grid Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="10" Background="#3A3B3C">
-            
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!-- Recuadro de notacion -->
+            <Grid Grid.Row="1" Grid.RowSpan="5" Background="Blue">
+
+            </Grid>
+            <!-- Contenedor de los botones -->
+            <Grid Grid.Row="6" Grid.RowSpan="3" Background="Green">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+            </Grid>
         </Grid>
-        
-        <!-- Tablero -->
+
+        <!-- Tablero, se encuentra en una view box para asi controlar el -->
         <Viewbox  x:Name="ViewBoxTablero" Stretch="Fill" StretchDirection="Both" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="8">
             <Grid x:Name="GridTablero" Background="Black" MinWidth="640" MinHeight="640">
                 <Grid.RowDefinitions>
@@ -96,11 +128,11 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
+
                 <!-- Row 0 -->
                 <Grid Grid.Row="0" Grid.Column="0">
                     <Button x:Name="casilla_a8"  Click="a8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label  Content="8" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="8" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Button x:Name="casilla_b8"  Click="b8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
@@ -127,7 +159,7 @@
                 <!-- Row 1 -->
                 <Grid Grid.Row="1" Grid.Column="0">
                     <Button x:Name="casilla_a7"  Click="a7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label  Content="7" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="7" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Button x:Name="casilla_b7"  Click="b7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
@@ -154,7 +186,7 @@
                 <!-- Row 2 -->
                 <Grid Grid.Row="2" Grid.Column="0">
                     <Button x:Name="casilla_a6"  Click="a6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label  Content="6" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="6" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1">
                     <Button x:Name="casilla_b6"  Click="b6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
@@ -181,7 +213,7 @@
                 <!-- Row 3 -->
                 <Grid Grid.Row="3" Grid.Column="0">
                     <Button x:Name="casilla_a5"  Click="a5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label  Content="5" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="5" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="1">
                     <Button x:Name="casilla_b5"  Click="b5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
@@ -208,7 +240,7 @@
                 <!-- Row 4 -->
                 <Grid Grid.Row="4" Grid.Column="0">
                     <Button x:Name="casilla_a4"  Click="a4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label  Content="4" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="4" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="1">
                     <Button x:Name="casilla_b4"  Click="b4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
@@ -235,7 +267,7 @@
                 <!-- Row 5 -->
                 <Grid Grid.Row="5" Grid.Column="0">
                     <Button x:Name="casilla_a3"  Click="a3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label  Content="3" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="3" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="1">
                     <Button x:Name="casilla_b3"  Click="b3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
@@ -262,7 +294,7 @@
                 <!-- Row 6 -->
                 <Grid Grid.Row="6" Grid.Column="0">
                     <Button x:Name="casilla_a2"  Click="a2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label  Content="2" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label  Content="2" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="1">
                     <Button x:Name="casilla_b2"  Click="b2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
@@ -289,40 +321,40 @@
                 <!-- Row 7 -->
                 <Grid Grid.Row="7" Grid.Column="0">
                     <Button x:Name="casilla_a1"  Click="a1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label   Content="a" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
-                    <Label  Content="1" Background="Transparent" HorizontalAlignment="Left" Margin="2,2,2,2" VerticalAlignment="Top" VerticalContentAlignment="top" HorizontalContentAlignment="Left"/>
+                    <Label   Content="a"  Style="{StaticResource labelLetra}"/>
+                    <Label  Content="1" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="1">
                     <Button x:Name="casilla_b1"  Click="b1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label   Content="b" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="b"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="2">
                     <Button x:Name="casilla_c1"  Click="c1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label   Content="c" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="c"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="3">
                     <Button x:Name="casilla_d1"  Click="d1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label   Content="d" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="d"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="4">
                     <Button x:Name="casilla_e1"  Click="e1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label   Content="e" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="e"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="5">
                     <Button x:Name="casilla_f1"  Click="f1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label   Content="f" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="f"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="6">
                     <Button x:Name="casilla_g1"  Click="g1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                    <Label   Content="g" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="g"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="7">
                     <Button x:Name="casilla_h1"  Click="h1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                    <Label   Content="h" Background="Transparent" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <Label   Content="h"  Style="{StaticResource labelLetra}"/>
                 </Grid>
             </Grid>
         </Viewbox>
-        
+
     </Grid>
 </Window>
 
