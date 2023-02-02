@@ -157,10 +157,10 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Button x:Name="vistaPrevia1" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="0" Content="♛" FontSize="30"></Button>
-                            <Button x:Name="vistaPrevia2" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="0" Content="♟" FontSize="30"></Button>
-                            <Button x:Name="vistaPrevia3" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="0" Grid.Row="1" Content="♘" FontSize="30"></Button>
-                            <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource recursoPiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia1" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="0" Grid.Row="0" Content="♛" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia2" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="1" Grid.Row="0" Content="♟" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia3" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="0" Grid.Row="1" Content="♘" FontSize="30"></Button>
+                            <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30"></Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -173,7 +173,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="BotonVolverInicio"  Style="{StaticResource BotonDeMenu}"  Content="Volver Inicio" Grid.Column="0" MouseEnter="BotonAplicarCambios_MouseEnter" Click="BotonVolverInicio_Click" VerticalAlignment="Bottom"></Button>
+                    <Button x:Name="BotonVolverInicio"  Style="{StaticResource BotonDeMenu}"  Content="Volver Inicio" Grid.Column="0" MouseEnter="ReproducirSonido_MouseEnter" Click="BotonVolverInicio_Click" VerticalAlignment="Bottom" Height="70"></Button>
                 </Grid>
             </StackPanel>
         </Grid>

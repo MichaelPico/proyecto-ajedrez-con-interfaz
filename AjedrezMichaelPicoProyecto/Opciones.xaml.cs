@@ -100,27 +100,22 @@ namespace AjedrezMichaelPicoProyecto
         private void RadioBotonFichas1(object sender, RoutedEventArgs e)
         {
             FontFamily fichas1 = (FontFamily)App.Current.Resources["Arial"]; //Get
-            App.Current.Resources["recursoPiezas"] = fichas1; //Set
+            App.Current.Resources["fuentePiezas"] = fichas1; //Set
         }
 
         private void RadioBotonFichas2(object sender, RoutedEventArgs e)
         {
             FontFamily fichas2 = (FontFamily)App.Current.Resources["Quivira"];
-            App.Current.Resources["recursoPiezas"] = fichas2;
+            App.Current.Resources["fuentePiezas"] = fichas2;
         }
 
         private void RadioBotonFichas3(object sender, RoutedEventArgs e)
         {
             FontFamily fichas3 = (FontFamily)App.Current.Resources["Pecita"];
-            App.Current.Resources["recursoPiezas"] = fichas3;
+            App.Current.Resources["fuentePiezas"] = fichas3;
         }
 
-        private void BotonAplicarCambios_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BotonAplicarCambios_MouseEnter(object sender, MouseEventArgs e)
+        private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
         {
             Inicio.SonidoBoton_MouseEnter(sender, e);
         

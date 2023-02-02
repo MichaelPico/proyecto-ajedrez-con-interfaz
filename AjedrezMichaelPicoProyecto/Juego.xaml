@@ -31,6 +31,11 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Margin" Value="2,2,2,2"/>
         </Style>
+
+        <Style x:Key="nombreJugador" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -67,11 +72,21 @@
 
         <!-- Informacion jugador arriba -->
         <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="0" Grid.RowSpan="1" Background="#3A3B3C">
-
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="{DynamicResource nombrePiezasNegras}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
+            <Label Content="{DynamicResource CapturasBlancas}" Grid.Row="1" Foreground="White"/>
         </Grid>
 
         <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="9" Grid.RowSpan="1" Background="#3A3B3C">
-
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="{DynamicResource nombrePiezasBlancas}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
+            <Label Content="{DynamicResource CapturasNegras}" Grid.Row="1" Foreground="Black"/>
         </Grid>
 
 
@@ -92,7 +107,19 @@
 
             <!-- Recuadro de notacion -->
             <Grid Grid.Row="1" Grid.RowSpan="5" Background="Blue">
-
+                <Grid Margin="30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition MaxHeight="50"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label HorizontalAlignment="Stretch" Grid.Row="0">
+                        <TextBlock TextDecorations="Underline" FontSize="20">Movimientos:</TextBlock>
+                    </Label>
+                    <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalScrollBarVisibility="Auto" >
+                        <TextBlock x:Name="labelDebug" FontSize="15" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True">EjemploEjemplooEjemploEjemploEjemploEjemploEloEjemplo</TextBlock>
+                    </ScrollViewer>
+                </Grid>
+                
             </Grid>
             <!-- Contenedor de los botones -->
             <Grid Grid.Row="6" Grid.RowSpan="3" Background="Green">
@@ -100,6 +127,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+                <Button x:Name="BotonVolverInicio"  Style="{StaticResource BotonDeMenu}" Margin="20"  Content="Volver Inicio" MouseEnter="ReproducirSonido_MouseEnter" Click="BotonvolverInicio_Click" Grid.Row="0"></Button>
+                <Button x:Name="BotonSalir"  Style="{StaticResource BotonDeMenu}" Margin="20" Content="Salir" MouseEnter="ReproducirSonido_MouseEnter" Click="BotonrSalir_Click" Grid.Row="1"></Button>
 
 
             </Grid>

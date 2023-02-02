@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +22,17 @@ namespace AjedrezMichaelPicoProyecto
     {
         //Constantes:
         private const string EspacioVacio = "•";
-        private const string FondoVerde = "#FF84A27D";
-        private const string FondoAmarillo = "#FFD2D0B2";
 
-        string casillaSeleccionadaAnterior = "";
-        string casillaSeleccionada = "";
+        string CasillaSeleccionadaAnterior = "";
+        string CasillaSeleccionada = "";
         char[,] tablero = IniciarTablero();
+        MainWindow ventanaInicio;
 
-        public Juego()
+
+        public Juego(MainWindow ventanaInicioRecibida)
         {
             InitializeComponent();
+            ventanaInicio = ventanaInicioRecibida;
             InicializarTablero();
         }
 
@@ -62,7 +64,8 @@ namespace AjedrezMichaelPicoProyecto
         {
             char[,] respuesta = new char[,]
             {
-
+                //♟♟♟♟♟ ♝♝ ♞ ♜
+                //♙♙♙ ♖♖ ♕
                 { '♜','♞','♝','♛','♚','♝','♞','♜' },
                 { '♟','♟','♟','♟','♟','♟','♟','♟' },
                 { '•','•','•','•','•','•','•','•' },
@@ -76,36 +79,20 @@ namespace AjedrezMichaelPicoProyecto
             return respuesta;
         }
 
-        //Metodo que devuelve true si la casilla posee un caracter vacio
-        private Boolean EstaVacio(char casilla)
-        {
-            if (casilla == '•')
-            {
-                return true;
-            }
-            return false;
-        }
-
-        //Metodo que recibe un char array, fila y columna y devuelve la casilla de esa columna
-        private char ObtenerCasilla(int fila, int columna, char[,] tablero)
-        {
-            return tablero[fila, columna];
-        }
-
         //TESTEADO
-        //Metodo que recibe una casilla y devuelve un int[] correspondientes a las coordenadas de un array
-        //El metodo recibe una casilla en formato columna-fila, ejemplo: la casilla a2 pasaria a ser [6,0]
+        //Metodo que recibe una Casilla y devuelve un int[] correspondientes a las coordenadas de un array
+        //El metodo recibe una Casilla en formato columna-fila, ejemplo: la Casilla a2 pasaria a ser [6,0]
         //Las columnas van de (a-h) correspondiendo con coordenadas (0-7) siendo "a" la coordenada 0, "b" -> 1, "c" -> 2...
         //Las filas van de (1-8) correspondiendo con coordenadas (0-7) siendo la fila 1 la coordenada 7, la fila 2 -> coordenada 6...
-        private int[] TraducirCasillaCoordenadas(string casilla)
+        private int[] TraducirCasillaCoordenadas(string Casilla)
         {
             char[] auxiliarColumna = new char[]
             {
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
             };
 
-            char columna = casilla[0];
-            int fila = casilla[1] - '0'; //Asi se castea un char a int
+            char columna = Casilla[0];
+            int fila = Casilla[1] - '0'; //Asi se castea un char a int
             fila = 8 - fila;  //Cambio su valor al contrario del rango, si era 0 ahora es 7, 3->4...
 
             for (int i = 0; i < auxiliarColumna.Length; i++)
@@ -122,7 +109,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //TESTEADO
-        //Metodo que recibe una coordenada del array y la traduce a casilla de tablero
+        //Metodo que recibe una coordenada del array y la traduce a Casilla de tablero
         private string TraducirCoordenadaToCasilla(int[] coordenada)
         {
             char[] auxiliarColumna = new char[]
@@ -149,503 +136,616 @@ namespace AjedrezMichaelPicoProyecto
                 for (int j = 0; j < 8; j++)
                 {
                     int[] coordenada = { i, j };
-                    string casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
-                    Button boton = this.FindName(casilla) as Button;
+                    string Casilla = "Casilla_" + TraducirCoordenadaToCasilla(coordenada);
+                    Button boton = this.FindName(Casilla) as Button;
                     boton.Content = tablero[i, j];
 
                 }
             }
         }
 
-        //Metodo que resibe una casilla objetivo y actualiza su contenido
+        //Metodos para cambiar el fondo//
+        public void pintarBase(String Casilla)
+        {
+            cambiarFondo(Casilla, 0);
+        }
+
+        public void pintarRastro(String Casilla)
+        {
+            cambiarFondo(Casilla, 1);
+        }
+
+        public void pintarCamino(String Casilla)
+        {
+            cambiarFondo(Casilla, 2);
+        }
+
+        //TESTEADO
+        //Cambia el color de la Casilla a otro color dependiendo de el modo
+        //Modo 0 = colorBase
+        //Modo 1 = colorRastro
+        //Modo 2 = colorCamino
+        public void cambiarFondo(String Casilla, int modo)
+        {
+            SolidColorBrush colorClaroBaseAux = (SolidColorBrush)App.Current.Resources["colorClaroBase"];
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
+            SolidColorBrush colorClaroRastroAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro"];
+            SolidColorBrush colorOscuroBaseAux = (SolidColorBrush)App.Current.Resources["colorOscuroBase"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino"];
+            SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro"];
+
+
+            string Objetivo = "Casilla_" + Casilla;
+            string fondo = getColorFondo(Casilla);
+            Button Boton = this.FindName(Objetivo) as Button;
+
+
+            //Si la Casilla es de color oscuro
+            if (fondo == colorOscuroBaseAux.Color.ToString() || fondo == colorOscuroCaminoAux.Color.ToString() || fondo == colorOscuroRastroAux.Color.ToString())
+            {
+                switch (modo)
+                {
+                    case 0:
+                        Boton.Background = colorOscuroBaseAux;
+                        break;
+                    case 1:
+                        Boton.Background = colorOscuroRastroAux;
+                        break;
+                    case 2:
+                        Boton.Background = colorOscuroCaminoAux;
+                        break;
+                }
+            } else //si la Casilla es de color claro
+            {
+                switch (modo)
+                {
+                    case 0:
+                        Boton.Background = colorClaroBaseAux;
+                        break;
+                    case 1:
+                        Boton.Background = colorClaroRastroAux;
+                        break;
+                    case 2:
+                        Boton.Background = colorClaroCaminoAux;
+                        break;
+                }
+            }
+        }
+
+        //TESTEADO
+        //Metodo que resibe una Casilla objetivo y actualiza su contenido
         public void ActualizarCasilla(string Casilla, string NuevoContenido)
         {
-            string Objetivo = "casilla_" + Casilla;
+            string Objetivo = "Casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             Boton.Content = NuevoContenido;
         }
 
+        //Netodos get
         public string getContenidoCasilla(string Casilla)
         {
-            string Objetivo = "casilla_" + Casilla;
+            string Objetivo = "Casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             return Boton.Content.ToString();
         }
 
-        public void moverPieza()
-        {   if (this.casillaSeleccionada.Equals(this.casillaSeleccionadaAnterior))
-            {
-
-            } else if (this.casillaSeleccionadaAnterior.Equals(EspacioVacio) || this.casillaSeleccionadaAnterior.Equals("") || getContenidoCasilla(this.casillaSeleccionadaAnterior).Equals(EspacioVacio))
-            {
-                this.casillaSeleccionadaAnterior = "";
-            }
-            else if (!this.casillaSeleccionadaAnterior.Equals(""))
-            {
-                ActualizarCasilla(this.casillaSeleccionada, getContenidoCasilla(this.casillaSeleccionadaAnterior));
-                ActualizarCasilla(this.casillaSeleccionadaAnterior, EspacioVacio);
-                this.casillaSeleccionadaAnterior = "";
-                this.casillaSeleccionada = "";
-            }
-        }
-
-
-        public void movimientoPeonBlanco()
+        public string getColorFondo(String Casilla)
         {
 
+            string Objetivo = "Casilla_" + Casilla;
+            Button Boton = this.FindName(Objetivo) as Button;
+            return Boton.Background.ToString();
         }
 
-        //Infierno de botones: 
+        private char getCaracterCasilla(int fila, int columna, char[,] tablero)
+        {
+            return tablero[fila, columna];
+        }
+
+        //Metodo para mover la pieza, sera refactorizado en el futuro
+        public void moverPieza()
+        {
+            if (this.CasillaSeleccionada.Equals(this.CasillaSeleccionadaAnterior))
+            {
+
+            }
+            else if (this.CasillaSeleccionadaAnterior.Equals(EspacioVacio) || this.CasillaSeleccionadaAnterior.Equals("") || getContenidoCasilla(this.CasillaSeleccionadaAnterior).Equals(EspacioVacio))
+            {
+                this.CasillaSeleccionadaAnterior = "";
+            }
+            else if (!this.CasillaSeleccionadaAnterior.Equals(""))
+            {
+                ActualizarCasilla(this.CasillaSeleccionada, getContenidoCasilla(this.CasillaSeleccionadaAnterior));
+                ActualizarCasilla(this.CasillaSeleccionadaAnterior, EspacioVacio);
+                this.CasillaSeleccionadaAnterior = "";
+                this.CasillaSeleccionada = "";
+            }
+        }
+
+        //Metodo para debuguear
+        public void cambiarDebugText(string laString)
+        {
+            labelDebug.Text = laString;
+        }
+
+        //Metodo llamado por todas las Casillas
+        public void SeleccionCasilla(string Casilla)
+        {
+
+            this.CasillaSeleccionadaAnterior = this.CasillaSeleccionada;
+            this.CasillaSeleccionada = Casilla;
+            moverPieza();
+        }
+        
+
+        //Botones de la interfaz
+        private void BotonvolverInicio_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            ventanaInicio.mostrarBotonContinuar();
+            ventanaInicio.Show();
+
+        }
+
+        private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
+
+        }
+
+        private void BotonrSalir_Click(object sender, RoutedEventArgs e)
+        {
+            ventanaInicio.BotonSalir_Click(sender, e);
+        }
+
+
+        //Botones de el tablero
         private void a1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a1";
-            moverPieza();
+
+            SeleccionCasilla("a1");
+
         }
 
         private void b1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b1";
-            moverPieza();
+
+            SeleccionCasilla("b1");
+
         }
 
         private void c1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c1";
-            moverPieza();
+
+            SeleccionCasilla("c1");
+
         }
 
         private void d1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d1";
-            moverPieza();
+
+            SeleccionCasilla("d1");
+
         }
 
         private void e1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e1";
-            moverPieza();
+
+            SeleccionCasilla("e1");
+
         }
 
         private void f1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f1";
-            moverPieza();
+
+            SeleccionCasilla("f1");
+
         }
 
         private void g1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g1";
-            moverPieza();
+
+            SeleccionCasilla("g1");
+
         }
 
         private void h1(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h1";
-            moverPieza();
+
+            SeleccionCasilla("h1");
+
         }
 
         private void a2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a2";
-            moverPieza();
+
+            SeleccionCasilla("a2");
+
         }
 
         private void b2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b2";
-            moverPieza();
+
+            SeleccionCasilla("b2");
+
         }
 
         private void c2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c2";
-            moverPieza();
+
+            SeleccionCasilla("c2");
+
         }
 
         private void d2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d2";
-            moverPieza();
+
+            SeleccionCasilla("d2");
+
         }
 
         private void e2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e2";
-            moverPieza();
+
+            SeleccionCasilla("e2");
+
         }
 
         private void f2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f2";
-            moverPieza();
+
+            SeleccionCasilla("f2");
+
         }
 
         private void g2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g2";
-            moverPieza();
+
+            SeleccionCasilla("g2");
+
         }
 
         private void h2(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h2";
-            moverPieza();
+
+            SeleccionCasilla("h2");
+
         }
 
         private void a3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a3";
-            moverPieza();
+
+            SeleccionCasilla("a3");
+
         }
 
         private void b3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b3";
-            moverPieza();
+
+            SeleccionCasilla("b3");
+
         }
 
         private void c3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c3";
-            moverPieza();
+
+            SeleccionCasilla("c3");
+
         }
 
         private void d3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d3";
-            moverPieza();
+
+            SeleccionCasilla("d3");
+
         }
 
         private void e3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e3";
-            moverPieza();
+
+            SeleccionCasilla("e3");
+
         }
 
         private void f3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f3";
-            moverPieza();
+
+            SeleccionCasilla("f3");
+
         }
 
         private void g3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g3";
-            moverPieza();
+
+            SeleccionCasilla("g3");
+
         }
 
         private void h3(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h3";
-            moverPieza();
+
+            SeleccionCasilla("h3");
+
         }
 
         private void a4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a4";
-            moverPieza();
+
+            SeleccionCasilla("a4");
+
         }
 
         private void b4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b4";
-            moverPieza();
+
+            SeleccionCasilla("b4");
+
         }
 
         private void c4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c4";
-            moverPieza();
+
+            SeleccionCasilla("c4");
+
         }
 
         private void d4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d4";
-            moverPieza();
+
+            SeleccionCasilla("d4");
+
         }
 
         private void e4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e4";
-            moverPieza();
+
+            SeleccionCasilla("e4");
+
         }
 
         private void f4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f4";
-            moverPieza();
+
+            SeleccionCasilla("f4");
+
         }
 
         private void g4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g4";
-            moverPieza();
+
+            SeleccionCasilla("g4");
+
         }
 
         private void h4(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h4";
-            moverPieza();
+
+            SeleccionCasilla("h4");
+
         }
 
         private void a5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a5";
-            moverPieza();
+
+            SeleccionCasilla("a5");
+
         }
 
         private void b5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b5";
-            moverPieza();
+
+            SeleccionCasilla("b5");
+
         }
 
         private void c5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c5";
-            moverPieza();
+
+            SeleccionCasilla("c5");
+
         }
 
         private void d5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d5";
-            moverPieza();
+
+            SeleccionCasilla("d5");
+
         }
 
         private void e5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e5";
-            moverPieza();
+
+            SeleccionCasilla("e5");
+
         }
 
         private void f5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f5";
-            moverPieza();
+
+            SeleccionCasilla("f5");
+
         }
 
         private void g5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g5";
-            moverPieza();
+
+            SeleccionCasilla("g5");
+
         }
 
         private void h5(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h5";
-            moverPieza();
+
+            SeleccionCasilla("h5");
+
         }
 
         private void a6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a6";
-            moverPieza();
+
+            SeleccionCasilla("a6");
+
         }
 
         private void b6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b6";
-            moverPieza();
+
+            SeleccionCasilla("b6");
+
         }
 
         private void c6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c6";
-            moverPieza();
+
+            SeleccionCasilla("c6");
+
         }
 
         private void d6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d6";
-            moverPieza();
+
+            SeleccionCasilla("d6");
+
         }
 
         private void e6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e6";
-            moverPieza();
+
+            SeleccionCasilla("e6");
+
         }
 
         private void f6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f6";
-            moverPieza();
+
+            SeleccionCasilla("f6");
+
         }
 
         private void g6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g6";
-            moverPieza();
+
+            SeleccionCasilla("g6");
+
         }
 
         private void h6(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h6";
-            moverPieza();
+
+            SeleccionCasilla("h6");
+
         }
 
         private void a7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a7";
-            moverPieza();
+
+            SeleccionCasilla("a7");
+
         }
 
         private void b7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b7";
-            moverPieza();
+
+            SeleccionCasilla("b7");
+
         }
 
         private void c7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c7";
-            moverPieza();
+
+            SeleccionCasilla("c7");
+
         }
 
         private void d7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d7";
-            moverPieza();
+
+            SeleccionCasilla("d7");
+
         }
 
         private void e7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e7";
-            moverPieza();
+
+            SeleccionCasilla("e7");
+
         }
 
         private void f7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f7";
-            moverPieza();
+
+            SeleccionCasilla("f7");
+
         }
 
         private void g7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g7";
-            moverPieza();
+
+            SeleccionCasilla("g7");
+
         }
 
         private void h7(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h7";
-            moverPieza();
+
+            SeleccionCasilla("h7");
+
         }
 
         private void a8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "a8";
-            moverPieza();
+
+            SeleccionCasilla("a8");
+
         }
 
         private void b8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "b8";
-            moverPieza();
+
+            SeleccionCasilla("b8");
+
         }
 
         private void c8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "c8";
-            moverPieza();
+
+            SeleccionCasilla("c8");
+
         }
 
         private void d8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "d8";
-            moverPieza();
+
+            SeleccionCasilla("d8");
+
         }
 
         private void e8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "e8";
-            moverPieza();
+
+            SeleccionCasilla("e8");
+
         }
 
         private void f8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "f8";
-            moverPieza();
+
+            SeleccionCasilla("f8");
+
         }
 
         private void g8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "g8";
-            moverPieza();
+
+            SeleccionCasilla("g8");
+
         }
 
         private void h8(object sender, RoutedEventArgs e)
         {
-            this.casillaSeleccionadaAnterior = this.casillaSeleccionada;
-            this.casillaSeleccionada = "h8";
-            moverPieza();
+
+            SeleccionCasilla("h8");
+
         }
-
-
-
-        //
     }
 }

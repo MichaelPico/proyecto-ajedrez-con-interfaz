@@ -23,9 +23,10 @@ namespace AjedrezMichaelPicoProyecto
         public int IndexPaletaDeColor { get; set; }
         public OpcionesElegidas opcionesJuego;
         public Opciones ventanaOpciones;
+        public Juego ventanaJuego = null;
         
 
-        System.Media.SoundPlayer PlayerBoton;
+        System.Media.SoundPlayer ReproductorDeSonidoDeBoton;
 
         public MainWindow()
         {
@@ -43,18 +44,18 @@ namespace AjedrezMichaelPicoProyecto
             BotonContinuarJuego.IsEnabled = true;
         }
 
-        //Carga el sonido de el boton para asi evitar el retraso en la primera vez que se usa el sonido
+        //Carga el sonido de el boton 
         public void CargarSonidoBotones()
         {
             System.IO.Stream recursoaudio = Properties.Resources.sonidoBoton;
-            PlayerBoton = new System.Media.SoundPlayer(recursoaudio);
-            PlayerBoton.Load();
-            PlayerBoton.Play();
+            ReproductorDeSonidoDeBoton = new System.Media.SoundPlayer(recursoaudio);
+            ReproductorDeSonidoDeBoton.Load();
         }
 
+        //Crea la ventana de Juego, y le da el modo de ventana seleccionado
         public void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
         {
-            Juego ventanaJuego = new Juego();
+            ventanaJuego = new Juego(this);
             if(opcionesJuego.pantalla == 1)
             {
                 ventanaJuego.WindowStyle = WindowStyle.None;
@@ -67,26 +68,41 @@ namespace AjedrezMichaelPicoProyecto
             this.Hide();
         }
 
+        //Muestra la ventana de opciones
         private void BotonOpciones_Click(object sender, RoutedEventArgs e)
         {
             ventanaOpciones.Show();
             this.Hide();
         }
 
+        //Si el juego ha sido creado, este boton se habilitara automaticamente y al dar click abrira la ventana de juego
         private void BotonContinuarJuego_Click(object sender, RoutedEventArgs e)
         {
-            //Para implementar este boton hay que hacer un constructor en la clase juego el cual reciba un booleano o algo asi para distinguir de un juego nuevo
+            ventanaJuego.Show();
+            this.Hide();
         }
 
-        private void BotonSalir_Click(object sender, RoutedEventArgs e)
+        //Cierra todas las ventanas
+        public void BotonSalir_Click(object sender, RoutedEventArgs e)
         {
+            CerrarTodasLasVentanas();
+        }
+
+        //Cierra todas las ventanas
+        public void CerrarTodasLasVentanas()
+        {
+            if(ventanaJuego != null)
+            {
+                ventanaJuego.Close();
+            }
             ventanaOpciones.Close();
             this.Close();
         }
 
+        //Emite el sonido cargado
         public void SonidoBoton_MouseEnter(object sender, MouseEventArgs e)
         {
-            PlayerBoton.Play();
+            ReproductorDeSonidoDeBoton.Play();
 
         }
     }
