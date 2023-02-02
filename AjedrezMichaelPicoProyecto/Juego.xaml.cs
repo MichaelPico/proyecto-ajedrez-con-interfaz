@@ -327,7 +327,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //Recibe una coordenada y intenta dibujar hay un camino
-        public void dibujarCamino(int[] coordenadas)
+        public void dibujarCamino(int y, int x)
         {
 
         }
@@ -342,6 +342,10 @@ namespace AjedrezMichaelPicoProyecto
             //Si la pieza es blanca
             if (EsPiezaBlanca(CasillaSeleccionada){
                 //Tengo que mirar 1 hacia arriba y dos hacia los lados
+                int[] coordenadasMirar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+                //La primera es la "y" y como voy hacia arriba hago -1
+                coordenadasMirar[0] = coordenadasMirar[0] - 1;
+                //Ahora voy a dibujar camino en los 3 lados posibles siempre que no haya una pieza de el mismo color
             }
         }
 
