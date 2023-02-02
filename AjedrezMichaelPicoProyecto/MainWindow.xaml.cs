@@ -58,7 +58,10 @@ namespace AjedrezMichaelPicoProyecto
             ventanaJuego = new Juego(this);
             ventanaJuego.Show();
             this.Hide();
+
         }
+
+        
 
         //Muestra la ventana de opciones
         private void BotonOpciones_Click(object sender, RoutedEventArgs e)

@@ -289,7 +289,7 @@ namespace AjedrezMichaelPicoProyecto
         //Metodos bool://
         /////////////////
         //TESTEADO
-        private bool EsCasillaBlanca(string Casilla)
+        private bool EsPiezaBlanca(string Casilla)
         {
             string blancas = "♔:♕♖♗♘♙";
 
@@ -313,7 +313,60 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
+        //TESTEADO
+        private bool EsUnaCasillaDeCamino(string Casilla)
+        {
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino"];
 
+            if (getColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || getColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //Recibe una coordenada y intenta dibujar hay un camino
+        public void dibujarCamino(int[] coordenadas)
+        {
+
+        }
+
+        //////////////////////
+        //METODOS DE DIBUJAR//
+        //////////////////////
+        //El peon es la unica pieza donde el color importa debido a que dependiendo de el color se mueve hacia arriba o hacia abajo
+        //Si la pieza es blanca mirare hacia arriba (-1 en la primera coordenada)
+        public void dibujarCaminoPeon()
+        {
+            //Si la pieza es blanca
+            if (EsPiezaBlanca(CasillaSeleccionada){
+                //Tengo que mirar 1 hacia arriba y dos hacia los lados
+            }
+        }
+
+        public void dibujarCaminoRey()
+        {
+        }
+
+        public void dibujarCaminoReina()
+        {
+        }
+
+        public void dibujarCaminoTorre()
+        {
+        }
+
+        public void dibujarCaminoCaballo()
+        {
+        }
+
+        public void dibujarCaminoAlfil()
+        {
+        }
+
+
+        //TESTEADO
         //Metodo auxiliar que devuelve un numero dependiendo de el tipo de pieza
         //Develve 0 para peones
         //Develve 1 para Alfiles
@@ -322,7 +375,7 @@ namespace AjedrezMichaelPicoProyecto
         //Develve 4 para Reina
         //Develve 5 para Rey
         //Devuelve -1 para todo lo demas
-        private int QueFichaEs(string Casilla)
+        private int getTipoDeFicha(string Casilla)
         {
             string LaCasilla = this.getContenidoCasilla(Casilla);
             string Peones = "♙♟︎";
@@ -356,7 +409,7 @@ namespace AjedrezMichaelPicoProyecto
                 return 5;
             }
 
-            return -1; //
+            return -1;
 
         }
 
@@ -381,6 +434,42 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+        public void moverPieza2()
+        {
+            //Si la casilla no esta vacia
+            if (!EstaLaCasillaVacia(CasillaSeleccionada))
+            {
+                //Si la casilla es de el color que toca
+                if(EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
+                {
+                    switch (getTipoDeFicha(CasillaSeleccionada))
+                    {
+                        case 0:
+                            dibujarCaminoPeon();
+                            break;
+                        case 1:
+                            dibujarCaminoAlfil();
+                            break;
+                        case 2:
+                            dibujarCaminoCaballo();
+                            break;
+                        case 3:
+                            dibujarCaminoTorre();
+                            break;
+                        case 4:
+                            dibujarCaminoReina();
+                            break;
+                        case 5:
+                            dibujarCaminoRey();
+                            break;
+                    }
+                }
+            }
+        }
+
+        
+
+
         //TESTEADO
         //Metodo para debuguear
         public void cambiarDebugText(string laString)
@@ -392,11 +481,9 @@ namespace AjedrezMichaelPicoProyecto
         //Metodo llamado por todas las Casillas
         public void SeleccionCasilla(string Casilla)
         {
-
             this.CasillaSeleccionadaAnterior = this.CasillaSeleccionada;
             this.CasillaSeleccionada = Casilla;
             moverPieza();
-            cambiarDebugText(QueFichaEs(Casilla).ToString());
         }
 
 
