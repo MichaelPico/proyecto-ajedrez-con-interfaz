@@ -40,6 +40,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -102,6 +103,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Fonts\Pecita.ttf" />
@@ -116,27 +118,32 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="tablero.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="fondoAjedrezUno.jpg" />
+    <Resource Include="Imagenes\fondoAjedrezUno.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="fondoAjedrezDos.jpg" />
-    <Resource Include="fondoAjedrezTres.jpg" />
+    <Resource Include="Imagenes\fondoAjedrezDos.jpg" />
+    <Resource Include="Imagenes\fondoAjedrezTres.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Titulo.png" />
+    <Resource Include="Imagenes\Titulo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="sonidoBoton.wav" />
+    <Resource Include="Sonidos\sonidoBoton.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Opciones.png" />
+    <Resource Include="Imagenes\Opciones.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Sonidos\movimientoPieza.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sonidos\InicioPartida.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
-        Title="Juego" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+        Title="Juego" Height="{DynamicResource altura}" Width="1280" WindowStartupLocation="CenterScreen" WindowState="{DynamicResource estadoVentana}" WindowStyle="{DynamicResource estiloVentana}">
 
     <!-- Fondo de la ventana -->
     <Window.Background>

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
-        Title="Ajedrez Con Interfaz - By Michael Pico" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+        Title="Ajedrez Con Interfaz - By Michael Pico" Height="{DynamicResource altura}" Width="1280" WindowStartupLocation="CenterScreen" WindowState="{DynamicResource estadoVentana}" WindowStyle="{DynamicResource estiloVentana}">
 
 
     <!-- Fondo de la ventana -->
     <Window.Background>
-        <ImageBrush ImageSource="fondoAjedrezDos.jpg" Stretch="Fill"></ImageBrush>
+        <ImageBrush ImageSource="/Imagenes/fondoAjedrezDos.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
     
     <Window.Resources>
@@ -63,7 +63,7 @@
         <!-- Bloque para posicionar el titulo -->
         <Grid x:Name="GridContenedorTitulo" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="80,0,0,0">
             <Viewbox Stretch="Uniform">
-                <Image Source="Titulo.png" Margin="50"/>
+                <Image Source="/Imagenes/Titulo.png" Margin="50"/>
             </Viewbox>
         </Grid>
 

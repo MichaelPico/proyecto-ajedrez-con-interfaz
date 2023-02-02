@@ -6,6 +6,11 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Recursos para que asi todas las ventanas esten en el mismo modo y estado -->
+            <WindowState x:Key="estadoVentana">Normal</WindowState>
+            <WindowStyle x:Key="estiloVentana">SingleBorderWindow</WindowStyle>
+            <system:Double x:Key="altura">720</system:Double>
+            
             <!-- Strings para la ventana de juego -->
             <system:String x:Key="nombrePiezasNegras">Jugador piezas negras</system:String>
             <system:String x:Key="nombrePiezasBlancas">Jugador piezas blancas</system:String>

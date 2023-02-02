@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
-        Title="VentanaOpciones" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
+        Title="VentanaOpciones" Height="{DynamicResource altura}" Width="1280" WindowStartupLocation="CenterScreen" WindowState="{DynamicResource estadoVentana}" WindowStyle="{DynamicResource estiloVentana}">
 
     <!-- Fondo de la ventana -->
     <Window.Background>
-        <ImageBrush ImageSource="fondoAjedrezTres.jpg" Stretch="Fill"></ImageBrush>
+        <ImageBrush ImageSource="/Imagenes/fondoAjedrezTres.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
 
     <Window.Resources>
@@ -40,7 +40,7 @@
         <!-- Grid para posicionar el titulo de la ventana -->
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
             <Viewbox Stretch="Uniform" HorizontalAlignment="Left" Margin="30,0,0,0">
-                <Image Source="Opciones.png" Margin="50"/>
+                <Image Source="/Imagenes/Opciones.png" Margin="50"/>
             </Viewbox>
         </Grid>
         <!-- Grid contenedor de todas las opciones  -->

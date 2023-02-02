@@ -136,7 +136,7 @@ namespace AjedrezMichaelPicoProyecto
                 for (int j = 0; j < 8; j++)
                 {
                     int[] coordenada = { i, j };
-                    string Casilla = "Casilla_" + TraducirCoordenadaToCasilla(coordenada);
+                    string Casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
                     Button boton = this.FindName(Casilla) as Button;
                     boton.Content = tablero[i, j];
 
@@ -175,7 +175,7 @@ namespace AjedrezMichaelPicoProyecto
             SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro"];
 
 
-            string Objetivo = "Casilla_" + Casilla;
+            string Objetivo = "casilla_" + Casilla;
             string fondo = getColorFondo(Casilla);
             Button Boton = this.FindName(Objetivo) as Button;
 
@@ -216,7 +216,7 @@ namespace AjedrezMichaelPicoProyecto
         //Metodo que resibe una Casilla objetivo y actualiza su contenido
         public void ActualizarCasilla(string Casilla, string NuevoContenido)
         {
-            string Objetivo = "Casilla_" + Casilla;
+            string Objetivo = "casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             Boton.Content = NuevoContenido;
         }
@@ -224,7 +224,7 @@ namespace AjedrezMichaelPicoProyecto
         //Netodos get
         public string getContenidoCasilla(string Casilla)
         {
-            string Objetivo = "Casilla_" + Casilla;
+            string Objetivo = "casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             return Boton.Content.ToString();
         }
@@ -232,7 +232,7 @@ namespace AjedrezMichaelPicoProyecto
         public string getColorFondo(String Casilla)
         {
 
-            string Objetivo = "Casilla_" + Casilla;
+            string Objetivo = "casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
             return Boton.Background.ToString();
         }

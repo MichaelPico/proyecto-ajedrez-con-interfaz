@@ -56,14 +56,6 @@ namespace AjedrezMichaelPicoProyecto
         public void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
         {
             ventanaJuego = new Juego(this);
-            if(opcionesJuego.pantalla == 1)
-            {
-                ventanaJuego.WindowStyle = WindowStyle.None;
-            } else if (opcionesJuego.pantalla == 2)
-            {
-                ventanaJuego.WindowStyle = WindowStyle.None;
-                ventanaJuego.WindowState = WindowState.Maximized;
-            }
             ventanaJuego.Show();
             this.Hide();
         }
@@ -104,6 +96,11 @@ namespace AjedrezMichaelPicoProyecto
         {
             ReproductorDeSonidoDeBoton.Play();
 
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            App.Current.Resources["altura"] = this.ActualHeight;
         }
     }
 }

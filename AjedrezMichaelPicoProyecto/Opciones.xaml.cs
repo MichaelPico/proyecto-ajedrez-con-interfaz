@@ -124,11 +124,6 @@ namespace AjedrezMichaelPicoProyecto
         private void BotonVolverInicio_Click(object sender, RoutedEventArgs e)
         {
             guardarOpciones();
-            if (Inicio.opcionesJuego.pantalla == 2)
-            {
-                Inicio.WindowStyle = WindowStyle.None;
-                Inicio.WindowState = WindowState.Maximized;
-            }
             Inicio.Show();
             this.Hide();
         }
@@ -136,20 +131,40 @@ namespace AjedrezMichaelPicoProyecto
         private void ComboBoxModoPantalla_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int modoPantalla = ((ComboBox)sender).SelectedIndex;
+
             switch (modoPantalla)
             {
                 case 0:
-                    Inicio.WindowStyle = WindowStyle.SingleBorderWindow;
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    //if (Inicio.ventanaJuego != null)
+                    //{
+                    //    Inicio.ventanaJuego.WindowStyle = WindowStyle.SingleBorderWindow;
+                    //}
+                    //Inicio.WindowStyle = WindowStyle.SingleBorderWindow;
+                    //this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    App.Current.Resources["estiloVentana"] = WindowStyle.SingleBorderWindow;
+                    App.Current.Resources["estadoVentana"] = WindowState.Normal;
                     break;
                 case 1:
-                    Inicio.WindowStyle = WindowStyle.None;
-                    this.WindowStyle = WindowStyle.None;
+                    //if (Inicio.ventanaJuego != null)
+                    //{
+                    //    Inicio.ventanaJuego.WindowStyle = WindowStyle.None;
+                    //}
+                    //Inicio.WindowStyle = WindowStyle.None;
+                    //this.WindowStyle = WindowStyle.None;
+                    App.Current.Resources["estiloVentana"] = WindowStyle.None;
+                    App.Current.Resources["estadoVentana"] = WindowState.Normal;
                     break;
                 case 2:
-                    Inicio.WindowStyle = WindowStyle.None;
-                    this.WindowStyle = WindowStyle.None;
-                    this.WindowState = WindowState.Maximized;
+                    //if (Inicio.ventanaJuego != null)
+                    //{
+                    //    Inicio.ventanaJuego.WindowStyle = WindowStyle.None;
+                    //    Inicio.ventanaJuego.WindowState = WindowState.Maximized;
+                    //}
+                    //Inicio.WindowStyle = WindowStyle.None;
+                    //this.WindowStyle = WindowStyle.None;
+                    //this.WindowState = WindowState.Maximized;
+                    App.Current.Resources["estiloVentana"] = WindowStyle.None;
+                    App.Current.Resources["estadoVentana"] = WindowState.Maximized;
                     break;
             }
         }
