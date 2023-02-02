@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
-        Title="Juego" Height="{DynamicResource altura}" Width="1280" WindowStartupLocation="CenterScreen" WindowState="{DynamicResource estadoVentana}" WindowStyle="{DynamicResource estiloVentana}">
+        Title="Juego" 
+        Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen" 
+        WindowState="{DynamicResource estadoVentana}" 
+        WindowStyle="{DynamicResource estiloVentana}">
 
     <!-- Fondo de la ventana -->
     <Window.Background>
@@ -35,6 +39,19 @@
         <Style x:Key="nombreJugador" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <!-- Estilo de las casillas de el juego -->
+        <Style TargetType="{x:Type Button}" x:Key="Casilla">
+            <Setter Property="Content" Value="" />
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="{DynamicResource fuentePiezas}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="1,1,1,1" />
+            <EventSetter Event="MouseEnter" Handler="SonidoMoverPieza_MouseEnter"/>
         </Style>
     </Window.Resources>
 

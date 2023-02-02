@@ -61,15 +61,6 @@ namespace AjedrezMichaelPicoProyecto.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a #E87B18.
-        /// </summary>
-        public static string fondoBotonesMenu {
-            get {
-                return ResourceManager.GetString("fondoBotonesMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream InicioPartida {

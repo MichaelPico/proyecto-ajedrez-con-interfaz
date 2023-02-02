@@ -27,13 +27,18 @@ namespace AjedrezMichaelPicoProyecto
         string CasillaSeleccionada = "";
         char[,] tablero = IniciarTablero();
         MainWindow ventanaInicio;
+        System.Media.SoundPlayer ReproductorDeSonidoMoverPieza;
+        System.Media.SoundPlayer ReproductorDeSonidoInicioPartida;
 
 
         public Juego(MainWindow ventanaInicioRecibida)
         {
+            ReproducirSonidoInicioPartida();
+            CargarSonidoMoverPieza();
             InitializeComponent();
             ventanaInicio = ventanaInicioRecibida;
             InicializarTablero();
+
         }
 
         //NOTA: Cuando se accede a un array bidimensional
@@ -125,8 +130,34 @@ namespace AjedrezMichaelPicoProyecto
 
         List<Button> botones = new List<Button>();
 
+        //Sonidos
+            //TESTEADO
+            //  Mover Pieza
+        public void CargarSonidoMoverPieza()
+        {
+            System.IO.Stream recursoaudio = Properties.Resources.movimientoPieza;
+            ReproductorDeSonidoMoverPieza = new System.Media.SoundPlayer(recursoaudio);
+            ReproductorDeSonidoMoverPieza.Load();
+        }
+
+        public void SonidoMoverPieza_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ReproductorDeSonidoMoverPieza.Play();
+
+        }
+
+        //TESTEADO
+        //   Carga y reproduce el sonido de InicioPartida
+        public void ReproducirSonidoInicioPartida()
+        {
+            System.IO.Stream recursoaudio = Properties.Resources.InicioPartida;
+            ReproductorDeSonidoInicioPartida = new System.Media.SoundPlayer(recursoaudio);
+            ReproductorDeSonidoInicioPartida.Load();
+            ReproductorDeSonidoInicioPartida.Play();
+        }
 
 
+        //TESTEADO
         //Metodo que sincroniza la parte visual con el array del tablero
         public void InicializarTablero()
         {
@@ -221,7 +252,8 @@ namespace AjedrezMichaelPicoProyecto
             Boton.Content = NuevoContenido;
         }
 
-        //Netodos get
+        //Metodos get:
+        //TESTEADO
         public string getContenidoCasilla(string Casilla)
         {
             string Objetivo = "casilla_" + Casilla;
@@ -229,6 +261,7 @@ namespace AjedrezMichaelPicoProyecto
             return Boton.Content.ToString();
         }
 
+        //TESTEADO
         public string getColorFondo(String Casilla)
         {
 
@@ -237,6 +270,7 @@ namespace AjedrezMichaelPicoProyecto
             return Boton.Background.ToString();
         }
 
+        //TESTEADO
         private char getCaracterCasilla(int fila, int columna, char[,] tablero)
         {
             return tablero[fila, columna];
@@ -262,12 +296,14 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+        //TESTEADO
         //Metodo para debuguear
         public void cambiarDebugText(string laString)
         {
             labelDebug.Text = laString;
         }
 
+        //TESTEADO
         //Metodo llamado por todas las Casillas
         public void SeleccionCasilla(string Casilla)
         {
