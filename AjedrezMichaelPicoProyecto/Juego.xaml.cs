@@ -23,18 +23,22 @@ namespace AjedrezMichaelPicoProyecto
         //Constantes:
         private const string EspacioVacio = "•";
 
+        //Variables para mover piezas
         string CasillaSeleccionadaAnterior = "";
         string CasillaSeleccionada = "";
         char[,] tablero = IniciarTablero();
+        bool EsTurnoDeBlancas = true;
+
+        //Componentes de el programa
         MainWindow ventanaInicio;
+
+        //Sonidos
         System.Media.SoundPlayer ReproductorDeSonidoMoverPieza;
         System.Media.SoundPlayer ReproductorDeSonidoInicioPartida;
 
 
         public Juego(MainWindow ventanaInicioRecibida)
         {
-            ReproducirSonidoInicioPartida();
-            CargarSonidoMoverPieza();
             InitializeComponent();
             ventanaInicio = ventanaInicioRecibida;
             InicializarTablero();
@@ -128,8 +132,6 @@ namespace AjedrezMichaelPicoProyecto
             return "" + letra + numero;
         }
 
-        List<Button> botones = new List<Button>();
-
         //Sonidos
             //TESTEADO
             //  Mover Pieza
@@ -158,9 +160,12 @@ namespace AjedrezMichaelPicoProyecto
 
 
         //TESTEADO
-        //Metodo que sincroniza la parte visual con el array del tablero
+        //Metodo que sincroniza la parte visual con el array del tablero y reproduce el sonido de IniciarTablero/colocar las piezas ademas carga el
         public void InicializarTablero()
         {
+
+            ReproducirSonidoInicioPartida();
+            CargarSonidoMoverPieza();
 
             for (int i = 0; i < 8; i++)
             {
@@ -175,7 +180,9 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+        /////////////////////////////////
         //Metodos para cambiar el fondo//
+        /////////////////////////////////
         public void pintarBase(String Casilla)
         {
             cambiarFondo(Casilla, 0);
@@ -252,7 +259,9 @@ namespace AjedrezMichaelPicoProyecto
             Boton.Content = NuevoContenido;
         }
 
-        //Metodos get:
+        ////////////////
+        //Metodos get://
+        ////////////////
         //TESTEADO
         public string getContenidoCasilla(string Casilla)
         {
@@ -275,6 +284,82 @@ namespace AjedrezMichaelPicoProyecto
         {
             return tablero[fila, columna];
         }
+
+        /////////////////
+        //Metodos bool://
+        /////////////////
+        //TESTEADO
+        private bool EsCasillaBlanca(string Casilla)
+        {
+            string blancas = "♔:♕♖♗♘♙";
+
+            if (blancas.Contains(getContenidoCasilla(Casilla)))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //TESTEADO
+        private bool EstaLaCasillaVacia(string Casilla)
+        {
+
+            if (EspacioVacio.Equals(getContenidoCasilla(Casilla)))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        //Metodo auxiliar que devuelve un numero dependiendo de el tipo de pieza
+        //Develve 0 para peones
+        //Develve 1 para Alfiles
+        //Develve 2 para Caballos
+        //Develve 3 para Torres
+        //Develve 4 para Reina
+        //Develve 5 para Rey
+        //Devuelve -1 para todo lo demas
+        private int QueFichaEs(string Casilla)
+        {
+            string LaCasilla = this.getContenidoCasilla(Casilla);
+            string Peones = "♙♟︎";
+            string Alfiles = "♗♝";
+            string Caballos = "♘♞";
+            string Torres = "♖♜";
+            string Reina = "♕♛";
+            string Rey = "♔♚";
+
+            if (Peones.Contains(LaCasilla))
+            {
+                return 0;
+            } else if (Alfiles.Contains(LaCasilla))
+            {
+                return 1;
+            }
+            else if (Caballos.Contains(LaCasilla))
+            {
+                return 2;
+            }
+            else if (Torres.Contains(LaCasilla))
+            {
+                return 3;
+            }
+            else if (Reina.Contains(LaCasilla))
+            {
+                return 4;
+            }
+            else if (Rey.Contains(LaCasilla))
+            {
+                return 5;
+            }
+
+            return -1; //
+
+        }
+
 
         //Metodo para mover la pieza, sera refactorizado en el futuro
         public void moverPieza()
@@ -311,10 +396,12 @@ namespace AjedrezMichaelPicoProyecto
             this.CasillaSeleccionadaAnterior = this.CasillaSeleccionada;
             this.CasillaSeleccionada = Casilla;
             moverPieza();
+            cambiarDebugText(QueFichaEs(Casilla).ToString());
         }
-        
+
 
         //Botones de la interfaz
+        //TESTEADO
         private void BotonvolverInicio_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -323,12 +410,14 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
+        //TESTEADO
         private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
         {
             ventanaInicio.SonidoBoton_MouseEnter(sender, e);
 
         }
 
+        //TESTEADO
         private void BotonrSalir_Click(object sender, RoutedEventArgs e)
         {
             ventanaInicio.BotonSalir_Click(sender, e);
