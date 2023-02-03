@@ -123,7 +123,7 @@ namespace AjedrezMichaelPicoProyecto
 
         private void BotonVolverInicio_Click(object sender, RoutedEventArgs e)
         {
-            guardarOpciones();
+            GuardarOpciones();
             Inicio.Show();
             this.Hide();
         }
@@ -169,16 +169,16 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        public void guardarOpciones()
+        public void GuardarOpciones()
         {
 
             ComboBox BoxDificultad = (ComboBox)this.FindName("ComboBoxOpcionDificultad");
             ComboBox BoxColor = (ComboBox)this.FindName("ComboBoxOpcionColor");
             ComboBox BoxPantalla = (ComboBox)this.FindName("ComboBoxModoPantalla");
 
-            Inicio.opcionesJuego.dificultad = BoxDificultad.SelectedIndex;
-            Inicio.opcionesJuego.color = BoxColor.SelectedIndex;
-            Inicio.opcionesJuego.pantalla = BoxPantalla.SelectedIndex;
+            Inicio.opcionesJuego.Dificultad = BoxDificultad.SelectedIndex;
+            Inicio.opcionesJuego.Color = BoxColor.SelectedIndex;
+            Inicio.opcionesJuego.Pantalla = BoxPantalla.SelectedIndex;
 
         }
 

@@ -245,27 +245,27 @@ namespace AjedrezMichaelPicoProyecto
         /// Cambia el fondo de la casilla a un fondo de "base"
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void pintarBase(String Casilla)
+        public void PintarBase(String Casilla)
         {
-            cambiarFondo(Casilla, 0);
+            CambiarFondo(Casilla, 0);
         }
 
         /// <summary>
         /// Cambia el fondo de la casilla a un fondo de rastro
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void pintarRastro(String Casilla)
+        public void PintarRastro(String Casilla)
         {
-            cambiarFondo(Casilla, 1);
+            CambiarFondo(Casilla, 1);
         }
 
         /// <summary>
         /// Cambia el fondo de la casilla a un fondo de camino
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void pintarCamino(String Casilla)
+        public void PintarCamino(String Casilla)
         {
-            cambiarFondo(Casilla, 2);
+            CambiarFondo(Casilla, 2);
         }
 
         //TESTEADO
@@ -286,7 +286,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
         /// <param name="modo">
         /// </param>
-        public void cambiarFondo(String Casilla, int modo)
+        public void CambiarFondo(String Casilla, int modo)
         {
             SolidColorBrush colorClaroBaseAux = (SolidColorBrush)App.Current.Resources["colorClaroBase"];
             SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
@@ -297,7 +297,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
             string Objetivo = "casilla_" + Casilla;
-            string fondo = getColorFondo(Casilla);
+            string fondo = GetColorFondo(Casilla);
             Button Boton = this.FindName(Objetivo) as Button;
 
 
@@ -355,7 +355,7 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         /// <param name="Casilla"></param>
         /// <returns></returns>
-        public string getContenidoCasilla(string Casilla)
+        public string GetContenidoCasilla(string Casilla)
         {
             string Objetivo = "casilla_" + Casilla;
             Button Boton = this.FindName(Objetivo) as Button;
@@ -368,7 +368,7 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         /// <param name="Casilla">Casilla de la cual se quiere obtener el color</param>
         /// <returns></returns>
-        public string getColorFondo(String Casilla)
+        public string GetColorFondo(String Casilla)
         {
 
             string Objetivo = "casilla_" + Casilla;
@@ -405,9 +405,9 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         /// <param name="Casilla"></param>
         /// <returns></returns>
-        private int getTipoDeFicha(string Casilla)
+        private int GetTipoDeFicha(string Casilla)
         {
-            switch (this.getContenidoCasilla(Casilla))
+            switch (this.GetContenidoCasilla(Casilla))
             {
                 case "♙": case "♟︎":
                     return 0;
@@ -441,7 +441,7 @@ namespace AjedrezMichaelPicoProyecto
         {
             string blancas = "♔:♕♖♗♘♙";
 
-            if (blancas.Contains(getContenidoCasilla(Casilla)))
+            if (blancas.Contains(GetContenidoCasilla(Casilla)))
             {
                 return true;
             }
@@ -458,7 +458,7 @@ namespace AjedrezMichaelPicoProyecto
         private bool EstaLaCasillaVacia(string Casilla)
         {
 
-            if (EspacioVacio.Equals(getContenidoCasilla(Casilla)))
+            if (EspacioVacio.Equals(GetContenidoCasilla(Casilla)))
             {
                 return true;
             }
@@ -478,7 +478,7 @@ namespace AjedrezMichaelPicoProyecto
             SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
             SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino"];
 
-            if (getColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || getColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
+            if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
             {
                 return true;
             }
@@ -494,7 +494,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EstaPeonEnFilaInicial(bool esBlanco, int fila)
         {
-            cambiarDebugText(labelDebug.Text + " FILA: " + fila.ToString());
+            CambiarDebugText(labelDebug.Text + " FILA: " + fila.ToString());
             if(esBlanco && fila == 2)
             {
                 return true;
@@ -523,12 +523,12 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Dibuja el camino de la pieza peon
         /// </summary>
-        public void dibujarCaminoPeon()
+        public void DibujarCaminoPeon()
         {
 
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
             int fila = 8 - coordenadasDibujar[1];
-            string casillaPasoDoble = "";
+            string casillaPasoDoble;
 
             //Si la pieza es blanca
             if (EsPiezaBlanca(CasillaSeleccionada))
@@ -568,17 +568,16 @@ namespace AjedrezMichaelPicoProyecto
                     //Si la casilla objetivo tiene una pieza de distinto color que la que intento probar, no esta vacia, y no es la casilla de enfrente de el peon dibujare camino
                     if (EsUnaPiezaEnemiga(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo) && i != coordenadasDibujar[0])
                     {
-                        pintarCamino(casillaObjetivo);
+                        PintarCamino(casillaObjetivo);
                     //Si la casilla esta vacia y es justo la casilla de enfrente dibujo el camino en la posicion de adelante
                     } else if(EstaLaCasillaVacia(casillaObjetivo) && i == coordenadasDibujar[0])
                     {
-                        cambiarDebugText(casillaPasoDoble + " " + EstaPeonEnFilaInicial(EsPiezaBlanca(CasillaSeleccionada), fila).ToString() + "   " + EstaLaCasillaVacia(casillaPasoDoble).ToString());
-                        pintarCamino(casillaObjetivo);
+                        PintarCamino(casillaObjetivo);
 
                         //Si el peon esta en la fila inicial y no hay ninguna casilla en la poscion pasoDoble dibujjo camino
                         if (EstaPeonEnFilaInicial(EsPiezaBlanca(CasillaSeleccionada), fila) && EstaLaCasillaVacia(casillaPasoDoble))
                         {
-                            pintarCamino(casillaPasoDoble);
+                            PintarCamino(casillaPasoDoble);
                         }
                     }
                 }
@@ -590,7 +589,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
-        public void dibujarCaminoRey()
+        public void DibujarCaminoRey()
         {
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
 
@@ -606,7 +605,7 @@ namespace AjedrezMichaelPicoProyecto
                         //Si la casilla donde me intento mover esta vacia o tiene una pieza del color opuesto pinto camino
                         if ((EstaLaCasillaVacia(casillaObjetivo) || EsUnaPiezaEnemiga(casillaObjetivo)))
                         {
-                            pintarCamino(casillaObjetivo);
+                            PintarCamino(casillaObjetivo);
                         }
                     }
                 }
@@ -614,7 +613,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //TODO
-        public void dibujarCaminoReina()
+        public void DibujarCaminoReina()
         {
         }
 
@@ -623,141 +622,97 @@ namespace AjedrezMichaelPicoProyecto
         /// Dibuja el camino de una torre
         /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
         /// </summary>
-        public void dibujarCaminoTorre()
+        public void DibujarCaminoTorre()
         {
-            int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
-            bool pararDerecha = false;
-            bool pararIzquierda = false;
-            bool pararArriba = false;
-            bool pararAbajo = false;
+            DibujarLineaRecta(true, true, CasillaSeleccionada);
+            DibujarLineaRecta(true, false, CasillaSeleccionada);
+            DibujarLineaRecta(false, true, CasillaSeleccionada);
+            DibujarLineaRecta(false, false, CasillaSeleccionada);
+        }
 
-            //Primero dibujare las lineas horizontale
-            for(int i = coordenadasDibujar[0] + 1; i <= coordenadasDibujar[0] + 7; i++)
+        /// <summary>
+        /// Dibuja una linea recta partiendo de la casilla pasada por parametro
+        /// </summary>
+        /// <param name="SeAvanzaEnPositivo">Define el sentido de la linea recta</param>
+        /// <param name="DibujoHorizontal">Define la horientacion de la linea recta</param>
+        /// <param name="Casilla">Define el punto de partida de la linea recta</param>
+        public void DibujarLineaRecta(bool SeAvanzaEnPositivo, bool DibujoHorizontal, string Casilla)
+        {
+            int[] coordenadasDibujar = TraducirCasillaCoordenadas(Casilla);
+            int coordenadaAvance;
+
+            if (DibujoHorizontal)
             {
-                bool sePuedeDibujarDerecha = i <= 7;
-                bool sePuedeDibujarIzquierda =  (coordenadasDibujar[0] - (i - coordenadasDibujar[0])) >= 0;
-
-                //Si me salgo de el limite por los dos lados o ya no tengo permitido dibujar paro el bucle
-                if((!sePuedeDibujarDerecha && !sePuedeDibujarIzquierda) ||
-                    (pararDerecha && pararIzquierda))
-                {
-                    break;
-                }
-
-                //DibujoDerecha
-                //Si no estoy fuera de el tablero y no he parado
-                if (sePuedeDibujarDerecha && pararDerecha == false)
-                {
-                    string casillaObjetivoDerecha = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i);
-
-                    //Si encuentro una casilla aliada paro de dibujar
-                    if (!EsUnaPiezaEnemiga(casillaObjetivoDerecha) && !EstaLaCasillaVacia(casillaObjetivoDerecha))
-                    {
-                        pararDerecha = true;
-
-                        //Si encuentro una pieza enemiga dibujo y paro
-                    }else if (EsUnaPiezaEnemiga(casillaObjetivoDerecha) && !EstaLaCasillaVacia(casillaObjetivoDerecha))
-                    {
-                        pintarCamino(casillaObjetivoDerecha);
-                        pararDerecha = true;
-
-                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
-                    } else
-                    {
-                        pintarCamino(casillaObjetivoDerecha);
-                    }
-                }
-
-                //DibujoIzquierda
-                //Si no estoy fuera de el tablero y no he parado
-                if (sePuedeDibujarIzquierda && pararIzquierda == false)
-                {
-                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(coordenadasDibujar[1], coordenadasDibujar[0] - (i - coordenadasDibujar[0]));
-
-                    //Si encuentro una casilla aliada paro de dibujar
-                    if (!EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
-                    {
-                        pararIzquierda = true;
-
-                        //Si encuentro una casilla no vacia y es una pieza enemiga dibujo y paro
-                    }
-                    else if (EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
-                    {
-                        pintarCamino(casillaObjetivoIzquierda);
-                        pararIzquierda = true;
-
-                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
-                    }
-                    else
-                    {
-                        pintarCamino(casillaObjetivoIzquierda);
-                    }
-                }
+                coordenadaAvance = coordenadasDibujar[0]; //Avanzare en la columna
+            }
+            else
+            {
+                coordenadaAvance = coordenadasDibujar[1]; //Avanzare en la fila
             }
 
-            //Ahora dibujare las verticales
-            for(int i = coordenadasDibujar[1] + 1; i <= coordenadasDibujar[0] + 7; i++)
+            for (int i = coordenadaAvance + 1; i <= coordenadaAvance + 7; i++)
             {
-                bool sePuedeDibujarArriba = i <= 7;
-                bool sePuedeDibujarIzquierda = (coordenadasDibujar[0] - (i - coordenadasDibujar[0])) >= 0;
+                bool sePuedeDibujar;
 
-                //Si me salgo de el limite por los dos lados o ya no tengo permitido dibujar paro el bucle
-                if ((!sePuedeDibujarArriba && !sePuedeDibujarIzquierda) ||
-                    (pararArriba && pararIzquierda))
+                //Defino el booleano para ser true hasta salirme de el limite
+                if (SeAvanzaEnPositivo)
                 {
-                    break;
+                    sePuedeDibujar = i <= 7;
+                }
+                else
+                {
+                    sePuedeDibujar = (coordenadaAvance - (i - coordenadaAvance)) >= 0;
                 }
 
-                //DibujoArriba
-                //Si no estoy fuera de el tablero y no he parado
-                if (sePuedeDibujarArriba && pararArriba == false)
+                //Si no estoy fuera de el tablero
+                if (sePuedeDibujar)
                 {
-                    string casillaObjetivoArriba = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i);
+                    string casillaObjetivo = "";
 
-                    //Si encuentro una casilla aliada paro de dibujar
-                    if (!EsUnaPiezaEnemiga(casillaObjetivoArriba) && !EstaLaCasillaVacia(casillaObjetivoArriba))
+                    //La formula varia dependiendo de la direccion y sentido
+                    if (DibujoHorizontal && SeAvanzaEnPositivo) //Si voy a la derecha
                     {
-                        pararArriba = true;
+                        casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i);
+
+                    }
+                    else if (DibujoHorizontal && !SeAvanzaEnPositivo) //Si voy a la izquierda
+                    {
+                        casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], coordenadasDibujar[0] - (i - coordenadasDibujar[0]));
+
+                    }
+                    else if (!DibujoHorizontal && SeAvanzaEnPositivo) //Si voy hacia abajo
+                    {
+                        casillaObjetivo = TraducirCoordenadaToCasilla(i, coordenadasDibujar[0]);
+
+                    }
+                    else if (!DibujoHorizontal && !SeAvanzaEnPositivo) //Si voy hacia arriba
+                    {
+                        casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1] - (i - coordenadasDibujar[1]), coordenadasDibujar[0]);
+                    }
+
+                    //Empiezo a mirar casillas
+                    //Si encuentro una casilla aliada paro de dibujar
+                    if (!EsUnaPiezaEnemiga(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo))
+                    {
+                        return;
 
                         //Si encuentro una pieza enemiga dibujo y paro
                     }
-                    else if (EsUnaPiezaEnemiga(casillaObjetivoArriba) && !EstaLaCasillaVacia(casillaObjetivoArriba))
+                    else if (EsUnaPiezaEnemiga(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo))
                     {
-                        pintarCamino(casillaObjetivoArriba);
-                        pararArriba = true;
+                        PintarCamino(casillaObjetivo);
+                        return;
 
                         //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
                     }
                     else
                     {
-                        pintarCamino(casillaObjetivoArriba);
+                        PintarCamino(casillaObjetivo);
                     }
                 }
-
-                //DibujoIzquierda
-                //Si no estoy fuera de el tablero y no he parado
-                if (sePuedeDibujarIzquierda && pararIzquierda == false)
+                else
                 {
-                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(coordenadasDibujar[1], coordenadasDibujar[0] - (i - coordenadasDibujar[0]));
-
-                    //Si encuentro una casilla aliada paro de dibujar
-                    if (!EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
-                    {
-                        pararIzquierda = true;
-
-                        //Si encuentro una casilla no vacia y es una pieza enemiga dibujo y paro
-                    }
-                    else if (EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
-                    {
-                        pintarCamino(casillaObjetivoIzquierda);
-                        pararIzquierda = true;
-
-                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
-                    }
-                    else
-                    {
-                        pintarCamino(casillaObjetivoIzquierda);
-                    }
+                    return; //Cuando llego al limite de el tablero no intento dibujar mas
                 }
             }
         }
@@ -766,7 +721,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Dibuja casillas de camino cada al final de una L desde el origen
         /// </summary>
-        public void dibujarCaminoCaballo()
+        public void DibujarCaminoCaballo()
         {
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
             int filaCaballo = coordenadasDibujar[1];
@@ -788,7 +743,7 @@ namespace AjedrezMichaelPicoProyecto
                     if ((EstaLaCasillaVacia(casillaObjetivoDerecha) || EsUnaPiezaEnemiga(casillaObjetivoDerecha)))
                     {
                         //Pinto camino
-                        pintarCamino(casillaObjetivoDerecha);
+                        PintarCamino(casillaObjetivoDerecha);
                     }
                 }
 
@@ -801,7 +756,7 @@ namespace AjedrezMichaelPicoProyecto
                     if ((EstaLaCasillaVacia(casillaObjetivoIzquierda) || EsUnaPiezaEnemiga(casillaObjetivoIzquierda)))
                     {
                         //Pinto camino
-                        pintarCamino(casillaObjetivoIzquierda);
+                        PintarCamino(casillaObjetivoIzquierda);
                     }
                 }
             }
@@ -820,7 +775,7 @@ namespace AjedrezMichaelPicoProyecto
                     if ((EstaLaCasillaVacia(casillaObjetivoAbajo) || EsUnaPiezaEnemiga(casillaObjetivoAbajo)))
                     {
                         //Pinto camino
-                        pintarCamino(casillaObjetivoAbajo);
+                        PintarCamino(casillaObjetivoAbajo);
                     }
                 }
 
@@ -834,7 +789,7 @@ namespace AjedrezMichaelPicoProyecto
                     if ((EstaLaCasillaVacia(casillaObjetivoArriba) || EsUnaPiezaEnemiga(casillaObjetivoArriba)))
                     {
                         //Pinto camino
-                        pintarCamino(casillaObjetivoArriba);
+                        PintarCamino(casillaObjetivoArriba);
                     }
                 }
             }
@@ -845,7 +800,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// 
         /// </summary>
-        public void dibujarCaminoAlfil()
+        public void DibujarCaminoAlfil()
         {
         }
 
@@ -854,19 +809,19 @@ namespace AjedrezMichaelPicoProyecto
 
 
         [Obsolete("moverPieza esta deprecated, por favor usa moverPieza2.")]
-        public void moverPieza()
+        public void MoverPieza()
         {
             if (this.CasillaSeleccionada.Equals(this.CasillaSeleccionadaAnterior))
             {
 
             }
-            else if (this.CasillaSeleccionadaAnterior.Equals(EspacioVacio) || this.CasillaSeleccionadaAnterior.Equals("") || getContenidoCasilla(this.CasillaSeleccionadaAnterior).Equals(EspacioVacio))
+            else if (this.CasillaSeleccionadaAnterior.Equals(EspacioVacio) || this.CasillaSeleccionadaAnterior.Equals("") || GetContenidoCasilla(this.CasillaSeleccionadaAnterior).Equals(EspacioVacio))
             {
                 this.CasillaSeleccionadaAnterior = "";
             }
             else if (!this.CasillaSeleccionadaAnterior.Equals(""))
             {
-                ActualizarCasilla(this.CasillaSeleccionada, getContenidoCasilla(this.CasillaSeleccionadaAnterior));
+                ActualizarCasilla(this.CasillaSeleccionada, GetContenidoCasilla(this.CasillaSeleccionadaAnterior));
                 ActualizarCasilla(this.CasillaSeleccionadaAnterior, EspacioVacio);
                 this.CasillaSeleccionadaAnterior = "";
                 this.CasillaSeleccionada = "";
@@ -877,7 +832,7 @@ namespace AjedrezMichaelPicoProyecto
         /// Metodo el cual comprueba que la casilla seleccionada es una pieza que se puede mover
         /// y dibuja las posibles casillas a donde esa pieza se puede mover
         /// </summary>
-        public void moverPieza2()
+        public void MoverPieza2()
         {
             //Si la casilla no esta vacia
             if (!EstaLaCasillaVacia(CasillaSeleccionada))
@@ -886,26 +841,26 @@ namespace AjedrezMichaelPicoProyecto
                 if(EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
                 {
 
-                    cambiarDebugText(labelDebug.Text + " " + CasillaSeleccionada);
-                    switch (getTipoDeFicha(CasillaSeleccionada))
+                    CambiarDebugText(labelDebug.Text + " " + CasillaSeleccionada);
+                    switch (GetTipoDeFicha(CasillaSeleccionada))
                     {
                         case 0:
-                            dibujarCaminoPeon();
+                            DibujarCaminoPeon();
                             break;
                         case 1:
-                            dibujarCaminoAlfil();
+                            DibujarCaminoAlfil();
                             break;
                         case 2:
-                            dibujarCaminoCaballo();
+                            DibujarCaminoCaballo();
                             break;
                         case 3:
-                            dibujarCaminoTorre();
+                            DibujarCaminoTorre();
                             break;
                         case 4:
-                            dibujarCaminoReina();
+                            DibujarCaminoReina();
                             break;
                         case 5:
-                            dibujarCaminoRey();
+                            DibujarCaminoRey();
                             break;
                     }
                 }
@@ -917,7 +872,7 @@ namespace AjedrezMichaelPicoProyecto
         /// Metodo que cambia el contenido de el label debug
         /// </summary>
         /// <param name="laString"></param>
-        public void cambiarDebugText(string laString)
+        public void CambiarDebugText(string laString)
         {
             labelDebug.Text = laString;
         }
@@ -932,8 +887,8 @@ namespace AjedrezMichaelPicoProyecto
             this.CasillaSeleccionadaAnterior = this.CasillaSeleccionada;
             this.CasillaSeleccionada = Casilla;
             //moverPieza();
-            cambiarDebugText(Casilla);
-            moverPieza2();
+            CambiarDebugText(Casilla);
+            MoverPieza2();
 
 
 
@@ -955,7 +910,7 @@ namespace AjedrezMichaelPicoProyecto
         private void BotonvolverInicio_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            ventanaInicio.mostrarBotonContinuar();
+            ventanaInicio.MostrarBotonContinuar();
             ventanaInicio.Show();
 
         }

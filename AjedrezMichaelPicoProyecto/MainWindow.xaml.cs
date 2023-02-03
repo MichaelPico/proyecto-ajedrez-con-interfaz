@@ -38,7 +38,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //Testeado
-        public void mostrarBotonContinuar()
+        public void MostrarBotonContinuar()
         {
             BotonContinuarJuego.Visibility = Visibility.Visible;
             BotonContinuarJuego.IsEnabled = true;
