@@ -60,7 +60,7 @@ namespace AjedrezMichaelPicoProyecto
                 { '♟','♟','♟','♟','♟','♟','♟','♟'},
                 { '•','•','•','•','•','•','•','•'},
                 { '•','•','•','•','•','♖','•','•'},
-                { '•','•','♖','•','♖','•','•','•'},
+                { '•','•','♖','•','♖','•','♟','•'},
                 { '•','•','•','•','•','•','•','•'},
                 { '♙','♙','♙','♙','♙','♙','♙','♙'},
                 { '♖','♘','♗','♕','♔','♗','♘','♖'},
@@ -618,7 +618,7 @@ namespace AjedrezMichaelPicoProyecto
         {
         }
 
-        //TODO
+        //
         /// <summary>
         /// Dibuja el camino de una torre
         /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
@@ -626,30 +626,139 @@ namespace AjedrezMichaelPicoProyecto
         public void dibujarCaminoTorre()
         {
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+            bool pararDerecha = false;
+            bool pararIzquierda = false;
+            bool pararArriba = false;
+            bool pararAbajo = false;
 
-            //Primero dibujare la linea horizontal
-            for(int i = coordenadasDibujar[0]; i <= coordenadasDibujar[0] + 7; i++)
+            //Primero dibujare las lineas horizontale
+            for(int i = coordenadasDibujar[0] + 1; i <= coordenadasDibujar[0] + 7; i++)
             {
                 bool sePuedeDibujarDerecha = i <= 7;
                 bool sePuedeDibujarIzquierda =  (coordenadasDibujar[0] - (i - coordenadasDibujar[0])) >= 0;
 
-                if (sePuedeDibujarDerecha)
+                //Si me salgo de el limite por los dos lados o ya no tengo permitido dibujar paro el bucle
+                if((!sePuedeDibujarDerecha && !sePuedeDibujarIzquierda) ||
+                    (pararDerecha && pararIzquierda))
+                {
+                    break;
+                }
+
+                //DibujoDerecha
+                //Si no estoy fuera de el tablero y no he parado
+                if (sePuedeDibujarDerecha && pararDerecha == false)
                 {
                     string casillaObjetivoDerecha = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i);
-                    if (EsUnaPiezaEnemiga(casillaObjetivoDerecha) || EstaLaCasillaVacia(casillaObjetivoDerecha))
+
+                    //Si encuentro una casilla aliada paro de dibujar
+                    if (!EsUnaPiezaEnemiga(casillaObjetivoDerecha) && !EstaLaCasillaVacia(casillaObjetivoDerecha))
+                    {
+                        pararDerecha = true;
+
+                        //Si encuentro una pieza enemiga dibujo y paro
+                    }else if (EsUnaPiezaEnemiga(casillaObjetivoDerecha) && !EstaLaCasillaVacia(casillaObjetivoDerecha))
+                    {
+                        pintarCamino(casillaObjetivoDerecha);
+                        pararDerecha = true;
+
+                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
+                    } else
                     {
                         pintarCamino(casillaObjetivoDerecha);
                     }
                 }
 
-                if (sePuedeDibujarIzquierda)
-                    {string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(coordenadasDibujar[1], coordenadasDibujar[0] - (i - coordenadasDibujar[0]));
-                    if (EsUnaPiezaEnemiga(casillaObjetivoIzquierda) || EstaLaCasillaVacia(casillaObjetivoIzquierda))
+                //DibujoIzquierda
+                //Si no estoy fuera de el tablero y no he parado
+                if (sePuedeDibujarIzquierda && pararIzquierda == false)
+                {
+                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(coordenadasDibujar[1], coordenadasDibujar[0] - (i - coordenadasDibujar[0]));
+
+                    //Si encuentro una casilla aliada paro de dibujar
+                    if (!EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
+                    {
+                        pararIzquierda = true;
+
+                        //Si encuentro una casilla no vacia y es una pieza enemiga dibujo y paro
+                    }
+                    else if (EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
+                    {
+                        pintarCamino(casillaObjetivoIzquierda);
+                        pararIzquierda = true;
+
+                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
+                    }
+                    else
                     {
                         pintarCamino(casillaObjetivoIzquierda);
                     }
                 }
-                
+            }
+
+            //Ahora dibujare las verticales
+            for(int i = coordenadasDibujar[1] + 1; i <= coordenadasDibujar[0] + 7; i++)
+            {
+                bool sePuedeDibujarArriba = i <= 7;
+                bool sePuedeDibujarIzquierda = (coordenadasDibujar[0] - (i - coordenadasDibujar[0])) >= 0;
+
+                //Si me salgo de el limite por los dos lados o ya no tengo permitido dibujar paro el bucle
+                if ((!sePuedeDibujarArriba && !sePuedeDibujarIzquierda) ||
+                    (pararArriba && pararIzquierda))
+                {
+                    break;
+                }
+
+                //DibujoArriba
+                //Si no estoy fuera de el tablero y no he parado
+                if (sePuedeDibujarArriba && pararArriba == false)
+                {
+                    string casillaObjetivoArriba = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i);
+
+                    //Si encuentro una casilla aliada paro de dibujar
+                    if (!EsUnaPiezaEnemiga(casillaObjetivoArriba) && !EstaLaCasillaVacia(casillaObjetivoArriba))
+                    {
+                        pararArriba = true;
+
+                        //Si encuentro una pieza enemiga dibujo y paro
+                    }
+                    else if (EsUnaPiezaEnemiga(casillaObjetivoArriba) && !EstaLaCasillaVacia(casillaObjetivoArriba))
+                    {
+                        pintarCamino(casillaObjetivoArriba);
+                        pararArriba = true;
+
+                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
+                    }
+                    else
+                    {
+                        pintarCamino(casillaObjetivoArriba);
+                    }
+                }
+
+                //DibujoIzquierda
+                //Si no estoy fuera de el tablero y no he parado
+                if (sePuedeDibujarIzquierda && pararIzquierda == false)
+                {
+                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(coordenadasDibujar[1], coordenadasDibujar[0] - (i - coordenadasDibujar[0]));
+
+                    //Si encuentro una casilla aliada paro de dibujar
+                    if (!EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
+                    {
+                        pararIzquierda = true;
+
+                        //Si encuentro una casilla no vacia y es una pieza enemiga dibujo y paro
+                    }
+                    else if (EsUnaPiezaEnemiga(casillaObjetivoIzquierda) && !EstaLaCasillaVacia(casillaObjetivoIzquierda))
+                    {
+                        pintarCamino(casillaObjetivoIzquierda);
+                        pararIzquierda = true;
+
+                        //Si no me han dicho de parar, no he econtrado pieza y no me he salido dibujo
+                    }
+                    else
+                    {
+                        pintarCamino(casillaObjetivoIzquierda);
+                    }
+                }
             }
         }
 
@@ -685,7 +794,7 @@ namespace AjedrezMichaelPicoProyecto
 
                 //Miro a la izquierda
                 //Si no me estoy saliendo de los limites
-                if ((0 <= i && i <= 7) && columnaCaballo - 2 < 8)
+                if ((0 <= i && i <= 7) && (0 <= (columnaCaballo - 2)))
                 {
                     string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(i, columnaCaballo - 2);
                     //Si la casilla es valida para mover el caballo
@@ -717,7 +826,7 @@ namespace AjedrezMichaelPicoProyecto
 
                 //Miro a la izquierda
                 //Si no me estoy saliendo de los limites
-                if ((0 <= i && i <= 7) && filaCaballo - 2 < 8)
+                if ((0 <= i && i <= 7) && filaCaballo - 2 >= 0)
                 {
                     string casillaObjetivoArriba = TraducirCoordenadaToCasilla(filaCaballo - 2, i);
 
