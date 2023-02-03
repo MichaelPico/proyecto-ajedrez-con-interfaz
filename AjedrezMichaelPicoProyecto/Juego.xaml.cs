@@ -73,8 +73,6 @@ namespace AjedrezMichaelPicoProyecto
         {
             char[,] respuesta = new char[,]
             {
-                //♟♟♟♟♟ ♝♝ ♞ ♜
-                //♙♙♙ ♖♖ ♕
                 { '♜','♞','♝','♛','♚','♝','♞','♜' },
                 { '♟','♟','♟','♟','♟','♟','♟','♟' },
                 { '•','•','•','•','•','•','•','•' },
@@ -102,7 +100,7 @@ namespace AjedrezMichaelPicoProyecto
 
             char columna = Casilla[0];
             int fila = Casilla[1] - '0'; //Asi se castea un char a int
-            fila = 8 - fila;  //Cambio su valor al contrario del rango, si era 0 ahora es 7, 3->4...
+            fila = 8 - fila;  //Cambio su valor al contrario del rango, si era 0 ahora es 8, 3->5...
 
             for (int i = 0; i < auxiliarColumna.Length; i++)
             {
@@ -126,15 +124,29 @@ namespace AjedrezMichaelPicoProyecto
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
             };
 
-            char letra = auxiliarColumna[coordenada[1]];
-            int numero = 8 - coordenada[0];
+            char letra = auxiliarColumna[coordenada[0]];
+            int numero = 8 - coordenada[1];
+
+            return "" + letra + numero;
+        }
+
+        //TESTEADO
+        public static string TraducirCoordenadaToCasilla(int y, int x)
+        {
+            char[] auxiliarColumna = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+            };
+
+            char letra = auxiliarColumna[x];
+            int numero = 8 - y;
 
             return "" + letra + numero;
         }
 
         //Sonidos
-            //TESTEADO
-            //  Mover Pieza
+        //TESTEADO
+        //  Mover Pieza
         public void CargarSonidoMoverPieza()
         {
             System.IO.Stream recursoaudio = Properties.Resources.movimientoPieza;
@@ -171,7 +183,7 @@ namespace AjedrezMichaelPicoProyecto
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    int[] coordenada = { i, j };
+                    int[] coordenada = { j, i }; //Las invierto por que lo que es la a8 para el tablero en el array es {0,0}
                     string Casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
                     Button boton = this.FindName(Casilla) as Button;
                     boton.Content = tablero[i, j];
@@ -259,8 +271,7 @@ namespace AjedrezMichaelPicoProyecto
             Boton.Content = NuevoContenido;
         }
 
-        ////////////////
-        //Metodos get://
+        //METODOS GET://
         ////////////////
         //TESTEADO
         public string getContenidoCasilla(string Casilla)
@@ -285,8 +296,7 @@ namespace AjedrezMichaelPicoProyecto
             return tablero[fila, columna];
         }
 
-        /////////////////
-        //Metodos bool://
+        //METODOS BOOL://
         /////////////////
         //TESTEADO
         private bool EsPiezaBlanca(string Casilla)
@@ -326,31 +336,100 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
-        //Recibe una coordenada y intenta dibujar hay un camino
-        public void dibujarCamino(int y, int x)
+        private bool EstaPeonEnFilaInicial(bool esBlanco, int fila)
         {
-
+            cambiarDebugText(labelDebug.Text + " FILA: " + fila.ToString());
+            if(esBlanco && fila == 2)
+            {
+                return true;
+            } else if (!esBlanco && fila == 7)
+            {
+                return true;
+            }
+            return false;
         }
 
-        //////////////////////
         //METODOS DE DIBUJAR//
         //////////////////////
+        
+        //TESTEADO
         //El peon es la unica pieza donde el color importa debido a que dependiendo de el color se mueve hacia arriba o hacia abajo
         //Si la pieza es blanca mirare hacia arriba (-1 en la primera coordenada)
         public void dibujarCaminoPeon()
         {
+
+            int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+            int fila = 8 - coordenadasDibujar[1];
+            string casillaPasoDoble = "";
+
             //Si la pieza es blanca
-            if (EsPiezaBlanca(CasillaSeleccionada){
+            if (EsPiezaBlanca(CasillaSeleccionada))
+                {
                 //Tengo que mirar 1 hacia arriba y dos hacia los lados
-                int[] coordenadasMirar = TraducirCasillaCoordenadas(CasillaSeleccionada);
-                //La primera es la "y" y como voy hacia arriba hago -1
-                coordenadasMirar[0] = coordenadasMirar[0] - 1;
-                //Ahora voy a dibujar camino en los 3 lados posibles siempre que no haya una pieza de el mismo color
+                //La segunda coordenada de el array representa la "y" y como voy hacia arriba hago y = y-1
+                coordenadasDibujar[1] = coordenadasDibujar[1] - 1;
+
+                //Para el paso doble tendre que mirar 2 hacia adelante
+                casillaPasoDoble = TraducirCoordenadaToCasilla(coordenadasDibujar[1] - 1, coordenadasDibujar[0]);
+
+                //Si la pieza es negra
+            } else
+            {
+                //Tendre que mirar 1 hacia abajo y dos hacia los lados
+                //La segunda coordenada de el array representa la "y" y como voy hacia arriba hago y = y + 1
+                coordenadasDibujar[1] = coordenadasDibujar[1] + 1;
+
+                //Para el paso doble tendre que mirar 2 hacia adelante
+                casillaPasoDoble = TraducirCoordenadaToCasilla(coordenadasDibujar[1] + 1, coordenadasDibujar[0]);
+            }
+
+
+            //Ahora que la coordenada y esta en la posicion donde quiero dibujar, voy a intentar dibujar
+            //camino en los 3 lados posibles 
+
+            //Aqui se dan tres situaciones:
+            //Situacion 1: El peon se podra mover hacia un lado solo cuando haya una pieza de color distinto
+            //Situacion 2: El peon se podra mover hacia adelante siempre que el espacio este vacio
+            //Situacion 3: El peon podra avanzar dos casillas hacia adelante siempre que se encuentre en la primera fila
+            for (int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i++)
+            {
+                try
+                {
+                    string casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i); //Guardo la casilla en un string
+                    
+                    //Si la casilla objetivo tiene una pieza de distinto color que la que intento probar, no esta vacia, y no es la casilla de enfrente de el peon dibujare camino
+                    if (EsTurnoDeBlancas != EsPiezaBlanca(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo) && i != coordenadasDibujar[0])
+                    {
+                        pintarCamino(casillaObjetivo);
+                    //Si la casilla esta vacia y es justo la casilla de enfrente dibujo el camino en la posicion de adelante
+                    } else if(EstaLaCasillaVacia(casillaObjetivo) && i == coordenadasDibujar[0])
+                    {
+                        cambiarDebugText(casillaPasoDoble + " " + EstaPeonEnFilaInicial(EsPiezaBlanca(CasillaSeleccionada), fila).ToString() + "   " + EstaLaCasillaVacia(casillaPasoDoble).ToString());
+                        pintarCamino(casillaObjetivo);
+
+                        //Si el peon esta en la fila inicial y no hay ninguna casilla en la poscion pasoDoble dibujjo camino
+                        if (EstaPeonEnFilaInicial(EsPiezaBlanca(CasillaSeleccionada), fila) && EstaLaCasillaVacia(casillaPasoDoble))
+                        {
+                            pintarCamino(casillaPasoDoble);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    //No hacemos nada ya que un error significa que esta intentado dibujar en un index out of bounds lo cual nos da igual
+                    this.cambiarDebugText(e.Message);
+                }
             }
         }
 
+        //El rey puede avanzar en cualquier direccion siempre que no haya una piza
         public void dibujarCaminoRey()
         {
+            int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+            for(int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i++)
+            {
+
+            }
         }
 
         public void dibujarCaminoReina()
@@ -361,6 +440,8 @@ namespace AjedrezMichaelPicoProyecto
         {
         }
 
+        //El caballo se mueve en forma de L en cualquier direccion, esto hace que
+        //dependiendo de la casilla donde se encuentre este sea capas de moverse a un maximo de ocho casillas distintas
         public void dibujarCaminoCaballo()
         {
         }
@@ -487,7 +568,15 @@ namespace AjedrezMichaelPicoProyecto
         {
             this.CasillaSeleccionadaAnterior = this.CasillaSeleccionada;
             this.CasillaSeleccionada = Casilla;
-            moverPieza();
+            //moverPieza();
+            dibujarCaminoPeon();
+
+
+
+
+            //Lineas para debuguear los metodoos de coordenada
+            //int[] coor = TraducirCasillaCoordenadas(Casilla);
+            //cambiarDebugText(Casilla + " coorx" + coor[1].ToString() + " coory" + coor[0] + " OTRO " + TraducirCoordenadaToCasilla(coor) + " OTROOO " + TraducirCoordenadaToCasilla(coor[1],coor[0])); 
         }
 
 
