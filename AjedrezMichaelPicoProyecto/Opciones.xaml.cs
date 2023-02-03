@@ -26,7 +26,12 @@ namespace AjedrezMichaelPicoProyecto
             Inicio = ventanaIncio;
             InitializeComponent();
         }
-        //Si el boton "contra la maquina" no esta activado, no se podra cambiar la dificultad ni elegir color
+        
+        /// <summary>
+        /// Al activarse este boton permitira el uso de de las combo box elegir color y elegir dificultad
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonContraLaMaquina(object sender, RoutedEventArgs e)
         {
             bool ContraLaMaquina = (bool)((RadioButton)sender).IsChecked;
@@ -35,10 +40,20 @@ namespace AjedrezMichaelPicoProyecto
             ComboBoxOpcionColor.IsEnabled = ContraLaMaquina;
         }
 
+        /// <summary>
+        /// Es la opcion defecto de modo de juego, no hace nada ya que contra la maquina no esta implementado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonDosJugadores(object sender, RoutedEventArgs e)
         {
         }
 
+        /// <summary>
+        /// Al seleccionar cambia la paleta de colores a la numero 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonPaleta1(object sender, RoutedEventArgs e)
         {
             //Get
@@ -58,6 +73,11 @@ namespace AjedrezMichaelPicoProyecto
             App.Current.Resources["colorOscuroRastro"] = colorOscuroRastroAux;
         }
 
+        /// <summary>
+        /// Al seleccionar cambia la paleta de colores a la numero 2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonPaleta2(object sender, RoutedEventArgs e)
         {
             //Get
@@ -77,6 +97,11 @@ namespace AjedrezMichaelPicoProyecto
             App.Current.Resources["colorOscuroRastro"] = colorOscuroRastroAux;
         }
 
+        /// <summary>
+        /// Al seleccionar cambia la paleta de colores a la numero 3
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonPaleta3(object sender, RoutedEventArgs e)
         {
             //Get
@@ -97,30 +122,55 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
+        /// <summary>
+        /// Al seleccionar cambia las fichas a el modelo numero 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonFichas1(object sender, RoutedEventArgs e)
         {
             FontFamily fichas1 = (FontFamily)App.Current.Resources["Arial"]; //Get
             App.Current.Resources["fuentePiezas"] = fichas1; //Set
         }
 
+        /// <summary>
+        /// Al seleccionar cambia las fichas a el modelo numero 2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonFichas2(object sender, RoutedEventArgs e)
         {
             FontFamily fichas2 = (FontFamily)App.Current.Resources["Quivira"];
             App.Current.Resources["fuentePiezas"] = fichas2;
         }
 
+        /// <summary>
+        /// Al seleccionar cambia las fichas a el modelo numero 3
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RadioBotonFichas3(object sender, RoutedEventArgs e)
         {
             FontFamily fichas3 = (FontFamily)App.Current.Resources["Pecita"];
             App.Current.Resources["fuentePiezas"] = fichas3;
         }
 
+        /// <summary>
+        /// Reproduce el sonido de los botones cuando el mouse entra a estos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
         {
             Inicio.SonidoBoton_MouseEnter(sender, e);
         
         }
 
+        /// <summary>
+        /// Boton que oculta la ventana de opciones y muestra la ventana de inicio
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BotonVolverInicio_Click(object sender, RoutedEventArgs e)
         {
             GuardarOpciones();
@@ -128,6 +178,11 @@ namespace AjedrezMichaelPicoProyecto
             this.Hide();
         }
 
+        /// <summary>
+        /// Caja que cambia el modo de pantalla dependiendo de la seleccion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxModoPantalla_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int modoPantalla = ((ComboBox)sender).SelectedIndex;
@@ -169,6 +224,7 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+
         public void GuardarOpciones()
         {
 
@@ -182,11 +238,21 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
+        /// <summary>
+        /// Caja que cambiara la dificultad de la maquina en funcion de la opcion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxOpcionDificultad_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Caja que cambiara el color de el jugador en funcion de la opcion elegida
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxOpcionColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

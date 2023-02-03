@@ -51,7 +51,6 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Margin" Value="1,1,1,1" />
-            <EventSetter Event="MouseEnter" Handler="SonidoMoverPieza_MouseEnter"/>
         </Style>
     </Window.Resources>
 
@@ -177,225 +176,225 @@
 
                 <!-- Row 0 -->
                 <Grid Grid.Row="0" Grid.Column="0">
-                    <Button x:Name="casilla_a8"  Click="a8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_a8"  Click="A8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="8" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="1">
-                    <Button x:Name="casilla_b8"  Click="b8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_b8"  Click="B8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="2">
-                    <Button x:Name="casilla_c8"  Click="c8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_c8"  Click="C8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="3">
-                    <Button x:Name="casilla_d8"  Click="d8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_d8"  Click="D8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="4">
-                    <Button x:Name="casilla_e8"  Click="e8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_e8"  Click="E8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="5">
-                    <Button x:Name="casilla_f8"  Click="f8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_f8"  Click="F8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="6">
-                    <Button x:Name="casilla_g8"  Click="g8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_g8"  Click="G8" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="7">
-                    <Button x:Name="casilla_h8"  Click="h8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_h8"  Click="H8" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 1 -->
                 <Grid Grid.Row="1" Grid.Column="0">
-                    <Button x:Name="casilla_a7"  Click="a7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_a7"  Click="A7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label  Content="7" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
-                    <Button x:Name="casilla_b7"  Click="b7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_b7"  Click="B7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="2">
-                    <Button x:Name="casilla_c7"  Click="c7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_c7"  Click="C7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="3">
-                    <Button x:Name="casilla_d7"  Click="d7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_d7"  Click="D7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="4">
-                    <Button x:Name="casilla_e7"  Click="e7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_e7"  Click="E7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="5">
-                    <Button x:Name="casilla_f7"  Click="f7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_f7"  Click="F7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="6">
-                    <Button x:Name="casilla_g7"  Click="g7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_g7"  Click="G7" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="7">
-                    <Button x:Name="casilla_h7"  Click="h7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_h7"  Click="H7" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
 
                 <!-- Row 2 -->
                 <Grid Grid.Row="2" Grid.Column="0">
-                    <Button x:Name="casilla_a6"  Click="a6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_a6"  Click="A6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="6" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1">
-                    <Button x:Name="casilla_b6"  Click="b6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_b6"  Click="B6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="2">
-                    <Button x:Name="casilla_c6"  Click="c6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_c6"  Click="C6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="3">
-                    <Button x:Name="casilla_d6"  Click="d6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_d6"  Click="D6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="4">
-                    <Button x:Name="casilla_e6"  Click="e6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_e6"  Click="E6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="5">
-                    <Button x:Name="casilla_f6"  Click="f6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_f6"  Click="F6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="6">
-                    <Button x:Name="casilla_g6"  Click="g6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_g6"  Click="G6" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="7">
-                    <Button x:Name="casilla_h6"  Click="h6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_h6"  Click="H6" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 3 -->
                 <Grid Grid.Row="3" Grid.Column="0">
-                    <Button x:Name="casilla_a5"  Click="a5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_a5"  Click="A5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label  Content="5" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="1">
-                    <Button x:Name="casilla_b5"  Click="b5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_b5"  Click="B5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="2">
-                    <Button x:Name="casilla_c5"  Click="c5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_c5"  Click="C5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="3">
-                    <Button x:Name="casilla_d5"  Click="d5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_d5"  Click="D5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="4">
-                    <Button x:Name="casilla_e5"  Click="e5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_e5"  Click="E5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="5">
-                    <Button x:Name="casilla_f5"  Click="f5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_f5"  Click="F5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="6">
-                    <Button x:Name="casilla_g5"  Click="g5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_g5"  Click="G5" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="3" Grid.Column="7">
-                    <Button x:Name="casilla_h5"  Click="h5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_h5"  Click="H5" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
 
                 <!-- Row 4 -->
                 <Grid Grid.Row="4" Grid.Column="0">
-                    <Button x:Name="casilla_a4"  Click="a4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_a4"  Click="A4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="4" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="1">
-                    <Button x:Name="casilla_b4"  Click="b4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_b4"  Click="B4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="2">
-                    <Button x:Name="casilla_c4"  Click="c4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_c4"  Click="C4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="3">
-                    <Button x:Name="casilla_d4"  Click="d4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_d4"  Click="D4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="4">
-                    <Button x:Name="casilla_e4"  Click="e4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_e4"  Click="E4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="5">
-                    <Button x:Name="casilla_f4"  Click="f4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_f4"  Click="F4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="6">
-                    <Button x:Name="casilla_g4"  Click="g4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_g4"  Click="G4" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="7">
-                    <Button x:Name="casilla_h4"  Click="h4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_h4"  Click="H4" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 5 -->
                 <Grid Grid.Row="5" Grid.Column="0">
-                    <Button x:Name="casilla_a3"  Click="a3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_a3"  Click="A3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label  Content="3" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="1">
-                    <Button x:Name="casilla_b3"  Click="b3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_b3"  Click="B3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="2">
-                    <Button x:Name="casilla_c3"  Click="c3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_c3"  Click="C3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="3">
-                    <Button x:Name="casilla_d3"  Click="d3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_d3"  Click="D3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="4">
-                    <Button x:Name="casilla_e3"  Click="e3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_e3"  Click="E3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="5">
-                    <Button x:Name="casilla_f3"  Click="f3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_f3"  Click="F3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="6">
-                    <Button x:Name="casilla_g3"  Click="g3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_g3"  Click="G3" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="7">
-                    <Button x:Name="casilla_h3"  Click="h3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_h3"  Click="H3" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
 
                 <!-- Row 6 -->
                 <Grid Grid.Row="6" Grid.Column="0">
-                    <Button x:Name="casilla_a2"  Click="a2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_a2"  Click="A2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label  Content="2" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="1">
-                    <Button x:Name="casilla_b2"  Click="b2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_b2"  Click="B2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="2">
-                    <Button x:Name="casilla_c2"  Click="c2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_c2"  Click="C2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="3">
-                    <Button x:Name="casilla_d2"  Click="d2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_d2"  Click="D2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="4">
-                    <Button x:Name="casilla_e2"  Click="e2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_e2"  Click="E2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="5">
-                    <Button x:Name="casilla_f2"  Click="f2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_f2"  Click="F2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="6">
-                    <Button x:Name="casilla_g2"  Click="g2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_g2"  Click="G2" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                 </Grid>
                 <Grid Grid.Row="6" Grid.Column="7">
-                    <Button x:Name="casilla_h2"  Click="h2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_h2"  Click="H2" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                 </Grid>
 
                 <!-- Row 7 -->
                 <Grid Grid.Row="7" Grid.Column="0">
-                    <Button x:Name="casilla_a1"  Click="a1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_a1"  Click="A1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="a"  Style="{StaticResource labelLetra}"/>
                     <Label  Content="1" Style="{StaticResource labelNumero}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="1">
-                    <Button x:Name="casilla_b1"  Click="b1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_b1"  Click="B1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="b"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="2">
-                    <Button x:Name="casilla_c1"  Click="c1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_c1"  Click="C1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="c"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="3">
-                    <Button x:Name="casilla_d1"  Click="d1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_d1"  Click="D1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="d"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="4">
-                    <Button x:Name="casilla_e1"  Click="e1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_e1"  Click="E1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="e"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="5">
-                    <Button x:Name="casilla_f1"  Click="f1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_f1"  Click="F1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="f"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="6">
-                    <Button x:Name="casilla_g1"  Click="g1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
+                    <Button x:Name="casilla_g1"  Click="G1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
                     <Label   Content="g"  Style="{StaticResource labelLetra}"/>
                 </Grid>
                 <Grid Grid.Row="7" Grid.Column="7">
-                    <Button x:Name="casilla_h1"  Click="h1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
+                    <Button x:Name="casilla_h1"  Click="H1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
                     <Label   Content="h"  Style="{StaticResource labelLetra}"/>
                 </Grid>
             </Grid>

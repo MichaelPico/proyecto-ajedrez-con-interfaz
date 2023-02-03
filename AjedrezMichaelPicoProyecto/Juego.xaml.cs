@@ -940,446 +940,446 @@ namespace AjedrezMichaelPicoProyecto
 
 
         //Botones de el tablero
-        private void a1(object sender, RoutedEventArgs e)
+        private void A1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a1");
 
         }
 
-        private void b1(object sender, RoutedEventArgs e)
+        private void B1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b1");
 
         }
 
-        private void c1(object sender, RoutedEventArgs e)
+        private void C1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c1");
 
         }
 
-        private void d1(object sender, RoutedEventArgs e)
+        private void D1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d1");
 
         }
 
-        private void e1(object sender, RoutedEventArgs e)
+        private void E1(object sender, RoutedEventArgs e)
         {
             SeleccionCasilla("e1");
         }
 
-        private void f1(object sender, RoutedEventArgs e)
+        private void F1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f1");
 
         }
 
-        private void g1(object sender, RoutedEventArgs e)
+        private void G1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g1");
 
         }
 
-        private void h1(object sender, RoutedEventArgs e)
+        private void H1(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h1");
 
         }
 
-        private void a2(object sender, RoutedEventArgs e)
+        private void A2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a2");
 
         }
 
-        private void b2(object sender, RoutedEventArgs e)
+        private void B2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b2");
 
         }
 
-        private void c2(object sender, RoutedEventArgs e)
+        private void C2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c2");
 
         }
 
-        private void d2(object sender, RoutedEventArgs e)
+        private void D2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d2");
 
         }
 
-        private void e2(object sender, RoutedEventArgs e)
+        private void E2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e2");
 
         }
 
-        private void f2(object sender, RoutedEventArgs e)
+        private void F2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f2");
 
         }
 
-        private void g2(object sender, RoutedEventArgs e)
+        private void G2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g2");
 
         }
 
-        private void h2(object sender, RoutedEventArgs e)
+        private void H2(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h2");
 
         }
 
-        private void a3(object sender, RoutedEventArgs e)
+        private void A3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a3");
 
         }
 
-        private void b3(object sender, RoutedEventArgs e)
+        private void B3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b3");
 
         }
 
-        private void c3(object sender, RoutedEventArgs e)
+        private void C3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c3");
 
         }
 
-        private void d3(object sender, RoutedEventArgs e)
+        private void D3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d3");
 
         }
 
-        private void e3(object sender, RoutedEventArgs e)
+        private void E3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e3");
 
         }
 
-        private void f3(object sender, RoutedEventArgs e)
+        private void F3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f3");
 
         }
 
-        private void g3(object sender, RoutedEventArgs e)
+        private void G3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g3");
 
         }
 
-        private void h3(object sender, RoutedEventArgs e)
+        private void H3(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h3");
 
         }
 
-        private void a4(object sender, RoutedEventArgs e)
+        private void A4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a4");
 
         }
 
-        private void b4(object sender, RoutedEventArgs e)
+        private void B4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b4");
 
         }
 
-        private void c4(object sender, RoutedEventArgs e)
+        private void C4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c4");
 
         }
 
-        private void d4(object sender, RoutedEventArgs e)
+        private void D4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d4");
 
         }
 
-        private void e4(object sender, RoutedEventArgs e)
+        private void E4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e4");
 
         }
 
-        private void f4(object sender, RoutedEventArgs e)
+        private void F4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f4");
 
         }
 
-        private void g4(object sender, RoutedEventArgs e)
+        private void G4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g4");
 
         }
 
-        private void h4(object sender, RoutedEventArgs e)
+        private void H4(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h4");
 
         }
 
-        private void a5(object sender, RoutedEventArgs e)
+        private void A5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a5");
 
         }
 
-        private void b5(object sender, RoutedEventArgs e)
+        private void B5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b5");
 
         }
 
-        private void c5(object sender, RoutedEventArgs e)
+        private void C5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c5");
 
         }
 
-        private void d5(object sender, RoutedEventArgs e)
+        private void D5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d5");
 
         }
 
-        private void e5(object sender, RoutedEventArgs e)
+        private void E5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e5");
 
         }
 
-        private void f5(object sender, RoutedEventArgs e)
+        private void F5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f5");
 
         }
 
-        private void g5(object sender, RoutedEventArgs e)
+        private void G5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g5");
 
         }
 
-        private void h5(object sender, RoutedEventArgs e)
+        private void H5(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h5");
 
         }
 
-        private void a6(object sender, RoutedEventArgs e)
+        private void A6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a6");
 
         }
 
-        private void b6(object sender, RoutedEventArgs e)
+        private void B6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b6");
 
         }
 
-        private void c6(object sender, RoutedEventArgs e)
+        private void C6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c6");
 
         }
 
-        private void d6(object sender, RoutedEventArgs e)
+        private void D6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d6");
 
         }
 
-        private void e6(object sender, RoutedEventArgs e)
+        private void E6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e6");
 
         }
 
-        private void f6(object sender, RoutedEventArgs e)
+        private void F6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f6");
 
         }
 
-        private void g6(object sender, RoutedEventArgs e)
+        private void G6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g6");
 
         }
 
-        private void h6(object sender, RoutedEventArgs e)
+        private void H6(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h6");
 
         }
 
-        private void a7(object sender, RoutedEventArgs e)
+        private void A7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a7");
 
         }
 
-        private void b7(object sender, RoutedEventArgs e)
+        private void B7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b7");
 
         }
 
-        private void c7(object sender, RoutedEventArgs e)
+        private void C7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c7");
 
         }
 
-        private void d7(object sender, RoutedEventArgs e)
+        private void D7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d7");
 
         }
 
-        private void e7(object sender, RoutedEventArgs e)
+        private void E7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e7");
 
         }
 
-        private void f7(object sender, RoutedEventArgs e)
+        private void F7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f7");
 
         }
 
-        private void g7(object sender, RoutedEventArgs e)
+        private void G7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g7");
 
         }
 
-        private void h7(object sender, RoutedEventArgs e)
+        private void H7(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h7");
 
         }
 
-        private void a8(object sender, RoutedEventArgs e)
+        private void A8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("a8");
 
         }
 
-        private void b8(object sender, RoutedEventArgs e)
+        private void B8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("b8");
 
         }
 
-        private void c8(object sender, RoutedEventArgs e)
+        private void C8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("c8");
 
         }
 
-        private void d8(object sender, RoutedEventArgs e)
+        private void D8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("d8");
 
         }
 
-        private void e8(object sender, RoutedEventArgs e)
+        private void E8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("e8");
 
         }
 
-        private void f8(object sender, RoutedEventArgs e)
+        private void F8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("f8");
 
         }
 
-        private void g8(object sender, RoutedEventArgs e)
+        private void G8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("g8");
 
         }
 
-        private void h8(object sender, RoutedEventArgs e)
+        private void H8(object sender, RoutedEventArgs e)
         {
 
             SeleccionCasilla("h8");
