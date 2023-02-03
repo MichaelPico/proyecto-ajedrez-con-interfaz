@@ -73,14 +73,14 @@ namespace AjedrezMichaelPicoProyecto
         {
             char[,] respuesta = new char[,]
             {
-                { '♜','♞','♝','♛','♚','♝','♞','♜' },
-                { '♟','♟','♟','♟','♟','♟','♟','♟' },
-                { '•','•','•','•','•','•','•','•' },
-                { '•','•','•','•','•','•','•','•' },
-                { '•','•','•','•','•','•','•','•' },
-                { '•','•','•','•','•','•','•','•' },
-                { '♙','♙','♙','♙','♙','♙','♙','♙' },
-                { '♖','♘','♗','♕','♔','♗','♘','♖' },
+                { '♜','♞','♝','♛','♚','♝','♞','♜'},
+                { '♟','♟','♟','♟','♟','♟','♟','♟'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '♙','♙','♙','♙','♙','♙','♙','♙'},
+                { '♖','♘','♗','♕','♔','♗','♘','♖'},
             };
 
             return respuesta;
@@ -336,6 +336,7 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
+        //TESTEADO
         private bool EstaPeonEnFilaInicial(bool esBlanco, int fila)
         {
             cambiarDebugText(labelDebug.Text + " FILA: " + fila.ToString());
@@ -347,6 +348,12 @@ namespace AjedrezMichaelPicoProyecto
                 return true;
             }
             return false;
+        }
+
+
+        private bool EsUnaPiezaEnemiga(string Casilla)
+        {
+            return EsTurnoDeBlancas != EsPiezaBlanca(Casilla);
         }
 
         //METODOS DE DIBUJAR//
@@ -393,12 +400,12 @@ namespace AjedrezMichaelPicoProyecto
             //Situacion 3: El peon podra avanzar dos casillas hacia adelante siempre que se encuentre en la primera fila
             for (int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i++)
             {
-                try
+                if (0 <= i && i <= 7)
                 {
                     string casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i); //Guardo la casilla en un string
                     
                     //Si la casilla objetivo tiene una pieza de distinto color que la que intento probar, no esta vacia, y no es la casilla de enfrente de el peon dibujare camino
-                    if (EsTurnoDeBlancas != EsPiezaBlanca(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo) && i != coordenadasDibujar[0])
+                    if (EsUnaPiezaEnemiga(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo) && i != coordenadasDibujar[0])
                     {
                         pintarCamino(casillaObjetivo);
                     //Si la casilla esta vacia y es justo la casilla de enfrente dibujo el camino en la posicion de adelante
@@ -414,21 +421,30 @@ namespace AjedrezMichaelPicoProyecto
                         }
                     }
                 }
-                catch (Exception e)
-                {
-                    //No hacemos nada ya que un error significa que esta intentado dibujar en un index out of bounds lo cual nos da igual
-                    this.cambiarDebugText(e.Message);
-                }
+                
             }
         }
 
+        //Testeado
         //El rey puede avanzar en cualquier direccion siempre que no haya una piza
         public void dibujarCaminoRey()
         {
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+
             for(int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i++)
             {
-
+                for (int j = coordenadasDibujar[1] - 1; j <= coordenadasDibujar[1] + 1; j++)
+                {
+                    if ((0 <= i && i <= 7) && (0 <= j && j <= 7))
+                    {
+                        string casillaObjetivo = TraducirCoordenadaToCasilla(j, i);
+                        //Si la casilla donde me intento mover esta vacia o tiene una pieza del color opuesto pinto camino
+                        if ((EstaLaCasillaVacia(casillaObjetivo) || EsUnaPiezaEnemiga(casillaObjetivo)))
+                        {
+                            pintarCamino(casillaObjetivo);
+                        }
+                    }
+                }
             }
         }
 
@@ -444,6 +460,77 @@ namespace AjedrezMichaelPicoProyecto
         //dependiendo de la casilla donde se encuentre este sea capas de moverse a un maximo de ocho casillas distintas
         public void dibujarCaminoCaballo()
         {
+            int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+            int filaCaballo = coordenadasDibujar[1];
+            int columnaCaballo = coordenadasDibujar[0];
+
+            //coordenadasDibujar[1] es la fila
+
+            //Primero dibujare los caminos horizaontales
+            for (int i = coordenadasDibujar[1] - 1; i <= coordenadasDibujar[1] + 1; i+=2)
+            {
+
+                //Miro a la derecha
+                //Si no me estoy saliendo de los limites
+                if ((0 <= i && i <= 7) && columnaCaballo + 2 < 8)
+                {
+                    string casillaObjetivoDerecha = TraducirCoordenadaToCasilla(i, columnaCaballo + 2);
+
+                    //Si la casilla es valida para mover el caballo
+                    if ((EstaLaCasillaVacia(casillaObjetivoDerecha) || EsUnaPiezaEnemiga(casillaObjetivoDerecha)))
+                    {
+                        //Pinto camino
+                        pintarCamino(casillaObjetivoDerecha);
+                    }
+                }
+
+                //Miro a la izquierda
+                //Si no me estoy saliendo de los limites
+                if ((0 <= i && i <= 7) && columnaCaballo - 2 < 8)
+                {
+                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(i, columnaCaballo - 2);
+                    //Si la casilla es valida para mover el caballo
+                    if ((EstaLaCasillaVacia(casillaObjetivoIzquierda) || EsUnaPiezaEnemiga(casillaObjetivoIzquierda)))
+                    {
+                        //Pinto camino
+                        pintarCamino(casillaObjetivoIzquierda);
+                    }
+                }
+            }
+
+            //Ahora los caminos verticales
+            for (int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i += 2)
+            {
+
+                //Miro a la derecha
+                //Si no me estoy saliendo de los limites
+                if ((0 <= i && i <= 7) && filaCaballo + 2 < 8)
+                {
+                    string casillaObjetivoAbajo = TraducirCoordenadaToCasilla(filaCaballo + 2, i);
+
+                    //Si la casilla es valida para mover el caballo
+                    if ((EstaLaCasillaVacia(casillaObjetivoAbajo) || EsUnaPiezaEnemiga(casillaObjetivoAbajo)))
+                    {
+                        //Pinto camino
+                        pintarCamino(casillaObjetivoAbajo);
+                    }
+                }
+
+                //Miro a la izquierda
+                //Si no me estoy saliendo de los limites
+                if ((0 <= i && i <= 7) && filaCaballo - 2 < 8)
+                {
+                    string casillaObjetivoArriba = TraducirCoordenadaToCasilla(filaCaballo - 2, i);
+
+                    //Si la casilla es valida para mover el caballo
+                    if ((EstaLaCasillaVacia(casillaObjetivoArriba) || EsUnaPiezaEnemiga(casillaObjetivoArriba)))
+                    {
+                        //Pinto camino
+                        pintarCamino(casillaObjetivoArriba);
+                    }
+                }
+            }
+
         }
 
         public void dibujarCaminoAlfil()
@@ -462,6 +549,9 @@ namespace AjedrezMichaelPicoProyecto
         //Devuelve -1 para todo lo demas
         private int getTipoDeFicha(string Casilla)
         {
+
+            cambiarDebugText(labelDebug.Text + " " + Casilla);
+
             string LaCasilla = this.getContenidoCasilla(Casilla);
             string Peones = "♙♟︎";
             string Alfiles = "♗♝";
@@ -527,6 +617,8 @@ namespace AjedrezMichaelPicoProyecto
                 //Si la casilla es de el color que toca
                 if(EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
                 {
+
+                    cambiarDebugText(labelDebug.Text + " " + CasillaSeleccionada);
                     switch (getTipoDeFicha(CasillaSeleccionada))
                     {
                         case 0:
@@ -569,7 +661,8 @@ namespace AjedrezMichaelPicoProyecto
             this.CasillaSeleccionadaAnterior = this.CasillaSeleccionada;
             this.CasillaSeleccionada = Casilla;
             //moverPieza();
-            dibujarCaminoPeon();
+            cambiarDebugText(Casilla);
+            moverPieza2();
 
 
 
@@ -635,9 +728,7 @@ namespace AjedrezMichaelPicoProyecto
 
         private void e1(object sender, RoutedEventArgs e)
         {
-
             SeleccionCasilla("e1");
-
         }
 
         private void f1(object sender, RoutedEventArgs e)
