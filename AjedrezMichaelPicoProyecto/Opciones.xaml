@@ -207,7 +207,7 @@
                                 <Button x:Name="vistaPrevia1" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="0" Grid.Row="0" Content="♛" FontSize="30"></Button>
                                 <Button x:Name="vistaPrevia2" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="1" Grid.Row="0" Content="♟" FontSize="30"></Button>
                                 <Button x:Name="vistaPrevia3" Width="45" Height="45" Background="{DynamicResource colorClaroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="0" Grid.Row="1" Content="♘" FontSize="30"></Button>
-                                <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30"></Button>
+                                <Button x:Name="vistaPrevia4" Width="45" Height="45" Background="{DynamicResource colorOscuroBase}" FontFamily="{DynamicResource fuentePiezas}" Grid.Column="1" Grid.Row="1" Content="♔" FontSize="30" Click="BotonDeElRey"></Button>
                             </Grid>
                         </Grid>
                     </Grid>

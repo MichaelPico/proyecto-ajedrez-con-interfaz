@@ -809,7 +809,7 @@ namespace AjedrezMichaelPicoProyecto
             DibujarCaminoTorre();
         }
 
-        //TESTEADO
+        //TODO
         /// <summary>
         /// Dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
@@ -1014,6 +1014,9 @@ namespace AjedrezMichaelPicoProyecto
             PintarRastro(CasillaSeleccionadaAnterior);
         }
 
+        /// <summary>
+        /// Metodo que en caso de captura de una pieza actualiza la puntuacion de el jugador correspondiente
+        /// </summary>
         public void IntentarActualizarPuntuacion()
         {
             //Si la casilla no esta vacia significa que hubo una captura
@@ -1181,9 +1184,25 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         //TESTEADO
+        /// <summary>
+        /// Boton usado en el debug a la hora de testear funciones de el programa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BotonBorrarCamino(object sender, RoutedEventArgs e)
         {
             BorrarCamino();
+        }
+
+        /// <summary>
+        /// Cambia la visibilida de el menu oculto a visible
+        /// </summary>
+        public void mostrarMenuDebug()
+        {
+            if (ventanaInicio.modoDebug)
+            {
+                GridDebug.Visibility = Visibility.Visible;
+            }
         }
 
 

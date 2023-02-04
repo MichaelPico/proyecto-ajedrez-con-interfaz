@@ -88,7 +88,7 @@
         </Grid.RowDefinitions>
         
         <!-- Menu Debug -->
-        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="10">
+        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed" Name="GridDebug">
             <StackPanel>
                 <Label Content="Tableros: "/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug1" Content="Juego nuevo" IsChecked="True"/>

@@ -20,11 +20,14 @@ namespace AjedrezMichaelPicoProyecto
     public partial class Opciones: Window
     {
         MainWindow Inicio;
+        int contadorDebug = 0;
+        System.Media.SoundPlayer ReproductorDeSonidoMoverPieza;
 
         public Opciones(MainWindow ventanaIncio)
         {
             Inicio = ventanaIncio;
             InitializeComponent();
+            CargarSonidoMoverPieza();
         }
         
         /// <summary>
@@ -240,6 +243,53 @@ namespace AjedrezMichaelPicoProyecto
         private void ComboBoxOpcionColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Metodo que se encarga de un easteregg para activar la ventana de debug, cuando se le de 5 veces esta ventana estara activada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BotonDeElRey(object sender, RoutedEventArgs e)
+        {
+            contadorDebug++;
+            if (contadorDebug < 5)
+            {
+                MoverPiezaSonido();
+            }
+            if (contadorDebug == 5)
+            {
+                string messageBoxText = "Has encontrado el boton secreto que habilita el menu de tableros! \n" +
+                    "Disfruta de este menu en la ventana de juego";
+                string caption = "Secreto encontrado";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                Inicio.modoDebug = true;
+                if(Inicio.ventanaJuego != null)
+                {
+                    Inicio.ventanaJuego.mostrarMenuDebug();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Prepara el sonido de mover pieza para cuando se quiera usar
+        /// </summary>
+        public void CargarSonidoMoverPieza()
+        {
+            System.IO.Stream recursoaudio = Properties.Resources.movimientoPieza;
+            ReproductorDeSonidoMoverPieza = new System.Media.SoundPlayer(recursoaudio);
+            ReproductorDeSonidoMoverPieza.Load();
+        }
+
+        /// <summary>
+        /// Reproduce el sonido de moverPieza
+        /// </summary>
+        public void MoverPiezaSonido()
+        {
+            ReproductorDeSonidoMoverPieza.Play();
         }
     }
 }

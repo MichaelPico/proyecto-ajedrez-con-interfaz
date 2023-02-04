@@ -23,6 +23,7 @@ namespace AjedrezMichaelPicoProyecto
         public int IndexPaletaDeColor { get; set; }
         public Opciones ventanaOpciones;
         public Juego ventanaJuego = null;
+        public bool modoDebug = true; //En la version final tiene que ser false
         
 
         System.Media.SoundPlayer ReproductorDeSonidoDeBoton;
@@ -56,6 +57,10 @@ namespace AjedrezMichaelPicoProyecto
             ventanaJuego = new Juego(this);
             ventanaJuego.Show();
             this.Hide();
+            if (modoDebug)
+            {
+                ventanaJuego.mostrarMenuDebug();
+            }
 
         }
 
@@ -99,9 +104,5 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            App.Current.Resources["altura"] = this.ActualHeight;
-        }
     }
 }
