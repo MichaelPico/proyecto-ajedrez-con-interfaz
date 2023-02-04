@@ -86,6 +86,20 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        <!-- Menu Debug -->
+        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="10">
+            <StackPanel>
+                <Label Content="Tableros: "/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug1" Content="Juego nuevo" IsChecked="True"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug2" Content="Mate en uno" />
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug3" Content="Tablero 3" />
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug4" Content="Tablero 4" />
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug5" Content="Tablero 5" />
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug6" Content="Tablero 6" />
+                <Button Click="CargarTableroDebug" Content="cargar"/>
+            </StackPanel>
+        </Grid>
 
         <!-- Informacion jugador arriba -->
         <Grid Grid.Column="2" Grid.ColumnSpan="8" Grid.Row="0" Grid.RowSpan="1" Background="#3A3B3C">
