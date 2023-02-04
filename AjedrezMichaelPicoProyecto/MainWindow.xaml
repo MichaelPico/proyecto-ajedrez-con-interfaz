@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:AjedrezMichaelPicoProyecto"
         mc:Ignorable="d"
         Title="Ajedrez Con Interfaz - By Michael Pico" 
-        Height="720" Width="1280" 
+        Height="720" Width="1280"
+        MinHeight=" 700" MinWidth=" 1245"
         WindowStartupLocation="CenterScreen" 
         WindowState="{DynamicResource estadoVentana}" 
         WindowStyle="{DynamicResource estiloVentana}">

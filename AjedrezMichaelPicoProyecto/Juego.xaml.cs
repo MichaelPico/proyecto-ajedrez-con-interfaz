@@ -617,7 +617,7 @@ namespace AjedrezMichaelPicoProyecto
         {
         }
 
-        //
+        //TESTEADO
         /// <summary>
         /// Dibuja el camino de una torre
         /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)

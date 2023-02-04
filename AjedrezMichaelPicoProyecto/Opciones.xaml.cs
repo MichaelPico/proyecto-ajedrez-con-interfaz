@@ -35,7 +35,6 @@ namespace AjedrezMichaelPicoProyecto
         private void RadioBotonContraLaMaquina(object sender, RoutedEventArgs e)
         {
             bool ContraLaMaquina = (bool)((RadioButton)sender).IsChecked;
-            Inicio.opcionesJuego.ModoDosJugadores = (bool)((RadioButton)sender).IsChecked;
             ComboBoxOpcionDificultad.IsEnabled = ContraLaMaquina;
             ComboBoxOpcionColor.IsEnabled = ContraLaMaquina;
         }
@@ -173,7 +172,6 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void BotonVolverInicio_Click(object sender, RoutedEventArgs e)
         {
-            GuardarOpciones();
             Inicio.Show();
             this.Hide();
         }
@@ -222,20 +220,6 @@ namespace AjedrezMichaelPicoProyecto
                     App.Current.Resources["estadoVentana"] = WindowState.Maximized;
                     break;
             }
-        }
-
-
-        public void GuardarOpciones()
-        {
-
-            ComboBox BoxDificultad = (ComboBox)this.FindName("ComboBoxOpcionDificultad");
-            ComboBox BoxColor = (ComboBox)this.FindName("ComboBoxOpcionColor");
-            ComboBox BoxPantalla = (ComboBox)this.FindName("ComboBoxModoPantalla");
-
-            Inicio.opcionesJuego.Dificultad = BoxDificultad.SelectedIndex;
-            Inicio.opcionesJuego.Color = BoxColor.SelectedIndex;
-            Inicio.opcionesJuego.Pantalla = BoxPantalla.SelectedIndex;
-
         }
 
         /// <summary>

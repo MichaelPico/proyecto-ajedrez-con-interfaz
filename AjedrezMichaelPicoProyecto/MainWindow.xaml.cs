@@ -21,7 +21,6 @@ namespace AjedrezMichaelPicoProyecto
     public partial class MainWindow : Window
     {
         public int IndexPaletaDeColor { get; set; }
-        public OpcionesElegidas opcionesJuego;
         public Opciones ventanaOpciones;
         public Juego ventanaJuego = null;
         
@@ -31,7 +30,6 @@ namespace AjedrezMichaelPicoProyecto
         public MainWindow()
         {
             InitializeComponent();
-            opcionesJuego = new OpcionesElegidas();
             ventanaOpciones = new Opciones(this);
             CargarSonidoBotones();
             IndexPaletaDeColor = 0;

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Juego" 
         Height="720" Width="1280"
+        MinHeight=" 700" MinWidth=" 1245"
         WindowStartupLocation="CenterScreen" 
         WindowState="{DynamicResource estadoVentana}" 
         WindowStyle="{DynamicResource estiloVentana}">
