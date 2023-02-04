@@ -98,6 +98,7 @@
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug5" Content="Tablero 5" />
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug6" Content="Tablero 6" />
                 <Button Click="CargarTableroDebug" Content="cargar"/>
+                <Button Click="BotonBorrarCamino" Content="borrar camino"/>
             </StackPanel>
         </Grid>
 
@@ -108,7 +109,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Content="{DynamicResource nombrePiezasNegras}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
-            <Label Content="{DynamicResource CapturasBlancas}" Grid.Row="1" Foreground="White"/>
+            <Label Name="CapturasNegras" Content="" Grid.Row="1" Foreground="White"/>
         </Grid>
 
         <!-- Informacion jugador abajo -->
@@ -118,7 +119,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Content="{DynamicResource nombrePiezasBlancas}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
-            <Label Content="{DynamicResource CapturasNegras}" Grid.Row="1" Foreground="Black"/>
+            <Label Name="CapturasBlancas" Content="" Grid.Row="1" Foreground="Black"/>
         </Grid>
 
 

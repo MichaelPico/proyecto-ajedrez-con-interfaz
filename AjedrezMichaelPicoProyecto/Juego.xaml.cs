@@ -18,6 +18,7 @@ namespace AjedrezMichaelPicoProyecto
         string CasillaSeleccionadaAnterior = "";
         string CasillaSeleccionada = "";
         bool EsTurnoDeBlancas = true;
+        bool EstaElCaminoDibujado = false;
 
         //Componentes de el programa
         readonly MainWindow ventanaInicio;
@@ -32,7 +33,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="ventanaInicioRecibida"></param>
         public Juego(MainWindow ventanaInicioRecibida)
         {
-            char[,] tablero = IniciarTablero();
+            char[,] tablero = DevolverTableroNuevo();
             InitializeComponent();
             ventanaInicio = ventanaInicioRecibida;
             RellenarTablero(tablero);
@@ -43,21 +44,46 @@ namespace AjedrezMichaelPicoProyecto
         /// Inicia la variable tablero con una paratida nueva
         /// </summary>
         /// <returns>Un char[,] que representa el tablero de una partida recien comenzada</returns>
-        public static char[,] IniciarTablero()
+        public static char[,] DevolverTableroNuevo()
         {
             char[,] respuesta = new char[,]
             {
                 { '♜','♞','♝','♛','♚','♝','♞','♜'},
                 { '♟','♟','♟','♟','♟','♟','♟','♟'},
-                { '•','•','♗','•','•','•','•','•'},
-                { '•','•','•','•','•','♗','•','•'},
-                { '•','•','♖','•','♖','•','♟','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
                 { '•','•','•','•','•','•','•','•'},
                 { '♙','♙','♙','♙','♙','♙','♙','♙'},
                 { '♖','♘','♗','♕','♔','♗','♘','♖'},
             };
 
             return respuesta;
+        }
+
+        //TESTEADO
+        /// <summary>
+        /// Metodo que le da a cada boton de el tablero su caracter 
+        /// correspondiente y reproduce un sonido que se asemeja a la colocacion de piezas
+        /// </summary>
+        /// <param name="Tablero">Tablero el cual sera usado para la partida</param>
+        public void RellenarTablero(char[,] Tablero)
+        {
+
+            ReproducirSonidoInicioPartida();
+            CargarSonidoMoverPieza();
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    int[] coordenada = { j, i }; //Las invierto por que lo que es la a8 para el tablero en el array es {0,0}
+                    string Casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
+                    Button boton = FindName(Casilla) as Button;
+                    boton.Content = Tablero[i, j];
+
+                }
+            }
         }
 
         //TESTEADO
@@ -188,7 +214,7 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void SonidoMoverPieza_MouseEnter(object sender, MouseEventArgs e)
+        public void MoverPiezaSonido(object sender, MouseEventArgs e)
         {
             ReproductorDeSonidoMoverPieza.Play();
         }
@@ -207,31 +233,56 @@ namespace AjedrezMichaelPicoProyecto
 
         //TESTEADO
         /// <summary>
-        /// Metodo que le da a cada boton de el tablero su caracter 
-        /// correspondiente y reproduce un sonido que se asemeja a la colocacion de piezas
+        /// Boton el cual reproduce el sonido de los botones de el programa
         /// </summary>
-        /// <param name="Tablero">Tablero el cual sera usado para la partida</param>
-        public void RellenarTablero(char[,] Tablero)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
         {
+            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
 
-            ReproducirSonidoInicioPartida();
-            CargarSonidoMoverPieza();
-
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    int[] coordenada = { j, i }; //Las invierto por que lo que es la a8 para el tablero en el array es {0,0}
-                    string Casilla = "casilla_" + TraducirCoordenadaToCasilla(coordenada);
-                    Button boton = FindName(Casilla) as Button;
-                    boton.Content = Tablero[i, j];
-
-                }
-            }
         }
 
         //Metodos para cambiar el fondo//
         /////////////////////////////////
+        /// <summary>
+        /// Metodo que borra todo el camino y cambia el booleano
+        /// </summary>
+        public void BorrarCamino()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    if (EsUnaCasillaDeCamino(casilla))
+                    {
+                        PintarBase(casilla);
+                    }
+                }
+            }
+
+            EstaElCaminoDibujado = false;
+        }
+
+        //TESTEADO
+        /// <summary>
+        /// Metodo que borra el rastro
+        /// </summary>
+        public void BorrarRastro()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    if (EsUnaCasillaDeRastro(casilla))
+                    {
+                        PintarBase(casilla);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Cambia el fondo de la casilla a un fondo de "base"
@@ -242,6 +293,7 @@ namespace AjedrezMichaelPicoProyecto
             CambiarFondo(Casilla, 0);
         }
 
+        //TESTEADO
         /// <summary>
         /// Cambia el fondo de la casilla a un fondo de rastro
         /// </summary>
@@ -251,12 +303,14 @@ namespace AjedrezMichaelPicoProyecto
             CambiarFondo(Casilla, 1);
         }
 
+        //TESTEADO
         /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de camino
+        /// Cambia el fondo de la casilla a un fondo de camino y actualiza el booleano
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
         public void PintarCamino(string Casilla)
         {
+            EstaElCaminoDibujado = true;
             CambiarFondo(Casilla, 2);
         }
 
@@ -404,10 +458,11 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private int GetTipoDeFicha(string Casilla)
         {
+            CambiarDebugText(labelDebug.Text + " " + GetContenidoCasilla(Casilla));
             switch (GetContenidoCasilla(Casilla))
             {
                 case "♙":
-                case "♟︎":
+                case "♟":
                     return 0;
                 case "♗":
                 case "♝":
@@ -442,7 +497,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EsPiezaBlanca(string Casilla)
         {
-            string blancas = "♔:♕♖♗♘♙";
+            string blancas = "♔♕♖♗♘♙";
 
             return blancas.Contains(GetContenidoCasilla(Casilla));
         }
@@ -469,6 +524,25 @@ namespace AjedrezMichaelPicoProyecto
         {
             SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
             SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino"];
+
+            if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //TESTEADO
+        /// <summary>
+        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// es uno de los colores de camino
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
+        /// <returns></returns>
+        private bool EsUnaCasillaDeRastro(string Casilla)
+        {
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro"];
 
             if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
             {
@@ -513,6 +587,47 @@ namespace AjedrezMichaelPicoProyecto
         //////////////////////
 
         //TESTEADO
+        /// <summary>
+        /// Metodo que dibuja camino de ser posible
+        /// </summary>
+        public void IntentarDibujarCamino()
+        {
+            //Si la casilla no esta vacia
+            if (!EstaLaCasillaVacia(CasillaSeleccionada))
+            {
+                //Si la casilla es de el color que toca
+                if (EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
+                {
+
+                    CambiarDebugText(labelDebug.Text + " " + CasillaSeleccionada);
+                    switch (GetTipoDeFicha(CasillaSeleccionada))
+                    {
+                        case 0:
+                            DibujarCaminoPeon();
+                            break;
+                        case 1:
+                            DibujarCaminoAlfil();
+                            break;
+                        case 2:
+                            DibujarCaminoCaballo();
+                            break;
+                        case 3:
+                            DibujarCaminoTorre();
+                            break;
+                        case 4:
+                            DibujarCaminoReina();
+                            break;
+                        case 5:
+                            DibujarCaminoRey();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        //TODO: ONPASANT
         /// <summary>
         /// Dibuja el camino de la pieza peon
         /// </summary>
@@ -582,6 +697,120 @@ namespace AjedrezMichaelPicoProyecto
 
         //TESTEADO
         /// <summary>
+        /// Dibuja camino en lineas diagonales
+        /// </summary>
+        public void DibujarCaminoAlfil()
+        {
+            DibujarLineaDiagonal(true, true, CasillaSeleccionada);
+            DibujarLineaDiagonal(true, false, CasillaSeleccionada);
+            DibujarLineaDiagonal(false, true, CasillaSeleccionada);
+            DibujarLineaDiagonal(false, false, CasillaSeleccionada);
+        }
+
+        //TESTEADO
+        /// <summary>
+        /// Dibuja casillas de camino cada al final de una L desde el origen
+        /// </summary>
+        public void DibujarCaminoCaballo()
+        {
+            int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
+            int filaCaballo = coordenadasDibujar[1];
+            int columnaCaballo = coordenadasDibujar[0];
+
+            //coordenadasDibujar[1] es la fila
+
+            //Primero dibujare los caminos horizaontales
+            for (int i = coordenadasDibujar[1] - 1; i <= coordenadasDibujar[1] + 1; i += 2)
+            {
+
+                //Miro a la derecha
+                //Si no me estoy saliendo de los limites
+                if (0 <= i && i <= 7 && columnaCaballo + 2 < 8)
+                {
+                    string casillaObjetivoDerecha = TraducirCoordenadaToCasilla(i, columnaCaballo + 2);
+
+                    //Si la casilla es valida para mover el caballo
+                    if (EstaLaCasillaVacia(casillaObjetivoDerecha) || EsUnaPiezaEnemiga(casillaObjetivoDerecha))
+                    {
+                        //Pinto camino
+                        PintarCamino(casillaObjetivoDerecha);
+                    }
+                }
+
+                //Miro a la izquierda
+                //Si no me estoy saliendo de los limites
+                if (0 <= i && i <= 7 && (0 <= (columnaCaballo - 2)))
+                {
+                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(i, columnaCaballo - 2);
+                    //Si la casilla es valida para mover el caballo
+                    if (EstaLaCasillaVacia(casillaObjetivoIzquierda) || EsUnaPiezaEnemiga(casillaObjetivoIzquierda))
+                    {
+                        //Pinto camino
+                        PintarCamino(casillaObjetivoIzquierda);
+                    }
+                }
+            }
+
+            //Ahora los caminos verticales
+            for (int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i += 2)
+            {
+
+                //Miro a la derecha
+                //Si no me estoy saliendo de los limites
+                if (0 <= i && i <= 7 && filaCaballo + 2 < 8)
+                {
+                    string casillaObjetivoAbajo = TraducirCoordenadaToCasilla(filaCaballo + 2, i);
+
+                    //Si la casilla es valida para mover el caballo
+                    if (EstaLaCasillaVacia(casillaObjetivoAbajo) || EsUnaPiezaEnemiga(casillaObjetivoAbajo))
+                    {
+                        //Pinto camino
+                        PintarCamino(casillaObjetivoAbajo);
+                    }
+                }
+
+                //Miro a la izquierda
+                //Si no me estoy saliendo de los limites
+                if (0 <= i && i <= 7 && (filaCaballo - 2 >= 0))
+                {
+                    string casillaObjetivoArriba = TraducirCoordenadaToCasilla(filaCaballo - 2, i);
+
+                    //Si la casilla es valida para mover el caballo
+                    if (EstaLaCasillaVacia(casillaObjetivoArriba) || EsUnaPiezaEnemiga(casillaObjetivoArriba))
+                    {
+                        //Pinto camino
+                        PintarCamino(casillaObjetivoArriba);
+                    }
+                }
+            }
+
+        }
+
+        //TESTEADO
+        /// <summary>
+        /// Dibuja el camino de una torre
+        /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
+        /// </summary>
+        public void DibujarCaminoTorre()
+        {
+            DibujarLineaRecta(true, true, CasillaSeleccionada);
+            DibujarLineaRecta(true, false, CasillaSeleccionada);
+            DibujarLineaRecta(false, true, CasillaSeleccionada);
+            DibujarLineaRecta(false, false, CasillaSeleccionada);
+        }
+
+        //TESTEADO
+        /// <summary>
+        /// Dibuja el camino de la reina el cual es el camino de un alfil y de una torre juntos
+        /// </summary>
+        public void DibujarCaminoReina()
+        {
+            DibujarCaminoAlfil();
+            DibujarCaminoTorre();
+        }
+
+        //TESTEADO
+        /// <summary>
         /// Dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
         public void DibujarCaminoRey()
@@ -605,29 +834,6 @@ namespace AjedrezMichaelPicoProyecto
                     }
                 }
             }
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Dibuja el camino de la reina el cual es el camino de un alfil y de una torre juntos
-        /// </summary>
-        public void DibujarCaminoReina()
-        {
-            DibujarCaminoAlfil();
-            DibujarCaminoTorre();
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Dibuja el camino de una torre
-        /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
-        /// </summary>
-        public void DibujarCaminoTorre()
-        {
-            DibujarLineaRecta(true, true, CasillaSeleccionada);
-            DibujarLineaRecta(true, false, CasillaSeleccionada);
-            DibujarLineaRecta(false, true, CasillaSeleccionada);
-            DibujarLineaRecta(false, false, CasillaSeleccionada);
         }
 
         //TESTEADO
@@ -720,97 +926,6 @@ namespace AjedrezMichaelPicoProyecto
 
         //TESTEADO
         /// <summary>
-        /// Dibuja casillas de camino cada al final de una L desde el origen
-        /// </summary>
-        public void DibujarCaminoCaballo()
-        {
-            int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
-            int filaCaballo = coordenadasDibujar[1];
-            int columnaCaballo = coordenadasDibujar[0];
-
-            //coordenadasDibujar[1] es la fila
-
-            //Primero dibujare los caminos horizaontales
-            for (int i = coordenadasDibujar[1] - 1; i <= coordenadasDibujar[1] + 1; i += 2)
-            {
-
-                //Miro a la derecha
-                //Si no me estoy saliendo de los limites
-                if (0 <= i && i <= 7 && columnaCaballo + 2 < 8)
-                {
-                    string casillaObjetivoDerecha = TraducirCoordenadaToCasilla(i, columnaCaballo + 2);
-
-                    //Si la casilla es valida para mover el caballo
-                    if (EstaLaCasillaVacia(casillaObjetivoDerecha) || EsUnaPiezaEnemiga(casillaObjetivoDerecha))
-                    {
-                        //Pinto camino
-                        PintarCamino(casillaObjetivoDerecha);
-                    }
-                }
-
-                //Miro a la izquierda
-                //Si no me estoy saliendo de los limites
-                if (0 <= i && i <= 7 && (0 <= (columnaCaballo - 2)))
-                {
-                    string casillaObjetivoIzquierda = TraducirCoordenadaToCasilla(i, columnaCaballo - 2);
-                    //Si la casilla es valida para mover el caballo
-                    if (EstaLaCasillaVacia(casillaObjetivoIzquierda) || EsUnaPiezaEnemiga(casillaObjetivoIzquierda))
-                    {
-                        //Pinto camino
-                        PintarCamino(casillaObjetivoIzquierda);
-                    }
-                }
-            }
-
-            //Ahora los caminos verticales
-            for (int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i += 2)
-            {
-
-                //Miro a la derecha
-                //Si no me estoy saliendo de los limites
-                if (0 <= i && i <= 7 && filaCaballo + 2 < 8)
-                {
-                    string casillaObjetivoAbajo = TraducirCoordenadaToCasilla(filaCaballo + 2, i);
-
-                    //Si la casilla es valida para mover el caballo
-                    if (EstaLaCasillaVacia(casillaObjetivoAbajo) || EsUnaPiezaEnemiga(casillaObjetivoAbajo))
-                    {
-                        //Pinto camino
-                        PintarCamino(casillaObjetivoAbajo);
-                    }
-                }
-
-                //Miro a la izquierda
-                //Si no me estoy saliendo de los limites
-                if (0 <= i && i <= 7 && (filaCaballo - 2 >= 0))
-                {
-                    string casillaObjetivoArriba = TraducirCoordenadaToCasilla(filaCaballo - 2, i);
-
-                    //Si la casilla es valida para mover el caballo
-                    if (EstaLaCasillaVacia(casillaObjetivoArriba) || EsUnaPiezaEnemiga(casillaObjetivoArriba))
-                    {
-                        //Pinto camino
-                        PintarCamino(casillaObjetivoArriba);
-                    }
-                }
-            }
-
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Dibuja camino en lineas diagonales
-        /// </summary>
-        public void DibujarCaminoAlfil()
-        {
-            DibujarLineaDiagonal(true, true, CasillaSeleccionada);
-            DibujarLineaDiagonal(true, false, CasillaSeleccionada);
-            DibujarLineaDiagonal(false, true, CasillaSeleccionada);
-            DibujarLineaDiagonal(false, false, CasillaSeleccionada);
-        }
-
-        //TESTEADO
-        /// <summary>
         /// Dibuja una linea de camino diagonal partiendo de la casilla pasado por parametros 
         /// El sentido de esta linea depende de los booleanos
         /// </summary>
@@ -889,64 +1004,86 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        [Obsolete("moverPieza esta deprecated, por favor usa moverPieza2.")]
-        public void MoverPieza()
+        //TESTEADO
+        /// <summary>
+        /// Metodo que cambia el fondo de las dos ultmias casillas seleccionadas a rastro
+        /// </summary>
+        public void DibujarRastro()
         {
-            if (CasillaSeleccionada.Equals(CasillaSeleccionadaAnterior))
-            {
+            PintarRastro(CasillaSeleccionada);
+            PintarRastro(CasillaSeleccionadaAnterior);
+        }
 
-            }
-            else if (CasillaSeleccionadaAnterior.Equals(EspacioVacio) || CasillaSeleccionadaAnterior.Equals("") || GetContenidoCasilla(CasillaSeleccionadaAnterior).Equals(EspacioVacio))
+        public void IntentarActualizarPuntuacion()
+        {
+            //Si la casilla no esta vacia significa que hubo una captura
+            if (!EstaLaCasillaVacia(CasillaSeleccionada))
             {
-                CasillaSeleccionadaAnterior = "";
-            }
-            else if (!CasillaSeleccionadaAnterior.Equals(""))
-            {
-                ActualizarCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
-                ActualizarCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
-                Juego juego = this;
-                juego.CasillaSeleccionadaAnterior = "";
-                CasillaSeleccionada = "";
+                string piezaCapturada = GetContenidoCasilla(CasillaSeleccionada);
+                //Depende de el turno la pieza capturada
+                if (EsTurnoDeBlancas)
+                {
+                    //Añado la pieza capturado y organizo todas las piezas
+                    string capturas = CapturasBlancas.Content + piezaCapturada;
+                    char[] piezasCapturadasArray = capturas.ToCharArray();
+                    Array.Sort(piezasCapturadasArray);
+                    Array.Reverse(piezasCapturadasArray);
+                    capturas = new string(piezasCapturadasArray);
+                    CapturasBlancas.Content = capturas;
+                }
+                else
+                {
+                    //Añado la pieza capturado y organizo todas las piezas
+                    string capturas = CapturasNegras.Content + piezaCapturada;
+                    char[] piezasCapturadasArray = capturas.ToCharArray();
+                    Array.Sort(piezasCapturadasArray);
+                    Array.Reverse(piezasCapturadasArray);
+                    capturas = new string(piezasCapturadasArray);
+                    CapturasNegras.Content = capturas;
+                }
             }
         }
 
+        //TESTEADO
+        /// <summary>
+        /// Mueve la pieza de casillaSeleccionadaAnterior a la casillaSeleccionada
+        /// </summary>
+        public void MoverPieza()
+        {
+            IntentarActualizarPuntuacion();
+            ActualizarCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+            ActualizarCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+            EsTurnoDeBlancas = !EsTurnoDeBlancas; //Cambio el turno
+            BorrarCamino(); //Borro el camino
+            BorrarRastro();
+            DibujarRastro();
+        }
+
+        //TESTEADO
         /// <summary>
         /// Metodo el cual comprueba que la casilla seleccionada es una pieza que se puede mover
         /// y dibuja las posibles casillas a donde esa pieza se puede mover
         /// </summary>
-        public void MoverPieza2()
+        public void IntentarMoverPieza()
         {
-            //Si la casilla no esta vacia
-            if (!EstaLaCasillaVacia(CasillaSeleccionada))
+            //Si hay camino significa que se puede mover una pieza
+            if (!EstaElCaminoDibujado)
             {
-                //Si la casilla es de el color que toca
-                if (EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
+                //Si no hay camino intento dibujarlo
+                IntentarDibujarCamino();
+            }
+            else
+            {
+                //Si la casilla seleccionada es una de camino
+                if (EsUnaCasillaDeCamino(CasillaSeleccionada))
                 {
+                    MoverPieza();
 
-                    CambiarDebugText(labelDebug.Text + " " + CasillaSeleccionada);
-                    switch (GetTipoDeFicha(CasillaSeleccionada))
-                    {
-                        case 0:
-                            DibujarCaminoPeon();
-                            break;
-                        case 1:
-                            DibujarCaminoAlfil();
-                            break;
-                        case 2:
-                            DibujarCaminoCaballo();
-                            break;
-                        case 3:
-                            DibujarCaminoTorre();
-                            break;
-                        case 4:
-                            DibujarCaminoReina();
-                            break;
-                        case 5:
-                            DibujarCaminoRey();
-                            break;
-                        default:
-                            break;
-                    }
+                } 
+                else //Si la casilla seleccionada no es de camino borro el camino anterior e intento dibujar su camino 
+                {
+                    BorrarCamino();
+                    IntentarDibujarCamino();
                 }
             }
         }
@@ -972,7 +1109,7 @@ namespace AjedrezMichaelPicoProyecto
             CasillaSeleccionada = Casilla;
             //moverPieza();
             CambiarDebugText(Casilla);
-            MoverPieza2();
+            IntentarMoverPieza();
 
 
 
@@ -1001,18 +1138,6 @@ namespace AjedrezMichaelPicoProyecto
 
         //TESTEADO
         /// <summary>
-        /// Boton el cual reproduce el sonido de los botones de el programa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
-
-        }
-
-        //TESTEADO
-        /// <summary>
         /// Boton el cual cierra el programa y todas sus ventanas
         /// </summary>
         /// <param name="sender"></param>
@@ -1022,6 +1147,7 @@ namespace AjedrezMichaelPicoProyecto
             ventanaInicio.BotonSalir_Click(sender, e);
         }
 
+        //TESTEADO
         /// <summary>
         /// Boton que carga el tablero recibido
         /// </summary>
@@ -1046,12 +1172,18 @@ namespace AjedrezMichaelPicoProyecto
 
             if (RadioDebug1.IsChecked == true)
             {
-                RellenarTablero(IniciarTablero());
+                RellenarTablero(DevolverTableroNuevo());
             } 
             else  if (RadioDebug2.IsChecked == true)
             {
                 RellenarTablero(tableroMateEnUno);
             }
+        }
+
+        //TESTEADO
+        private void BotonBorrarCamino(object sender, RoutedEventArgs e)
+        {
+            BorrarCamino();
         }
 
 
@@ -1499,7 +1631,5 @@ namespace AjedrezMichaelPicoProyecto
             SeleccionCasilla("h8");
 
         }
-
-        
     }
 }
