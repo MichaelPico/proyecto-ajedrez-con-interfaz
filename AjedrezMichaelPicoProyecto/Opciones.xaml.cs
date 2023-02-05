@@ -269,7 +269,7 @@ namespace AjedrezMichaelPicoProyecto
                 Inicio.modoDebug = true;
                 if(Inicio.ventanaJuego != null)
                 {
-                    Inicio.ventanaJuego.mostrarMenuDebug();
+                    Inicio.ventanaJuego.MostrarMenuDebug();
                 }
             }
         }

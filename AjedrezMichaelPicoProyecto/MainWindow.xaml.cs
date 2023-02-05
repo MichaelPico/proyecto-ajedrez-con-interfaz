@@ -59,7 +59,7 @@ namespace AjedrezMichaelPicoProyecto
             this.Hide();
             if (modoDebug)
             {
-                ventanaJuego.mostrarMenuDebug();
+                ventanaJuego.MostrarMenuDebug();
             }
 
         }

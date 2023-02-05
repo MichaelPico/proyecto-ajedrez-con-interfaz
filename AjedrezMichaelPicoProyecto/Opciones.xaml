@@ -177,7 +177,7 @@
                             <RadioButton GroupName="RadioGrupoPaletaColores" Checked="RadioBotonPaleta1" IsChecked="True" Margin="10,0,0,0">Paleta 1</RadioButton>
                         </Viewbox>
                         <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" >
-                            <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" IsChecked="True" Margin="10,0,0,0" Background="{StaticResource ColorFondo}">Fichas 1</RadioButton>
+                            <RadioButton GroupName="RadioGrupoFichas" Checked="RadioBotonFichas1" IsChecked="True" Margin="10,0,0,0">Fichas 1</RadioButton>
                         </Viewbox>
 
                         <Viewbox Style="{StaticResource ContenedorRadioButton}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="0">

@@ -214,7 +214,7 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void MoverPiezaSonido(object sender, MouseEventArgs e)
+        public void ReproducirMoverPiezaSonido()
         {
             ReproductorDeSonidoMoverPieza.Play();
         }
@@ -458,7 +458,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private int GetTipoDeFicha(string Casilla)
         {
-            CambiarDebugText(labelDebug.Text + " " + GetContenidoCasilla(Casilla));
+            CambiarDebugText(labelNotacion.Text + " " + GetContenidoCasilla(Casilla));
             switch (GetContenidoCasilla(Casilla))
             {
                 case "♙":
@@ -571,7 +571,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EstaPeonEnFilaInicial(bool esBlanco, int fila)
         {
-            CambiarDebugText(labelDebug.Text + " FILA: " + fila.ToString());
+            CambiarDebugText(labelNotacion.Text + " FILA: " + fila.ToString());
             if (esBlanco && fila == 2)
             {
                 return true;
@@ -610,7 +610,7 @@ namespace AjedrezMichaelPicoProyecto
                 if (EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
                 {
 
-                    CambiarDebugText(labelDebug.Text + " " + CasillaSeleccionada);
+                    CambiarDebugText(labelNotacion.Text + " " + CasillaSeleccionada);
                     switch (GetTipoDeFicha(CasillaSeleccionada))
                     {
                         case 0:
@@ -1084,11 +1084,13 @@ namespace AjedrezMichaelPicoProyecto
         public void MoverPieza()
         {
             IntentarActualizarPuntuacion(); //Actualiza si es posible los label de puntuacion
+            //Notacion
             RealizarMovimiento(); //Mueve la pieza
             IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
             CambiarTurno();//Cambio el turno
             RestaurarTablero();
             DibujarRastro();
+            ReproducirMoverPiezaSonido();
         }
 
         /// <summary>
@@ -1162,7 +1164,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="laString"></param>
         public void CambiarDebugText(string laString)
         {
-            labelDebug.Text = laString;
+            labelNotacion.Text = laString;
         }
 
         //TESTEADO
@@ -1267,6 +1269,21 @@ namespace AjedrezMichaelPicoProyecto
                 { '♖','•','•','•','♔','•','♚','•'},
             };
 
+            //Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023
+            //Blancas = ♔♕♖♗♘♙
+            //Negras  = ♚♛♜♝♞♟
+            char[,] tableroEnPassantMate = new char[,]
+            {
+                { '•','•','•','♖','•','•','•','♜'},
+                { '•','•','•','•','•','•','♝','♚'},
+                { '•','♟','•','•','♟','•','•','•'},
+                { '•','•','•','•','♙','♟','♙','♟'},
+                { '•','•','•','•','♗','•','•','•'},
+                { '♜','•','♟','•','•','•','•','•'},
+                { '♙','•','•','•','•','♙','♙','•'},
+                { '•','•','♔','•','•','•','•','•'},
+            };
+
             if (RadioDebug1.IsChecked == true)
             {
                 RellenarTablero(DevolverTableroNuevo());
@@ -1290,6 +1307,14 @@ namespace AjedrezMichaelPicoProyecto
                 EsTurnoDeBlancas = true;
                 ActualizarLabelTurno();
                 RellenarTablero(tableroEnroqueParaMate);
+            } 
+            else if (RadioDebug5.IsChecked == true)
+            {
+                PintarRastro("f7");
+                PintarRastro("f5");
+                EsTurnoDeBlancas = true;
+                ActualizarLabelTurno();
+                RellenarTablero(tableroEnPassantMate);
             }
         }
 
@@ -1307,7 +1332,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Cambia la visibilida de el menu oculto a visible
         /// </summary>
-        public void mostrarMenuDebug()
+        public void MostrarMenuDebug()
         {
             if (ventanaInicio.modoDebug)
             {

@@ -64,7 +64,7 @@
             <FontFamily x:Key="Quivira">pack://application:,,,/Fonts/#Quivira</FontFamily>
             
             <!-- Paleta base la cual sera cambiada en el menu de opciones-->
-            <SolidColorBrush x:Key="colorClaroBase" Color="#C7C394"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroBase" Color="#D5D2AF"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroCamino" Color="#E3E1CF"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroRastro" Color="#49472A"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase" Color="#84A27D"></SolidColorBrush>
@@ -72,7 +72,7 @@
             <SolidColorBrush x:Key="colorOscuroRastro" Color="#263123"></SolidColorBrush>
 
             <!-- Paleta 1 -->
-            <SolidColorBrush x:Key="colorClaroBase1" Color="#C7C394"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroBase1" Color="#D5D2AF"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroCamino1" Color="#E3E1CF"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroRastro1" Color="#49472A"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase1" Color="#84A27D"></SolidColorBrush>
@@ -80,7 +80,7 @@
             <SolidColorBrush x:Key="colorOscuroRastro1" Color="#263123"></SolidColorBrush>
 
             <!-- Paleta 2 -->
-            <SolidColorBrush x:Key="colorClaroBase2" Color="#7094b9"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroBase2" Color="#92ADC9"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroCamino2" Color="#94b9de"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroRastro2" Color="#4e6c8d"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase2" Color="#555555"></SolidColorBrush>
@@ -88,13 +88,21 @@
             <SolidColorBrush x:Key="colorOscuroRastro2" Color="#333333"></SolidColorBrush>
 
             <!-- Paleta 3 -->
-            <SolidColorBrush x:Key="colorClaroBase3" Color="#9e9e9e"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroBase3" Color="#CCCCCC"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino3" Color="#e3b784"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro3" Color="#1a535c"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroBase3" Color="#f9a23c"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino3" Color="#e3b784"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro3" Color="#1a535c"></SolidColorBrush>
+            
+            <!-- Paleta 3 
+            <SolidColorBrush x:Key="colorClaroBase3" Color="#CCCCCC"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroCamino3" Color="#d3d3d3"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroRastro3" Color="#696969"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase3" Color="#f9a23c"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroCamino3" Color="#f8a444"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroRastro3" Color="#f49434"></SolidColorBrush>
-            
+            <SolidColorBrush x:Key="colorOscuroRastro3" Color="#f49434"></SolidColorBrush> -->
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

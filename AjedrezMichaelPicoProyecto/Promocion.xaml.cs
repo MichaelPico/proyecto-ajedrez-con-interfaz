@@ -29,7 +29,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="blanco"></param>
         public Promocion(Juego sender,bool blanco)
         {
-            SetColores(blanco);
+            SetColores();
             InitializeComponent();
             esBlanco = blanco;
             ventanaJuego = sender;
@@ -48,7 +48,7 @@ namespace AjedrezMichaelPicoProyecto
         /// Cambia los colores de la ventana en funcion de si se promocionan piezas blancas o negras
         /// </summary>
         /// <param name="blanco"></param>
-        public void SetColores(bool esBlanco)
+        public void SetColores()
         {
             App.Current.Resources["PromocionColorFondo"] = (SolidColorBrush)App.Current.Resources["colorOscuroBase"];
             App.Current.Resources["PromocionColorLetras"] = (SolidColorBrush)App.Current.Resources["PromocionColorNegro"];
