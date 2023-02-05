@@ -15,10 +15,19 @@ namespace AjedrezMichaelPicoProyecto
         private const string EspacioVacio = "•";
 
         //Variables para mover piezas
-        string CasillaSeleccionadaAnterior = "";
+        public string CasillaSeleccionadaAnterior = "";
         public string CasillaSeleccionada = "";
-        bool EsTurnoDeBlancas = true;
+
+        //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
+
+        //Booleanos que definen la partida
+        bool EsTurnoDeBlancas = true;
+        bool SePuedeEnroqueBlancoDerecha = true;
+        bool SePuedeEnroqueBlancoIzquierda = true;
+        bool SePuedeEnroqueNegroDerecha = true;
+        bool SePuedeEnroqueNegroIzquierda = true;
+
 
         //Componentes de el programa
         readonly MainWindow ventanaInicio;
@@ -61,7 +70,6 @@ namespace AjedrezMichaelPicoProyecto
             return respuesta;
         }
 
-        //TESTEADO
         /// <summary>
         /// Metodo que le da a cada boton de el tablero su caracter 
         /// correspondiente y reproduce un sonido que se asemeja a la colocacion de piezas
@@ -86,165 +94,45 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TESTEADO
-        /// <summary>
-        /// Recibe una array de coordenadas y la traduce a Casilla de tablero
-        /// <example>
-        /// <list type="bullet">
-        /// <item>
-        /// <description>Si recibe "a2" devolvera {0,6}</description>
-        /// </item>                           
-        /// <item>                            
-        /// <description>Si recibe "a8" devolvera {0,0}</description>
-        /// </item>                           
-        /// <item>                            
-        /// <description>Si recibe "c8" devolvera {3,0}</description>
-        /// </item>
-        /// </list>
-        /// </example>
-        /// </summary>
-        /// <param name="coordenada"></param>
-        /// <returns></returns>
-        private int[] TraducirCasillaCoordenadas(string Casilla)
-        {
-            char[] auxiliarColumna = new char[]
-            {
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-            };
-
-            char columna = Casilla[0];
-            int fila = Casilla[1] - '0'; //Asi se castea un char a int
-            fila = 8 - fila;  //Cambio su valor al contrario del rango, si era 0 ahora es 8, 3->5...
-
-            for (int i = 0; i < auxiliarColumna.Length; i++)
-            {
-                if (columna == auxiliarColumna[i])
-                {
-                    return new int[]
-                    {
-                        i, fila
-                    };
-                }
-            }
-            return null;
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Recibe una coordenada del array y la traduce a Casilla de tablero
-        /// <example>
-        /// <list type="bullet">
-        /// <item>
-        /// <description>Si recibe {4,7} devolvera h4</description>
-        /// </item>
-        /// <item>
-        /// <description>Si recibe {6,7} devolvera h2</description>
-        /// </item>
-        /// <item>
-        /// <description>Si recibe {4,0} devolvera a4</description>
-        /// </item>
-        /// </list>
-        /// </example>
-        /// </summary>
-        /// <param name="coordenada"></param>
-        /// <returns></returns>
-        private string TraducirCoordenadaToCasilla(int[] coordenada)
-        {
-            char[] auxiliarColumna = new char[]
-            {
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-            };
-
-            char letra = auxiliarColumna[coordenada[0]];
-            int numero = 8 - coordenada[1];
-
-            return "" + letra + numero;
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Recibe una coordenada "X" y otra "Y" y las traduce a su casilla en notacion.
-        /// <example>
-        /// <list type="bullet">
-        /// <item>
-        /// <description>Si recibe (4,7) devolvera h4</description>
-        /// </item>
-        /// <item>
-        /// <description>Si recibe (6,7) devolvera h2</description>
-        /// </item>
-        /// <item>
-        /// <description>Si recibe (4,0) devolvera a4</description>
-        /// </item>
-        /// </list>
-        /// </example>
-        /// </summary>
-        /// <param name="fila">Coordenada "Y" (numero)</param>
-        /// <param name="letra">Coordenada "X" (letra)</param>
-        /// <returns></returns>
-        public static string TraducirCoordenadaToCasilla(int fila, int letra)
-        {
-            char[] auxiliarColumna = new char[]
-            {
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-            };
-
-            char columna = auxiliarColumna[letra];
-            int numero = 8 - fila;
-
-            return "" + columna + numero;
-        }
-
-        //Sonidos
-        /////////
-
-        //TESTEADO
-        /// <summary>
-        /// Prepara el sonido de mover pieza para cuando se quiera usar
-        /// </summary>
-        public void CargarSonidoMoverPieza()
-        {
-            System.IO.Stream recursoaudio = Properties.Resources.movimientoPieza;
-            ReproductorDeSonidoMoverPieza = new System.Media.SoundPlayer(recursoaudio);
-            ReproductorDeSonidoMoverPieza.Load();
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Reproduce el sonido de moverPieza
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ReproducirMoverPiezaSonido()
-        {
-            ReproductorDeSonidoMoverPieza.Play();
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Carga y reproduce el sonido de InicioPartida
-        /// </summary>
-        public void ReproducirSonidoInicioPartida()
-        {
-            System.IO.Stream recursoaudio = Properties.Resources.InicioPartida;
-            ReproductorDeSonidoInicioPartida = new System.Media.SoundPlayer(recursoaudio);
-            ReproductorDeSonidoInicioPartida.Load();
-            ReproductorDeSonidoInicioPartida.Play();
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Boton el cual reproduce el sonido de los botones de el programa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
-
-        }
-
         //Metodos para cambiar el fondo//
-        /////////////////////////////////
+
+        /// <summary>
+        /// Cambia el fondo de la casilla a un fondo de "base"
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
+        public void PintarBase(string Casilla)
+        {
+            SetFondo(Casilla, 0);
+        }
+
+        /// <summary>
+        /// Cambia el fondo de la casilla a un fondo de rastro
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
+        public void PintarRastro(string Casilla)
+        {
+            SetFondo(Casilla, 1);
+        }
+
+        /// <summary>
+        /// Cambia el fondo de la casilla a un fondo de camino y actualiza el booleano
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
+        public void PintarCamino(string Casilla)
+        {
+            EstaElCaminoDibujado = true;
+            SetFondo(Casilla, 2);
+        }
+
+        /// <summary>
+        /// Pinta el fondo de la casilla de color rojo
+        /// </summary>
+        /// <param name="Casilla"></param>
+        public void PintarEnroque(string Casilla)
+        {
+            SetFondo(Casilla, 3);
+        }
+
         /// <summary>
         /// Metodo que borra todo el camino y cambia el booleano
         /// </summary>
@@ -265,7 +153,6 @@ namespace AjedrezMichaelPicoProyecto
             EstaElCaminoDibujado = false;
         }
 
-        //TESTEADO
         /// <summary>
         /// Metodo que borra el rastro
         /// </summary>
@@ -285,321 +172,17 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de "base"
+        /// Metodo que borra el rastro y el camino
         /// </summary>
-        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void PintarBase(string Casilla)
+        public void RestaurarTablero()
         {
-            CambiarFondo(Casilla, 0);
+            BorrarCamino(); //Borro el camino
+            BorrarRastro();
         }
 
-        //TESTEADO
-        /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de rastro
-        /// </summary>
-        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void PintarRastro(string Casilla)
-        {
-            CambiarFondo(Casilla, 1);
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de camino y actualiza el booleano
-        /// </summary>
-        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void PintarCamino(string Casilla)
-        {
-            EstaElCaminoDibujado = true;
-            CambiarFondo(Casilla, 2);
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Cambia el fondo de la casilla a uno de los 3 fondos dependiendo de el modo:
-        /// <list type="bullet">
-        /// <item>
-        /// <description>Modo 0 = colorBase</description>
-        /// </item>
-        /// <item>
-        /// <description>Modo 1 = colorRastro</description>
-        /// </item>
-        /// <item>
-        /// <description>Modo 2 = colorCamino</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        /// <param name="modo">
-        /// </param>
-        public void CambiarFondo(string Casilla, int modo)
-        {
-            SolidColorBrush colorClaroBaseAux = (SolidColorBrush)Application.Current.Resources["colorClaroBase"];
-            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)Application.Current.Resources["colorClaroCamino"];
-            SolidColorBrush colorClaroRastroAux = (SolidColorBrush)Application.Current.Resources["colorClaroRastro"];
-            SolidColorBrush colorOscuroBaseAux = (SolidColorBrush)Application.Current.Resources["colorOscuroBase"];
-            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)Application.Current.Resources["colorOscuroCamino"];
-            SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)Application.Current.Resources["colorOscuroRastro"];
-
-
-            string Objetivo = "casilla_" + Casilla;
-            string fondo = GetColorFondo(Casilla);
-            Button Boton = FindName(Objetivo) as Button;
-
-
-            //Si la suma de las coordenadas es par, la casilla es de color claro, sino sera de color oscuro
-            int[] coordenadas = TraducirCasillaCoordenadas(Casilla);
-            bool esClara = (coordenadas[0] + coordenadas[1]) % 2 == 0;
-            if (!esClara)
-            {
-                switch (modo)
-                {
-                    case 0:
-                        Boton.Background = colorOscuroBaseAux;
-                        break;
-                    case 1:
-                        Boton.Background = colorOscuroRastroAux;
-                        break;
-                    case 2:
-                        Boton.Background = colorOscuroCaminoAux;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else //si la Casilla es de color claro
-            {
-                switch (modo)
-                {
-                    case 0:
-                        Boton.Background = colorClaroBaseAux;
-                        break;
-                    case 1:
-                        Boton.Background = colorClaroRastroAux;
-                        break;
-                    case 2:
-                        Boton.Background = colorClaroCaminoAux;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Cambia el caracter de la casilla a el caracter pasado por parametros
-        /// </summary>
-        /// <param name="Casilla">Casilla cuyo caracter se quiere cambiar</param>
-        /// <param name="NuevoContenido">Caracter nuevo</param>
-        public void ActualizarCasilla(string Casilla, string NuevoContenido)
-        {
-            string Objetivo = "casilla_" + Casilla;
-            Button Boton = FindName(Objetivo) as Button;
-            Boton.Content = NuevoContenido;
-        }
-
-        //METODOS GET://
-        ////////////////
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve el caracter de la casilla
-        /// </summary>
-        /// <param name="Casilla"></param>
-        /// <returns></returns>
-        public string GetContenidoCasilla(string Casilla)
-        {
-            string Objetivo = "casilla_" + Casilla;
-            Button Boton = FindName(Objetivo) as Button;
-            return Boton.Content.ToString();
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve el color de fondo de la casilla
-        /// </summary>
-        /// <param name="casilla">casilla de la cual se quiere obtener el color</param>
-        /// <returns></returns>
-        public string GetColorFondo(string casilla)
-        {
-
-            string Objetivo = "casilla_" + casilla;
-            Button Boton = FindName(Objetivo) as Button;
-            return Boton.Background.ToString();
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Metodo que devuelve un numero dependiendo de el tipo de ficha que tiene la Casilla
-        /// <list type="bullet">
-        /// <item>
-        /// <description>Develve 0 para peones</description>
-        /// </item>
-        /// <item>
-        /// <description>Develve 1 para Alfiles</description>
-        /// </item>
-        /// <item>
-        /// <description>Develve 2 para Caballos</description>
-        /// </item>
-        /// <item>
-        /// <description>Develve 3 para Torres</description>
-        /// </item>
-        /// <item>
-        /// <description>Develve 4 para Reina</description>
-        /// </item>
-        /// <item>
-        /// <description>Develve 5 para Rey</description>
-        /// </item>
-        /// <item>
-        /// <description>Devuelve -1 para todo lo demas</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="Casilla"></param>
-        /// <returns></returns>
-        private int GetTipoDeFicha(string Casilla)
-        {
-            CambiarDebugText(labelNotacion.Text + " " + GetContenidoCasilla(Casilla));
-            switch (GetContenidoCasilla(Casilla))
-            {
-                case "♙":
-                case "♟":
-                    return 0;
-                case "♗":
-                case "♝":
-                    return 1;
-                case "♘":
-                case "♞":
-                    return 2;
-                case "♖":
-                case "♜":
-                    return 3;
-                case "♕":
-                case "♛":
-                    return 4;
-                case "♔":
-                case "♚":
-                    return 5;
-                default:
-                    return -1;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que devuelve la coordenada fila de la casilla pasada por parametros
-        /// </summary>
-        /// <param name="casilla"></param>
-        /// <returns></returns>
-        public int GetFila(string casilla)
-        {
-            int[] coordenadas = TraducirCasillaCoordenadas(casilla);
-            return coordenadas[1];
-        }
-
-        //METODOS BOOL://
-        /////////////////
-
-        //TESTEADO
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve true si el caracter correspondiente a la casilla es una pieza blanca
-        /// </summary>
-        /// <param name="Casilla">Casilla la cual se comprobara</param>
-        /// <returns></returns>
-        private bool EsPiezaBlanca(string Casilla)
-        {
-            string blancas = "♔♕♖♗♘♙";
-
-            return blancas.Contains(GetContenidoCasilla(Casilla));
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve true si el caracter de la casilla corresponde con el caracter usado en las casillas vacias
-        /// </summary>
-        /// <param name="Casilla">Casilla la cual se comprobara</param>
-        /// <returns></returns>
-        private bool EstaLaCasillaVacia(string Casilla)
-        {
-            return EspacioVacio.Equals(GetContenidoCasilla(Casilla));
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve true si el fondo de la casilla pasada por parametros
-        /// es uno de los colores de camino
-        /// </summary>
-        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
-        /// <returns></returns>
-        private bool EsUnaCasillaDeCamino(string Casilla)
-        {
-            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
-            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino"];
-
-            if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve true si el fondo de la casilla pasada por parametros
-        /// es uno de los colores de camino
-        /// </summary>
-        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
-        /// <returns></returns>
-        private bool EsUnaCasillaDeRastro(string Casilla)
-        {
-            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro"];
-            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro"];
-
-            if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve true si la fila corresponde a la fila inicial de el color definido por el booleano
-        /// </summary>
-        /// <param name="esBlanco">Define el color de la pieza, true para piezas blancas y false para negras</param>
-        /// <param name="fila">Fila donde la pieza se encuentra</param>
-        /// <returns></returns>
-        private bool EstaPeonEnFilaInicial(bool esBlanco, int fila)
-        {
-            CambiarDebugText(labelNotacion.Text + " FILA: " + fila.ToString());
-            if (esBlanco && fila == 2)
-            {
-                return true;
-            }
-            else if (!esBlanco && fila == 7)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Devuelve true si la pieza en la casilla no es de el color al que le toca jugar
-        /// </summary>
-        /// <param name="Casilla"></param>
-        /// <returns></returns>
-        private bool EsUnaPiezaEnemiga(string Casilla)
-        {
-            return EsTurnoDeBlancas != EsPiezaBlanca(Casilla);
-        }
 
         //METODOS DE DIBUJAR//
-        //////////////////////
 
-        //TESTEADO
         /// <summary>
         /// Metodo que dibuja camino de ser posible
         /// </summary>
@@ -611,8 +194,6 @@ namespace AjedrezMichaelPicoProyecto
                 //Si la casilla es de el color que toca
                 if (EsPiezaBlanca(CasillaSeleccionada) == EsTurnoDeBlancas)
                 {
-
-                    CambiarDebugText(labelNotacion.Text + " " + CasillaSeleccionada);
                     switch (GetTipoDeFicha(CasillaSeleccionada))
                     {
                         case 0:
@@ -708,7 +289,26 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TESTEADO
+        /// <summary>
+        /// Metodo que verifica si un peon ha llegado a la ultima fila de el tablero y tiene que ser promocionado
+        /// </summary>
+        public void IntentarPromocion()
+        {
+            string casilla = CasillaSeleccionada;
+            //Si el ultimo movimiento realizado es un peon
+            if (GetTipoDeFicha(casilla) == 0)
+            {
+                //Miro si es un peon llegando al final 
+                if ((EsPiezaBlanca(casilla) && GetFila(casilla) == 0) || (!EsPiezaBlanca(casilla) && GetFila(casilla) == 7))
+                {
+                    Promocion ventanaPromocion = new Promocion(this, EsTurnoDeBlancas);
+                    this.IsEnabled = false;
+                    ventanaPromocion.Show();
+                }
+            }
+        }
+
+
         /// <summary>
         /// Dibuja camino en lineas diagonales
         /// </summary>
@@ -720,7 +320,7 @@ namespace AjedrezMichaelPicoProyecto
             DibujarLineaDiagonal(false, false, CasillaSeleccionada);
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Dibuja casillas de camino cada al final de una L desde el origen
         /// </summary>
@@ -799,7 +399,7 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Dibuja el camino de una torre
         /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
@@ -812,7 +412,7 @@ namespace AjedrezMichaelPicoProyecto
             DibujarLineaRecta(false, false, CasillaSeleccionada);
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Dibuja el camino de la reina el cual es el camino de un alfil y de una torre juntos
         /// </summary>
@@ -822,7 +422,7 @@ namespace AjedrezMichaelPicoProyecto
             DibujarCaminoTorre();
         }
 
-        //TODO
+        //TODO jaque, jaquemate y enroque
         /// <summary>
         /// Dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
@@ -844,12 +444,34 @@ namespace AjedrezMichaelPicoProyecto
                         {
                             PintarCamino(casillaObjetivo);
                         }
+                        //Si se puede enrocar y no hay ninguna pieza en medio pinto camino para enroque
+                        if (EsPiezaBlanca(CasillaSeleccionada)){
+                            if (SePuedeEnrocar(true, true))
+                            {
+                                PintarEnroque("g1");
+                            }
+                            else if (SePuedeEnrocar(true, false))
+                            {
+                                PintarEnroque("b1");
+                            }
+                        }
+                        else
+                        {
+                            if (SePuedeEnrocar(false, true))
+                            {
+                                PintarEnroque("g7");
+                            }
+                            else if (SePuedeEnrocar(false, false))
+                            {
+                                PintarEnroque("b7");
+                            }
+                        }
                     }
                 }
             }
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Dibuja una linea de camino recta partiendo de la casilla pasada por parametro
         /// </summary>
@@ -937,7 +559,7 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Dibuja una linea de camino diagonal partiendo de la casilla pasado por parametros 
         /// El sentido de esta linea depende de los booleanos
@@ -1017,7 +639,7 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Metodo que cambia el fondo de las dos ultmias casillas seleccionadas a rastro
         /// </summary>
@@ -1027,10 +649,24 @@ namespace AjedrezMichaelPicoProyecto
             PintarRastro(CasillaSeleccionadaAnterior);
         }
 
+
+        //METODOS ENCARGADOS DE ACTUALIZAR LA INFORMACION EN LA INTERFAZ O DE EL JUEGO//
+
+        /// <summary>
+        /// Cambia el caracter de la casilla a el caracter pasado por parametros
+        /// </summary>
+        /// <param name="Casilla">Casilla cuyo caracter se quiere cambiar</param>
+        /// <param name="NuevoContenido">Caracter nuevo</param>
+        public void ActualizarCaracterCasilla(string Casilla, string NuevoContenido)
+        {
+            string Objetivo = "casilla_" + Casilla;
+            Button Boton = FindName(Objetivo) as Button;
+            Boton.Content = NuevoContenido;
+        }
         /// <summary>
         /// Metodo que en caso de captura de una pieza actualiza la puntuacion de el jugador correspondiente
         /// </summary>
-        public void IntentarActualizarPuntuacion()
+        public void ActualizarLabelPuntuacion()
         {
             //Si la casilla no esta vacia significa que hubo una captura
             if (!EstaLaCasillaVacia(CasillaSeleccionada))
@@ -1061,50 +697,6 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Metodo que verifica si un peon ha llegado a la ultima fila de el tablero y tiene que ser promocionado
-        /// </summary>
-        public void IntentarPromocion()
-        {
-            string casilla = CasillaSeleccionada;
-            //Si el ultimo movimiento realizado es un peon
-            if(GetTipoDeFicha(casilla) == 0)
-            {
-                //Miro si es un peon llegando al final 
-                if((EsPiezaBlanca(casilla) && GetFila(casilla) == 0) || (!EsPiezaBlanca(casilla) && GetFila(casilla) == 7))
-                {
-                    Promocion ventanaPromocion = new Promocion(this, EsTurnoDeBlancas);
-                    this.IsEnabled = false;
-                    ventanaPromocion.Show();
-                }
-            }
-        }
-
-        //TESTEADO
-        /// <summary>
-        /// Mueve la pieza de casillaSeleccionadaAnterior a la casillaSeleccionada
-        /// </summary>
-        public void MoverPieza()
-        {
-            IntentarActualizarPuntuacion(); //Actualiza si es posible los label de puntuacion
-            //Notacion
-            RealizarMovimiento(); //Mueve la pieza
-            IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
-            CambiarTurno();//Cambio el turno
-            RestaurarTablero();
-            DibujarRastro();
-            ReproducirMoverPiezaSonido();
-        }
-
-        /// <summary>
-        /// Metodo que cambia el turno de el color que toca
-        /// </summary>
-        public void CambiarTurno()
-        {
-            EsTurnoDeBlancas = !EsTurnoDeBlancas;
-            ActualizarLabelTurno();
-        }
-
-        /// <summary>
         /// Metodo que actualiza el label turno en funcion de a quien le toca jugar
         /// </summary>
         public void ActualizarLabelTurno()
@@ -1113,24 +705,56 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Acutaliza las casillas para mover la pieza
+        /// Metodo que en caso de moverse por primera vez una torre o un rey elimina la posibilidad de enroque correspondiente
         /// </summary>
-        public void RealizarMovimiento()
+        public void ActualizarBooleanosEnroque()
         {
-            ActualizarCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
-            ActualizarCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+
+            //La primera vez que el rey se mueve elimina toda posibilidad de enrocar esa partida
+            if (CasillaSeleccionada.Equals("e1"))
+            {
+                SePuedeEnroqueBlancoDerecha = false;
+                SePuedeEnroqueBlancoIzquierda = false;
+            }
+            else if (CasillaSeleccionada.Equals("e7"))
+            {
+                SePuedeEnroqueNegroDerecha = false;
+                SePuedeEnroqueNegroIzquierda = false;
+            }
+
+            //La primera vez que una torre se mueve elimina toda posibilidad de enrocar en ese lado
+            if (CasillaSeleccionada.Equals("a1"))
+            {
+                SePuedeEnroqueBlancoIzquierda = false;
+            }
+            else if (CasillaSeleccionada.Equals("h1"))
+            {
+                SePuedeEnroqueBlancoDerecha = false;
+            }
+            else if (CasillaSeleccionada.Equals("a7"))
+            {
+                SePuedeEnroqueNegroIzquierda = false;
+            }
+            else if (CasillaSeleccionada.Equals("h7"))
+            {
+                SePuedeEnroqueNegroDerecha = false;
+            }
         }
+
+
+        //METODOS ENCARGADOS DE MOVER LAS PIEZAS//
 
         /// <summary>
-        /// Metodo que borra el rastro y el camino
+        /// Metodo llamado por cada boton de el tablero el cual gestiona el juego
         /// </summary>
-        public void RestaurarTablero()
+        /// <param name="Casilla"></param>
+        public void SeleccionCasilla(string Casilla)
         {
-            BorrarCamino(); //Borro el camino
-            BorrarRastro();
+            CasillaSeleccionadaAnterior = CasillaSeleccionada;
+            CasillaSeleccionada = Casilla;
+            IntentarMoverPieza();
         }
 
-        //TESTEADO
         /// <summary>
         /// Metodo el cual comprueba que la casilla seleccionada es una pieza que se puede mover
         /// y dibuja las posibles casillas a donde esa pieza se puede mover
@@ -1148,10 +772,13 @@ namespace AjedrezMichaelPicoProyecto
                 //Si la casilla seleccionada es una de camino
                 if (EsUnaCasillaDeCamino(CasillaSeleccionada))
                 {
-                    MoverPieza();
-
+                    IniciarMovimiento();
                 } 
-                else //Si la casilla seleccionada no es de camino borro el camino anterior e intento dibujar su camino 
+                else if (EsUnaCasillaDeEnroque(CasillaSeleccionada))
+                {
+                    IniciarEnroque();
+                }
+                else //Si la casilla seleccionada no es de camino ni enroque borro el camino anterior e intento dibujar su camino 
                 {
                     BorrarCamino();
                     IntentarDibujarCamino();
@@ -1159,41 +786,536 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TESTEADO
-        /// <summary>
-        /// Metodo que cambia el contenido de el label debug
-        /// </summary>
-        /// <param name="laString"></param>
-        public void CambiarDebugText(string laString)
+        public void IniciarEnroque()
         {
-            labelNotacion.Text = laString;
         }
 
-        //TESTEADO
         /// <summary>
-        /// Metodo llamado por cada boton de el tablero el cual gestiona el juego
+        /// Mueve la pieza de casillaSeleccionadaAnterior a la casillaSeleccionada
+        /// </summary>
+        public void IniciarMovimiento()
+        {
+            ActualizarLabelPuntuacion(); //Actualiza si es posible los label de puntuacion
+            //Notacion
+            RealizarMovimiento(); //Mueve la pieza
+            IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
+            CambiarTurno();//Cambio el turno
+            RestaurarTablero();
+            DibujarRastro();
+            ReproducirMoverPiezaSonido();
+        }
+
+        /// <summary>
+        /// Acutaliza las casillas para mover la pieza
+        /// </summary>
+        public void RealizarMovimiento()
+        {
+            ActualizarBooleanosEnroque();
+            ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+            ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+        }
+
+        /// <summary>
+        /// Metodo que cambia el turno de el color que toca
+        /// </summary>
+        public void CambiarTurno()
+        {
+            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            ActualizarLabelTurno();
+        }
+
+
+        //METODOS PARA TRADUCIR COORDENADAS//
+
+        /// <summary>
+        /// Recibe una array de coordenadas y la traduce a Casilla de tablero
+        /// <example>
+        /// <list type="bullet">
+        /// <item>
+        /// <description>Si recibe "a2" devolvera {0,6}</description>
+        /// </item>                           
+        /// <item>                            
+        /// <description>Si recibe "a8" devolvera {0,0}</description>
+        /// </item>                           
+        /// <item>                            
+        /// <description>Si recibe "c8" devolvera {3,0}</description>
+        /// </item>
+        /// </list>
+        /// </example>
+        /// </summary>
+        /// <param name="coordenada"></param>
+        /// <returns></returns>
+        private int[] TraducirCasillaCoordenadas(string Casilla)
+        {
+            char[] auxiliarColumna = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+            };
+
+            char columna = Casilla[0];
+            int fila = Casilla[1] - '0'; //Asi se castea un char a int
+            fila = 8 - fila;  //Cambio su valor al contrario del rango, si era 0 ahora es 8, 3->5...
+
+            for (int i = 0; i < auxiliarColumna.Length; i++)
+            {
+                if (columna == auxiliarColumna[i])
+                {
+                    return new int[]
+                    {
+                        i, fila
+                    };
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Recibe una coordenada del array y la traduce a Casilla de tablero
+        /// <example>
+        /// <list type="bullet">
+        /// <item>
+        /// <description>Si recibe {4,7} devolvera h4</description>
+        /// </item>
+        /// <item>
+        /// <description>Si recibe {6,7} devolvera h2</description>
+        /// </item>
+        /// <item>
+        /// <description>Si recibe {4,0} devolvera a4</description>
+        /// </item>
+        /// </list>
+        /// </example>
+        /// </summary>
+        /// <param name="coordenada"></param>
+        /// <returns></returns>
+        private string TraducirCoordenadaToCasilla(int[] coordenada)
+        {
+            char[] auxiliarColumna = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+            };
+
+            char letra = auxiliarColumna[coordenada[0]];
+            int numero = 8 - coordenada[1];
+
+            return "" + letra + numero;
+        }
+
+        /// <summary>
+        /// Recibe una coordenada "X" y otra "Y" y las traduce a su casilla en notacion.
+        /// <example>
+        /// <list type="bullet">
+        /// <item>
+        /// <description>Si recibe (4,7) devolvera h4</description>
+        /// </item>
+        /// <item>
+        /// <description>Si recibe (6,7) devolvera h2</description>
+        /// </item>
+        /// <item>
+        /// <description>Si recibe (4,0) devolvera a4</description>
+        /// </item>
+        /// </list>
+        /// </example>
+        /// </summary>
+        /// <param name="fila">Coordenada "Y" (numero)</param>
+        /// <param name="letra">Coordenada "X" (letra)</param>
+        /// <returns></returns>
+        public static string TraducirCoordenadaToCasilla(int fila, int letra)
+        {
+            char[] auxiliarColumna = new char[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+            };
+
+            char columna = auxiliarColumna[letra];
+            int numero = 8 - fila;
+
+            return "" + columna + numero;
+        }
+
+
+        //METODOS GET://
+
+        /// <summary>
+        /// Devuelve el caracter de la casilla
         /// </summary>
         /// <param name="Casilla"></param>
-        public void SeleccionCasilla(string Casilla)
+        /// <returns></returns>
+        public string GetContenidoCasilla(string Casilla)
         {
-            CasillaSeleccionadaAnterior = CasillaSeleccionada;
-            CasillaSeleccionada = Casilla;
-            //moverPieza();
-            CambiarDebugText(Casilla);
-            IntentarMoverPieza();
-
-
-
-
-            //Lineas para debuguear los metodoos de coordenada
-            //int[] coor = TraducirCasillaCoordenadas(Casilla);
-            //cambiarDebugText(Casilla + " coorx" + coor[1].ToString() + " coory" + coor[0] + " OTRO " + TraducirCoordenadaToCasilla(coor) + " OTROOO " + TraducirCoordenadaToCasilla(coor[1],coor[0])); 
+            string Objetivo = "casilla_" + Casilla;
+            Button Boton = FindName(Objetivo) as Button;
+            return Boton.Content.ToString();
         }
 
-        //Botones de la interfaz//
-        //////////////////////////
+        /// <summary>
+        /// Devuelve el color de fondo de la casilla
+        /// </summary>
+        /// <param name="casilla">casilla de la cual se quiere obtener el color</param>
+        /// <returns></returns>
+        public string GetColorFondo(string casilla)
+        {
+
+            string Objetivo = "casilla_" + casilla;
+            Button Boton = FindName(Objetivo) as Button;
+            return Boton.Background.ToString();
+        }
+
+        /// <summary>
+        /// Metodo que devuelve un numero dependiendo de el tipo de ficha que tiene la Casilla
+        /// <list type="bullet">
+        /// <item>
+        /// <description>Develve 0 para peones</description>
+        /// </item>
+        /// <item>
+        /// <description>Develve 1 para Alfiles</description>
+        /// </item>
+        /// <item>
+        /// <description>Develve 2 para Caballos</description>
+        /// </item>
+        /// <item>
+        /// <description>Develve 3 para Torres</description>
+        /// </item>
+        /// <item>
+        /// <description>Develve 4 para Reina</description>
+        /// </item>
+        /// <item>
+        /// <description>Develve 5 para Rey</description>
+        /// </item>
+        /// <item>
+        /// <description>Devuelve -1 para todo lo demas</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="Casilla"></param>
+        /// <returns></returns>
+        private int GetTipoDeFicha(string Casilla)
+        {
+            switch (GetContenidoCasilla(Casilla))
+            {
+                case "♙":
+                case "♟":
+                    return 0;
+                case "♗":
+                case "♝":
+                    return 1;
+                case "♘":
+                case "♞":
+                    return 2;
+                case "♖":
+                case "♜":
+                    return 3;
+                case "♕":
+                case "♛":
+                    return 4;
+                case "♔":
+                case "♚":
+                    return 5;
+                default:
+                    return -1;
+            }
+        }
+
+        /// <summary>
+        /// Metodo que devuelve la coordenada fila de la casilla pasada por parametros
+        /// </summary>
+        /// <param name="casilla"></param>
+        /// <returns></returns>
+        public int GetFila(string casilla)
+        {
+            int[] coordenadas = TraducirCasillaCoordenadas(casilla);
+            return coordenadas[1];
+        }
+
+
+        //METODOS SET://
+
+        /// <summary>
+        /// Cambia el fondo de la casilla a uno de los 3 fondos dependiendo de el modo:
+        /// <list type="bullet">
+        /// <item>
+        /// <description>Modo 0 = colorBase</description>
+        /// </item>
+        /// <item>
+        /// <description>Modo 1 = colorRastro</description>
+        /// </item>
+        /// <item>
+        /// <description>Modo 2 = colorCamino</description>
+        /// </item>
+        /// <item>
+        /// <description>Modo 3 = colorEnroque</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
+        /// <param name="modo">
+        /// </param>
+        public void SetFondo(string Casilla, int modo)
+        {
+            SolidColorBrush colorClaroBaseAux = (SolidColorBrush)Application.Current.Resources["colorClaroBase"];
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)Application.Current.Resources["colorClaroCamino"];
+            SolidColorBrush colorClaroRastroAux = (SolidColorBrush)Application.Current.Resources["colorClaroRastro"];
+            SolidColorBrush colorOscuroBaseAux = (SolidColorBrush)Application.Current.Resources["colorOscuroBase"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)Application.Current.Resources["colorOscuroCamino"];
+            SolidColorBrush colorOscuroRastroAux = (SolidColorBrush)Application.Current.Resources["colorOscuroRastro"];
+
+
+            string Objetivo = "casilla_" + Casilla;
+            string fondo = GetColorFondo(Casilla);
+            Button Boton = FindName(Objetivo) as Button;
+
+
+            //Si la suma de las coordenadas es par, la casilla es de color claro, sino sera de color oscuro
+            int[] coordenadas = TraducirCasillaCoordenadas(Casilla);
+            bool esClara = (coordenadas[0] + coordenadas[1]) % 2 == 0;
+            if (!esClara)
+            {
+                switch (modo)
+                {
+                    case 0:
+                        Boton.Background = colorOscuroBaseAux;
+                        break;
+                    case 1:
+                        Boton.Background = colorOscuroRastroAux;
+                        break;
+                    case 2:
+                        Boton.Background = colorOscuroCaminoAux;
+                        break;
+                    case 3:
+                        Boton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#D31A38");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else //si la Casilla es de color claro
+            {
+                switch (modo)
+                {
+                    case 0:
+                        Boton.Background = colorClaroBaseAux;
+                        break;
+                    case 1:
+                        Boton.Background = colorClaroRastroAux;
+                        break;
+                    case 2:
+                        Boton.Background = colorClaroCaminoAux;
+                        break;
+                    case 3:
+                        Boton.Background = Brushes.Red;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Establece los parametros de el juego en funcion de los pasados y actualiza el label turno y limpia la notacion
+        /// </summary>
+        /// <param name="turnBlanc"></param>
+        /// <param name="enroqueBlancDere"></param>
+        /// <param name="enroqueBlancIzq"></param>
+        /// <param name="enroqueNegrDere"></param>
+        /// <param name="enroqueNegrIzq"></param>
+        public void SetParametrosPartida(bool turnBlanc, bool enroqueBlancDere, bool enroqueBlancIzq, bool enroqueNegrDere, bool enroqueNegrIzq)
+        {
+            EsTurnoDeBlancas = turnBlanc;
+            SePuedeEnroqueBlancoDerecha = enroqueBlancDere;
+            SePuedeEnroqueBlancoIzquierda = enroqueBlancIzq;
+            SePuedeEnroqueNegroDerecha = enroqueNegrDere;
+            SePuedeEnroqueNegroIzquierda = enroqueNegrIzq;
+            ActualizarLabelTurno();
+            CambiarDebugText("... ");
+        }
+
+
+        //METODOS BOOL://
+
+        /// <summary>
+        /// Devuelve true si el caracter correspondiente a la casilla es una pieza blanca
+        /// </summary>
+        /// <param name="Casilla">Casilla la cual se comprobara</param>
+        /// <returns></returns>
+        private bool EsPiezaBlanca(string Casilla)
+        {
+            string blancas = "♔♕♖♗♘♙";
+
+            return blancas.Contains(GetContenidoCasilla(Casilla));
+        }
+
+
+        /// <summary>
+        /// Devuelve true si el caracter de la casilla corresponde con el caracter usado en las casillas vacias
+        /// </summary>
+        /// <param name="Casilla">Casilla la cual se comprobara</param>
+        /// <returns></returns>
+        private bool EstaLaCasillaVacia(string Casilla)
+        {
+            return EspacioVacio.Equals(GetContenidoCasilla(Casilla));
+        }
+
+
+        /// <summary>
+        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// es uno de los colores de camino
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
+        /// <returns></returns>
+        private bool EsUnaCasillaDeCamino(string Casilla)
+        {
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroCamino"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroCamino"];
+
+            if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// es uno de los colores de camino
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
+        /// <returns></returns>
+        private bool EsUnaCasillaDeRastro(string Casilla)
+        {
+            SolidColorBrush colorClaroCaminoAux = (SolidColorBrush)App.Current.Resources["colorClaroRastro"];
+            SolidColorBrush colorOscuroCaminoAux = (SolidColorBrush)App.Current.Resources["colorOscuroRastro"];
+
+            if (GetColorFondo(Casilla).Equals(colorClaroCaminoAux.ToString()) || GetColorFondo(Casilla).Equals(colorOscuroCaminoAux.ToString()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// es un color de enroque
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
+        /// <returns></returns>
+        private bool EsUnaCasillaDeEnroque(string Casilla)
+        {
+            if (GetColorFondo(Casilla).Equals("#FFFF0000"))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Devuelve true si la fila corresponde a la fila inicial de el color definido por el booleano
+        /// </summary>
+        /// <param name="esBlanco">Define el color de la pieza, true para piezas blancas y false para negras</param>
+        /// <param name="fila">Fila donde la pieza se encuentra</param>
+        /// <returns></returns>
+        private bool EstaPeonEnFilaInicial(bool esBlanco, int fila)
+        {
+            if (esBlanco && fila == 2)
+            {
+                return true;
+            }
+            else if (!esBlanco && fila == 7)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Metodo que verifica si hay un enroque disponible en funcion de los parametros pasados
+        /// </summary>
+        /// <param name="esBlanco"></param>
+        /// <param name="derecha"></param>
+        /// <returns></returns>
+        private bool SePuedeEnrocar(bool esBlanco, bool derecha)
+        {
+            if (esBlanco && derecha && SePuedeEnroqueBlancoDerecha && EstaLaCasillaVacia("f1") && EstaLaCasillaVacia("g1"))
+            {
+                return true;
+            }
+            else if (esBlanco && !derecha && SePuedeEnroqueBlancoIzquierda && EstaLaCasillaVacia("b1") && EstaLaCasillaVacia("c1") && EstaLaCasillaVacia("d1"))
+            {
+                return true;
+            }
+            else if (!esBlanco && derecha && SePuedeEnroqueNegroDerecha && EstaLaCasillaVacia("f7") && EstaLaCasillaVacia("g7"))
+            {
+                return true;
+            }
+            else if (!esBlanco && !derecha && SePuedeEnroqueNegroIzquierda && EstaLaCasillaVacia("b7") && EstaLaCasillaVacia("c7") && EstaLaCasillaVacia("d7"))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Devuelve true si la pieza en la casilla no es de el color al que le toca jugar
+        /// </summary>
+        /// <param name="Casilla"></param>
+        /// <returns></returns>
+        private bool EsUnaPiezaEnemiga(string Casilla)
+        {
+            return EsTurnoDeBlancas != EsPiezaBlanca(Casilla);
+        }
+
+
+        //Metodos encargados de los sonidos//
+
+        /// <summary>
+        /// Prepara el sonido de mover pieza para cuando se quiera usar
+        /// </summary>
+        public void CargarSonidoMoverPieza()
+        {
+            System.IO.Stream recursoaudio = Properties.Resources.movimientoPieza;
+            ReproductorDeSonidoMoverPieza = new System.Media.SoundPlayer(recursoaudio);
+            ReproductorDeSonidoMoverPieza.Load();
+        }
+
+
+        /// <summary>
+        /// Reproduce el sonido de moverPieza
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ReproducirMoverPiezaSonido()
+        {
+            ReproductorDeSonidoMoverPieza.Play();
+        }
+
+
+        /// <summary>
+        /// Carga y reproduce el sonido de InicioPartida
+        /// </summary>
+        public void ReproducirSonidoInicioPartida()
+        {
+            System.IO.Stream recursoaudio = Properties.Resources.InicioPartida;
+            ReproductorDeSonidoInicioPartida = new System.Media.SoundPlayer(recursoaudio);
+            ReproductorDeSonidoInicioPartida.Load();
+            ReproductorDeSonidoInicioPartida.Play();
+        }
 
         //TESTEADO
+        /// <summary>
+        /// Boton el cual reproduce el sonido de los botones de el programa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReproducirSonidoBotonAplicacion(object sender, MouseEventArgs e)
+        {
+            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
+
+        }
+
+
+        //BOTONES DE LA INTERFAZ//
+
         /// <summary>
         /// Boton que oculta la ventana de juego y muestra la ventana de el inicio
         /// </summary>
@@ -1203,7 +1325,7 @@ namespace AjedrezMichaelPicoProyecto
         {
             BorrarCamino();
             CasillaSeleccionada = "";
-            CasillaSeleccionadaAnterior= "";
+            CasillaSeleccionadaAnterior = "";
 
             Hide();
             ventanaInicio.MostrarBotonContinuar();
@@ -1211,7 +1333,7 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
-        //TESTEADO
+
         /// <summary>
         /// Boton el cual cierra el programa y todas sus ventanas
         /// </summary>
@@ -1222,7 +1344,42 @@ namespace AjedrezMichaelPicoProyecto
             ventanaInicio.BotonSalir_Click(sender, e);
         }
 
-        //TESTEADO
+
+        /// <summary>
+        /// Boton usado en el debug a la hora de testear funciones de el programa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BotonBorrarCamino(object sender, RoutedEventArgs e)
+        {
+            BorrarCamino();
+        }
+
+
+        //METODOS DE DEBUG//
+
+        /// <summary>
+        /// Cambia la visibilida de el menu oculto a visible
+        /// </summary>
+        public void MostrarMenuDebug()
+        {
+            if (ventanaInicio.modoDebug)
+            {
+                GridDebug.Visibility = Visibility.Visible;
+            }
+        }
+
+
+        /// <summary>
+        /// Metodo que cambia el contenido de el label debug
+        /// </summary>
+        /// <param name="laString"></param>
+        public void CambiarDebugText(string laString)
+        {
+            labelNotacion.Text = laString;
+        }
+
+
         /// <summary>
         /// Boton que carga el tablero recibido
         /// </summary>
@@ -1289,60 +1446,42 @@ namespace AjedrezMichaelPicoProyecto
             if (RadioDebug1.IsChecked == true)
             {
                 RellenarTablero(DevolverTableroNuevo());
-            } 
-            else  if (RadioDebug2.IsChecked == true)
+                SetParametrosPartida(true, true, true, true, true);
+                
+            }
+            else if (RadioDebug2.IsChecked == true)
             {
                 RellenarTablero(tableroMateEnUno);
-            } 
+                SetParametrosPartida(true, false, false, false, false);
+            }
             else if (RadioDebug3.IsChecked == true)
             {
                 PintarRastro("a3");
                 PintarRastro("a2");
-                EsTurnoDeBlancas = false;
-                ActualizarLabelTurno();
+                SetParametrosPartida(false, false, false, false, false);
                 RellenarTablero(tableroPromocionMateEnUno);
-            } 
+            }
             else if (RadioDebug4.IsChecked == true)
             {
+                SePuedeEnroqueBlancoIzquierda = true;
                 PintarRastro("g1");
                 PintarRastro("g2");
-                EsTurnoDeBlancas = true;
+                SetParametrosPartida(true, false, true, false, false);
                 ActualizarLabelTurno();
                 RellenarTablero(tableroEnroqueParaMate);
-            } 
+            }
             else if (RadioDebug5.IsChecked == true)
             {
                 PintarRastro("f7");
                 PintarRastro("f5");
-                EsTurnoDeBlancas = true;
-                ActualizarLabelTurno();
+                SetParametrosPartida(true, false, false, false, false);
                 RellenarTablero(tableroEnPassantMate);
             }
         }
 
-        //TESTEADO
-        /// <summary>
-        /// Boton usado en el debug a la hora de testear funciones de el programa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BotonBorrarCamino(object sender, RoutedEventArgs e)
-        {
-            BorrarCamino();
-        }
 
-        /// <summary>
-        /// Cambia la visibilida de el menu oculto a visible
-        /// </summary>
-        public void MostrarMenuDebug()
-        {
-            if (ventanaInicio.modoDebug)
-            {
-                GridDebug.Visibility = Visibility.Visible;
-            }
-        }
+        //BOTONES DE EL TABLERO//
 
-        //Botones de el tablero
         private void A1(object sender, RoutedEventArgs e)
         {
             SeleccionCasilla("a1");

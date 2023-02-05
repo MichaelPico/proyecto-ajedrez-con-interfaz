@@ -62,7 +62,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="caracter"></param>
         public void AccionBoton(string caracter)
         {
-            ventanaJuego.ActualizarCasilla(ventanaJuego.CasillaSeleccionada, caracter);
+            ventanaJuego.ActualizarCaracterCasilla(ventanaJuego.CasillaSeleccionada, caracter);
             CerrarVentana();
         }
 

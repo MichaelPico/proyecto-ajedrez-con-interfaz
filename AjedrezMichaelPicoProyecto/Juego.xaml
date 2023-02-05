@@ -140,8 +140,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="BotonVolverInicio"  Style="{StaticResource BotonDeMenu}" Margin="20"  Content="Volver Inicio" MouseEnter="ReproducirSonido_MouseEnter" Click="BotonvolverInicio_Click" Grid.Row="0"></Button>
-                <Button x:Name="BotonSalir"  Style="{StaticResource BotonDeMenu}" Margin="20" Content="Salir" MouseEnter="ReproducirSonido_MouseEnter" Click="BotonrSalir_Click" Grid.Row="1"></Button>
+                <Button x:Name="BotonVolverInicio"  Style="{StaticResource BotonDeMenu}" Margin="20"  Content="Volver Inicio" MouseEnter="ReproducirSonidoBotonAplicacion" Click="BotonvolverInicio_Click" Grid.Row="0"></Button>
+                <Button x:Name="BotonSalir"  Style="{StaticResource BotonDeMenu}" Margin="20" Content="Salir" MouseEnter="ReproducirSonidoBotonAplicacion" Click="BotonrSalir_Click" Grid.Row="1"></Button>
 
 
             </Grid>

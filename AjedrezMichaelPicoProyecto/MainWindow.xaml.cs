@@ -36,7 +36,7 @@ namespace AjedrezMichaelPicoProyecto
             IndexPaletaDeColor = 0;
         }
 
-        //Testeado
+        
         public void MostrarBotonContinuar()
         {
             BotonContinuarJuego.Visibility = Visibility.Visible;
