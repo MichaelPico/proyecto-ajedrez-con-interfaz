@@ -22,12 +22,14 @@ namespace AjedrezMichaelPicoProyecto
         bool EstaElCaminoDibujado = false;
 
         //Booleanos que definen la partida
+        bool PartidaAcabada = false;
         bool EsTurnoDeBlancas = true;
         bool SePuedeEnroqueBlancoDerecha = true;
         bool SePuedeEnroqueBlancoIzquierda = true;
         bool SePuedeEnroqueNegroDerecha = true;
         bool SePuedeEnroqueNegroIzquierda = true;
-
+        int ContadorNotacion = 0;
+        string casillaEnPassant;
 
         //Componentes de el programa
         readonly MainWindow ventanaInicio;
@@ -50,7 +52,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Inicia la variable tablero con una paratida nueva
+        /// Metodo que devuelve un tablero de partida nueva
         /// </summary>
         /// <returns>Un char[,] que representa el tablero de una partida recien comenzada</returns>
         public static char[,] DevolverTableroNuevo()
@@ -97,7 +99,7 @@ namespace AjedrezMichaelPicoProyecto
         //Metodos para cambiar el fondo//
 
         /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de "base"
+        /// Metodo que cambia el fondo de la casilla a un fondo de "base"
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
         public void PintarBase(string Casilla)
@@ -106,7 +108,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de rastro
+        /// Metodo que cambia el fondo de la casilla a un fondo de rastro
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
         public void PintarRastro(string Casilla)
@@ -115,22 +117,36 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Cambia el fondo de la casilla a un fondo de camino y actualiza el booleano
+        /// Metodo que cambia el fondo de la casilla a un fondo de camino y actualiza el booleano
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
-        public void PintarCamino(string Casilla)
+        public void PintarCamino(string casilla)
         {
-            EstaElCaminoDibujado = true;
-            SetFondo(Casilla, 2);
+            if (!EsUnaCasillaDeRastro(casilla))
+            { 
+                EstaElCaminoDibujado = true;
+                SetFondo(casilla, 2);
+            }
         }
 
         /// <summary>
-        /// Pinta el fondo de la casilla de color rojo
+        /// Metodo que cambia el fondo de la casilla a un color especial que indica enroque
         /// </summary>
         /// <param name="Casilla"></param>
         public void PintarEnroque(string Casilla)
         {
+            EstaElCaminoDibujado = true;
             SetFondo(Casilla, 3);
+        }
+
+        /// <summary>
+        /// Metodo que cambia el fondo de la casilla a un color especial que indica En Passant
+        /// </summary>
+        /// <param name="Casilla"></param>
+        public void PintarEnPassant(string Casilla)
+        {
+            EstaElCaminoDibujado = true;
+            SetFondo(Casilla, 4);
         }
 
         /// <summary>
@@ -143,7 +159,7 @@ namespace AjedrezMichaelPicoProyecto
                 for (int j = 0; j < 8; j++)
                 {
                     string casilla = TraducirCoordenadaToCasilla(i, j);
-                    if (EsUnaCasillaDeCamino(casilla) || EsUnaCasillaDeEnroque(casilla))
+                    if (EsUnaCasillaDeCamino(casilla) || EsUnaCasillaDeEnroque(casilla) || EsUnaCasillaDeEnPassant(casilla))
                     {
                         PintarBase(casilla);
                     }
@@ -223,7 +239,7 @@ namespace AjedrezMichaelPicoProyecto
 
         //TODO: ONPASANT
         /// <summary>
-        /// Dibuja el camino de la pieza peon
+        /// Metodo que dibuja el camino de la pieza peon
         /// </summary>
         public void DibujarCaminoPeon()
         {
@@ -258,22 +274,28 @@ namespace AjedrezMichaelPicoProyecto
             //Ahora que la coordenada y esta en la posicion donde quiero dibujar, voy a intentar dibujar
             //camino en los 3 lados posibles 
 
-            //Aqui se dan tres situaciones:
+            //Aqui se dan cuatro situaciones:
             //Situacion 1: El peon se podra mover hacia un lado solo cuando haya una pieza de color distinto
             //Situacion 2: El peon se podra mover hacia adelante siempre que el espacio este vacio
             //Situacion 3: El peon podra avanzar dos casillas hacia adelante siempre que se encuentre en la primera fila
+            //Situacion 4: El peon podra capturar enpassant
             for (int i = coordenadasDibujar[0] - 1; i <= coordenadasDibujar[0] + 1; i++)
             {
                 if (0 <= i && i <= 7)
                 {
                     string casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i); //Guardo la casilla en un string
 
+                    //Si la casilla esta vacia y es un posible enpassant pinto enPassant
+                    if(EstaLaCasillaVacia(casillaObjetivo) && casillaObjetivo.Equals(casillaEnPassant))
+                    {
+                        PintarEnPassant(casillaEnPassant);
+                    }
                     //Si la casilla objetivo tiene una pieza de distinto color que la que intento probar, no esta vacia, y no es la casilla de enfrente de el peon dibujare camino
-                    if (EsUnaPiezaEnemiga(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo) && i != coordenadasDibujar[0])
+                    else if (EsUnaPiezaEnemiga(casillaObjetivo) && !EstaLaCasillaVacia(casillaObjetivo) && i != coordenadasDibujar[0])
                     {
                         PintarCamino(casillaObjetivo);
-                        //Si la casilla esta vacia y es justo la casilla de enfrente dibujo el camino en la posicion de adelante
                     }
+                    //Si la casilla esta vacia y es justo la casilla de enfrente dibujo el camino en la posicion de adelante
                     else if (EstaLaCasillaVacia(casillaObjetivo) && i == coordenadasDibujar[0])
                     {
                         PintarCamino(casillaObjetivo);
@@ -310,7 +332,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Dibuja camino en lineas diagonales
+        /// Metodo que dibuja camino en lineas diagonales
         /// </summary>
         public void DibujarCaminoAlfil()
         {
@@ -322,7 +344,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Dibuja casillas de camino cada al final de una L desde el origen
+        /// Metodo que dibuja casillas de camino cada al final de una L desde el origen
         /// </summary>
         public void DibujarCaminoCaballo()
         {
@@ -401,7 +423,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Dibuja el camino de una torre
+        /// Metodo que dibuja el camino de una torre
         /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
         /// </summary>
         public void DibujarCaminoTorre()
@@ -414,7 +436,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Dibuja el camino de la reina el cual es el camino de un alfil y de una torre juntos
+        /// Metodo que dibuja el camino de la reina el cual es el camino de un alfil y de una torre juntos
         /// </summary>
         public void DibujarCaminoReina()
         {
@@ -424,7 +446,7 @@ namespace AjedrezMichaelPicoProyecto
 
         //TODO jaque, jaquemate y enroque
         /// <summary>
-        /// Dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
+        /// Metodo que dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
         public void DibujarCaminoRey()
         {
@@ -473,7 +495,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Dibuja una linea de camino recta partiendo de la casilla pasada por parametro
+        /// Metodo que dibuja una linea de camino recta partiendo de la casilla pasada por parametro
         /// </summary>
         /// <param name="SeAvanzaEnPositivo">Define el sentido de la linea recta</param>
         /// <param name="DibujoHorizontal">Define la horientacion de la linea recta</param>
@@ -561,7 +583,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Dibuja una linea de camino diagonal partiendo de la casilla pasado por parametros 
+        /// Metodo que dibuja una linea de camino diagonal partiendo de la casilla pasado por parametros 
         /// El sentido de esta linea depende de los booleanos
         /// </summary>
         /// <param name="seAvanzaHaciaArriba"></param>
@@ -653,7 +675,7 @@ namespace AjedrezMichaelPicoProyecto
         //METODOS ENCARGADOS DE ACTUALIZAR LA INFORMACION EN LA INTERFAZ O DE EL JUEGO//
 
         /// <summary>
-        /// Cambia el caracter de la casilla a el caracter pasado por parametros
+        /// Metodo que cambia el caracter de la casilla a el caracter pasado por parametros
         /// </summary>
         /// <param name="Casilla">Casilla cuyo caracter se quiere cambiar</param>
         /// <param name="NuevoContenido">Caracter nuevo</param>
@@ -740,6 +762,33 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+        /// <summary>
+        /// Metodo que añade el string recivido a la notacion
+        /// </summary>
+        public void ActualizarNotacion(string nuevaNotacion)
+        {
+            labelNotacion.Text = labelNotacion.Text + nuevaNotacion;
+        }
+
+        /// <summary>
+        /// Metodo que acutaliza el string de casilla en passant
+        /// </summary>
+        /// <param name="casilla"></param>
+        public void ActualizarEnPassantPosible(string casilla)
+        {
+            int[] coordenadas = TraducirCasillaCoordenadas(casilla);
+            //Si el peon movido es blanco la casilla de detras sera un posible en passant
+            if (EsTurnoDeBlancas)
+            {
+                coordenadas[1] -= 1;
+            } else
+            {
+
+                coordenadas[1] += 1;
+            }
+            casillaEnPassant = TraducirCoordenadaToCasilla(coordenadas);
+        }
+
 
         //METODOS ENCARGADOS DE MOVER LAS PIEZAS//
 
@@ -749,7 +798,6 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="Casilla"></param>
         public void SeleccionCasilla(string Casilla)
         {
-            CambiarDebugText(GetColorFondo(Casilla));
             CasillaSeleccionadaAnterior = CasillaSeleccionada;
             CasillaSeleccionada = Casilla;
             IntentarMoverPieza();
@@ -777,6 +825,10 @@ namespace AjedrezMichaelPicoProyecto
                 else if (EsUnaCasillaDeEnroque(CasillaSeleccionada))
                 {
                     IniciarEnroque();
+                } 
+                else if (EsUnaCasillaDeEnPassant(CasillaSeleccionada))
+                {
+                    IniciarEnPassant();
                 }
                 else //Si la casilla seleccionada no es de camino ni enroque borro el camino anterior e intento dibujar su camino 
                 {
@@ -787,7 +839,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Realiza el enroque haciendo que la torre salte el rey
+        /// Metodo que realiza el enroque haciendo que la torre salte el rey
         /// </summary>
         public void IniciarEnroque()
         {
@@ -822,34 +874,125 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Mueve la pieza de casillaSeleccionadaAnterior a la casillaSeleccionada
+        /// Metodo que realiza el enpassant
+        /// </summary>
+        public void IniciarEnPassant()
+        {
+            int[] coordenadas = TraducirCasillaCoordenadas(casillaEnPassant);
+
+            //Muevo la pieza a ser capturada una casilla hacia atras para asi aprovecharme de el resto de metodos creados 
+            if (EsTurnoDeBlancas)
+            {
+                coordenadas[1] += 1;
+                ActualizarCaracterCasilla(casillaEnPassant ,GetContenidoCasilla(TraducirCoordenadaToCasilla(coordenadas))); 
+                ActualizarCaracterCasilla(TraducirCoordenadaToCasilla(coordenadas), EspacioVacio);
+            }
+            else
+            {
+                coordenadas[1] -= 1;
+                ActualizarCaracterCasilla(casillaEnPassant, GetContenidoCasilla(TraducirCoordenadaToCasilla(coordenadas)));
+                ActualizarCaracterCasilla(TraducirCoordenadaToCasilla(coordenadas), EspacioVacio);
+            }
+
+            IniciarMovimiento();
+        }
+
+        /// <summary>
+        /// Metodo que ueve la pieza de casillaSeleccionadaAnterior a la casillaSeleccionada y gestiona todo lo que mover una pieza conlleva
         /// </summary>
         public void IniciarMovimiento()
         {
             ActualizarLabelPuntuacion(); //Actualiza si es posible los label de puntuacion
-            //Notacion
+            CalcularNotacion(); //Calcula la notacion y la actualiza
             RealizarMovimiento(); //Mueve la pieza
             IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
             CambiarTurno();//Cambio el turno
-            RestaurarTablero();
-            DibujarRastro();
-            ReproducirMoverPiezaSonido();
+            RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
+            DibujarRastro(); //Metod que dibuja el nuevo rastro
+            ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
         }
 
         /// <summary>
-        /// Acutaliza las casillas para mover la pieza
+        /// Metodo que traduce el movimiento realizado a notacion y actuazlia el label de la notacion
+        /// </summary>
+        public void CalcularNotacion()
+        {
+            string notacion = "";
+
+            //Si es el turno de blancas coloco el numero de jugada
+            if (EsTurnoDeBlancas)
+            {
+                ContadorNotacion++;
+                notacion += ContadorNotacion + ". ";
+            }
+
+            //Si hay enroque la notacion es especial
+            if (EsUnaCasillaDeEnroque(CasillaSeleccionada))
+            {
+                //Si la notacion es a la izquierda
+                if (CasillaSeleccionada.Equals("c8") || CasillaSeleccionada.Equals("c1"))
+                {
+                    notacion += GetContenidoCasilla(CasillaSeleccionadaAnterior) + "0-0-0 ";
+                } else
+                {
+
+                    notacion += GetContenidoCasilla(CasillaSeleccionadaAnterior) + "0-0 ";
+                }
+            } //En el caso de una captura
+            else if (!EstaLaCasillaVacia(CasillaSeleccionada))
+            {
+                notacion += GetContenidoCasilla(CasillaSeleccionadaAnterior) + "x" + CasillaSeleccionada + " ";
+            } //En caso de movimietno 
+            else
+            {
+                notacion += GetContenidoCasilla(CasillaSeleccionadaAnterior) + CasillaSeleccionada + " ";
+
+            }
+
+            if (!EsTurnoDeBlancas)
+            {
+                notacion += "  ";
+            }
+
+            ActualizarNotacion(notacion);
+        }
+
+        /// <summary>
+        /// Metodo quecutaliza las casillas para mover la pieza
         /// </summary>
         public void RealizarMovimiento()
         {
             ActualizarBooleanosEnroque();
+            CalcularCasillaEnPassant();
             ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
             ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
         }
 
         /// <summary>
+        /// Metodo que verifica que un peon dio un paso doble y actualiza la informacion para que el juego sepa que se puede dar un enpassant
+        /// </summary>
+        public void CalcularCasillaEnPassant()
+        {
+            //Si se mueve un peon que estaba en su casilla inicial dos casillas hacia adelante ese peon podra ser comido por enpassant
+            if (GetContenidoCasilla(CasillaSeleccionadaAnterior).Equals("♙") && GetFila(CasillaSeleccionadaAnterior) == 6 && (GetFila(CasillaSeleccionadaAnterior) - 2) == GetFila(CasillaSeleccionada))
+            {
+                ActualizarEnPassantPosible(CasillaSeleccionadaAnterior);
+            }
+            else if(GetContenidoCasilla(CasillaSeleccionadaAnterior).Equals("♟") && GetFila(CasillaSeleccionadaAnterior) == 1 && (GetFila(CasillaSeleccionadaAnterior) + 2) == GetFila(CasillaSeleccionada))
+            {
+                ActualizarEnPassantPosible(CasillaSeleccionadaAnterior);
+            } 
+            else
+            {
+                //Limpia la posible casilla anterior
+                casillaEnPassant = "";
+            }
+        }
+
+        /// <summary>
         /// Metodo que cambia el turno de el color que toca
         /// </summary>
-        public void CambiarTurno()
+        public void CambiarTurno() 
         {
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
             ActualizarLabelTurno();
@@ -1075,6 +1218,9 @@ namespace AjedrezMichaelPicoProyecto
         /// <item>
         /// <description>Modo 3 = colorEnroque</description>
         /// </item>
+        /// <item>
+        /// <description>Modo 4 = colorEnPassant</description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
@@ -1113,6 +1259,9 @@ namespace AjedrezMichaelPicoProyecto
                     case 3:
                         Boton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#D31A38");
                         break;
+                    case 4:
+                        Boton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF7E6B");
+                        break;
                     default:
                         break;
                 }
@@ -1132,6 +1281,9 @@ namespace AjedrezMichaelPicoProyecto
                         break;
                     case 3:
                         Boton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#D31A38");
+                        break;
+                    case 4:
+                        Boton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF7E6B");
                         break;
                     default:
                         break;
@@ -1203,7 +1355,6 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
-
         /// <summary>
         /// Devuelve true si el fondo de la casilla pasada por parametros
         /// es uno de los colores de camino
@@ -1237,6 +1388,14 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
+        private bool EsUnaCasillaDeEnPassant(string casilla)
+        {
+            if (GetColorFondo(casilla).Equals("#FFFF7E6B"))
+            {
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Devuelve true si la fila corresponde a la fila inicial de el color definido por el booleano
@@ -1504,6 +1663,7 @@ namespace AjedrezMichaelPicoProyecto
             {
                 PintarRastro("f7");
                 PintarRastro("f5");
+                casillaEnPassant = "f6";
                 SetParametrosPartida(true, false, false, false, false);
                 RellenarTablero(tableroEnPassantMate);
             }

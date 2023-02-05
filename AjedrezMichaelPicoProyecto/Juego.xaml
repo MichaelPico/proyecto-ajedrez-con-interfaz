@@ -129,7 +129,7 @@
                         <TextBlock TextDecorations="Underline" FontSize="20" Foreground="#d7d8d8">Movimientos:</TextBlock>
                     </Label>
                     <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalScrollBarVisibility="Auto" >
-                        <TextBlock x:Name="labelNotacion" FontSize="15" Foreground="#d7d8d8" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True">EjemploEjemplooEjemploEjemploEjemploEjemploEloEjemplo</TextBlock>
+                        <TextBlock x:Name="labelNotacion" FontSize="12" Foreground="#d7d8d8" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True"></TextBlock>
                     </ScrollViewer>
                 </Grid>
 
