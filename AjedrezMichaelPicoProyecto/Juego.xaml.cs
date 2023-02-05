@@ -1002,7 +1002,7 @@ namespace AjedrezMichaelPicoProyecto
         //METODOS PARA TRADUCIR COORDENADAS//
 
         /// <summary>
-        /// Recibe una array de coordenadas y la traduce a Casilla de tablero
+        /// Metodo que recibe una array de coordenadas y la traduce a Casilla de tablero
         /// <example>
         /// <list type="bullet">
         /// <item>
@@ -1044,7 +1044,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Recibe una coordenada del array y la traduce a Casilla de tablero
+        /// Metodo que recibe una coordenada del array y la traduce a Casilla de tablero
         /// <example>
         /// <list type="bullet">
         /// <item>
@@ -1075,7 +1075,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Recibe una coordenada "X" y otra "Y" y las traduce a su casilla en notacion.
+        /// Metodo que recibe una coordenada "X" y otra "Y" y las traduce a su casilla en notacion.
         /// <example>
         /// <list type="bullet">
         /// <item>
@@ -1110,7 +1110,7 @@ namespace AjedrezMichaelPicoProyecto
         //METODOS GET://
 
         /// <summary>
-        /// Devuelve el caracter de la casilla
+        /// Metodo que devuelve el caracter de la casilla
         /// </summary>
         /// <param name="Casilla"></param>
         /// <returns></returns>
@@ -1122,7 +1122,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Devuelve el color de fondo de la casilla
+        /// Metodo que devuelve el color de fondo de la casilla
         /// </summary>
         /// <param name="casilla">casilla de la cual se quiere obtener el color</param>
         /// <returns></returns>
@@ -1204,7 +1204,7 @@ namespace AjedrezMichaelPicoProyecto
         //METODOS SET://
 
         /// <summary>
-        /// Cambia el fondo de la casilla a uno de los 3 fondos dependiendo de el modo:
+        /// Metodo que cambia el fondo de la casilla a uno de los 3 fondos dependiendo de el modo:
         /// <list type="bullet">
         /// <item>
         /// <description>Modo 0 = colorBase</description>
@@ -1292,7 +1292,7 @@ namespace AjedrezMichaelPicoProyecto
         }
         
         /// <summary>
-        /// Establece los parametros de el juego en funcion de los pasados y actualiza el label turno y limpia la notacion
+        /// Mejtodo que establece los parametros de el juego en funcion de los pasados y actualiza el label turno y limpia la notacion
         /// </summary>
         /// <param name="turnBlanc"></param>
         /// <param name="enroqueBlancDere"></param>
@@ -1314,7 +1314,7 @@ namespace AjedrezMichaelPicoProyecto
         //METODOS BOOL://
 
         /// <summary>
-        /// Devuelve true si el caracter correspondiente a la casilla es una pieza blanca
+        /// Metodo que devuelve true si el caracter correspondiente a la casilla es una pieza blanca
         /// </summary>
         /// <param name="Casilla">Casilla la cual se comprobara</param>
         /// <returns></returns>
@@ -1327,7 +1327,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Devuelve true si el caracter de la casilla corresponde con el caracter usado en las casillas vacias
+        /// Metodo que devuelve true si el caracter de la casilla corresponde con el caracter usado en las casillas vacias
         /// </summary>
         /// <param name="Casilla">Casilla la cual se comprobara</param>
         /// <returns></returns>
@@ -1338,7 +1338,7 @@ namespace AjedrezMichaelPicoProyecto
 
 
         /// <summary>
-        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// Metodo que devuelve true si el fondo de la casilla pasada por parametros
         /// es uno de los colores de camino
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
@@ -1356,7 +1356,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// Metodo que devuelve true si el fondo de la casilla pasada por parametros
         /// es uno de los colores de camino
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
@@ -1374,7 +1374,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Devuelve true si el fondo de la casilla pasada por parametros
+        /// Metodo que devuelve true si el fondo de la casilla pasada por parametros
         /// es un color de enroque
         /// </summary>
         /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
@@ -1388,6 +1388,12 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
+        /// <summary>
+        /// Metodo que devuelve true si el fondo de la casilla pasada por parametros
+        /// es un color de EnPassant
+        /// </summary>
+        /// <param name="Casilla">Casilla a la cual se le mirara el fondo</param>
+        /// <returns></returns>
         private bool EsUnaCasillaDeEnPassant(string casilla)
         {
             if (GetColorFondo(casilla).Equals("#FFFF7E6B"))
@@ -1398,7 +1404,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Devuelve true si la fila corresponde a la fila inicial de el color definido por el booleano
+        /// Metodo que devuelve true si la fila corresponde a la fila inicial de el color definido por el booleano
         /// </summary>
         /// <param name="esBlanco">Define el color de la pieza, true para piezas blancas y false para negras</param>
         /// <param name="fila">Fila donde la pieza se encuentra</param>
@@ -1443,9 +1449,8 @@ namespace AjedrezMichaelPicoProyecto
             return false;
         }
 
-
         /// <summary>
-        /// Devuelve true si la pieza en la casilla no es de el color al que le toca jugar
+        /// Metodo que devuelve true si la pieza en la casilla no es de el color al que le toca jugar
         /// </summary>
         /// <param name="Casilla"></param>
         /// <returns></returns>
@@ -1458,7 +1463,7 @@ namespace AjedrezMichaelPicoProyecto
         //Metodos encargados de los sonidos//
 
         /// <summary>
-        /// Prepara el sonido de mover pieza para cuando se quiera usar
+        /// Metodo que prepara el sonido de mover pieza para cuando se quiera usar
         /// </summary>
         public void CargarSonidoMoverPieza()
         {
@@ -1466,10 +1471,9 @@ namespace AjedrezMichaelPicoProyecto
             ReproductorDeSonidoMoverPieza = new System.Media.SoundPlayer(recursoaudio);
             ReproductorDeSonidoMoverPieza.Load();
         }
-
-
+         
         /// <summary>
-        /// Reproduce el sonido de moverPieza
+        /// Metodo que reproduce el sonido de moverPieza
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1477,10 +1481,9 @@ namespace AjedrezMichaelPicoProyecto
         {
             ReproductorDeSonidoMoverPieza.Play();
         }
-
-
+         
         /// <summary>
-        /// Carga y reproduce el sonido de InicioPartida
+        /// Metodo que carga y reproduce el sonido de InicioPartida
         /// </summary>
         public void ReproducirSonidoInicioPartida()
         {
@@ -1489,8 +1492,7 @@ namespace AjedrezMichaelPicoProyecto
             ReproductorDeSonidoInicioPartida.Load();
             ReproductorDeSonidoInicioPartida.Play();
         }
-
-        //TESTEADO
+         
         /// <summary>
         /// Boton el cual reproduce el sonido de los botones de el programa
         /// </summary>
@@ -1548,7 +1550,7 @@ namespace AjedrezMichaelPicoProyecto
         //METODOS DE DEBUG//
 
         /// <summary>
-        /// Cambia la visibilida de el menu oculto a visible
+        /// Metodo que cambia la visibilida de el menu oculto a visible
         /// </summary>
         public void MostrarMenuDebug()
         {
