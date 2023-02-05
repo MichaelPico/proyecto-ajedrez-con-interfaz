@@ -347,8 +347,10 @@ namespace AjedrezMichaelPicoProyecto
             Button Boton = FindName(Objetivo) as Button;
 
 
-            //Si la Casilla es de color oscuro
-            if (fondo == colorOscuroBaseAux.Color.ToString() || fondo == colorOscuroCaminoAux.Color.ToString() || fondo == colorOscuroRastroAux.Color.ToString())
+            //Si la suma de las coordenadas es par, la casilla es de color claro, sino sera de color oscuro
+            int[] coordenadas = TraducirCasillaCoordenadas(Casilla);
+            bool esClara = (coordenadas[0] + coordenadas[1]) % 2 == 0;
+            if (!esClara)
             {
                 switch (modo)
                 {
