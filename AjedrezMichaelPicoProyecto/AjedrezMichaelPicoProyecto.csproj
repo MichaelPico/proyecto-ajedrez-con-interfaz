@@ -82,10 +82,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Promocion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Promocion.xaml.cs">
+      <DependentUpon>Promocion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -6,6 +6,12 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Recursos para la ventana de promocion -->
+            <SolidColorBrush x:Key="PromocionColorFondo" Color="#000002"></SolidColorBrush>
+            <SolidColorBrush x:Key="PromocionColorLetras" Color="#FFFFFA"></SolidColorBrush>
+            <SolidColorBrush x:Key="PromocionColorNegro" Color="#000001"></SolidColorBrush>
+            <SolidColorBrush x:Key="PromocionColorBlanco" Color="#FFFFFE"></SolidColorBrush>
+
             <!-- Recursos para que asi todas las ventanas esten en el mismo modo y estado -->
             <WindowState x:Key="estadoVentana">Normal</WindowState>
             <WindowStyle x:Key="estiloVentana">SingleBorderWindow</WindowStyle>

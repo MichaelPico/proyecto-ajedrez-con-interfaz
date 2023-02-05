@@ -16,7 +16,7 @@ namespace AjedrezMichaelPicoProyecto
 
         //Variables para mover piezas
         string CasillaSeleccionadaAnterior = "";
-        string CasillaSeleccionada = "";
+        public string CasillaSeleccionada = "";
         bool EsTurnoDeBlancas = true;
         bool EstaElCaminoDibujado = false;
 
@@ -54,8 +54,8 @@ namespace AjedrezMichaelPicoProyecto
                 { '•','•','•','•','•','•','•','•'},
                 { '•','•','•','•','•','•','•','•'},
                 { '•','•','•','•','•','•','•','•'},
-                { '♙','♙','♙','♙','♙','♙','♙','♙'},
-                { '♖','♘','♗','♕','♔','♗','♘','♖'},
+                { '♙','♙','♙','♙','♙','♙','♙','♙'}, //Blancas = ♔♕♖♗♘♙
+                { '♖','♘','♗','♕','♔','♗','♘','♖'}, //Negras  = ♚♛♜♝♞♟
             };
 
             return respuesta;
@@ -482,6 +482,17 @@ namespace AjedrezMichaelPicoProyecto
                 default:
                     return -1;
             }
+        }
+
+        /// <summary>
+        /// Metodo que devuelve la coordenada fila de la casilla pasada por parametros
+        /// </summary>
+        /// <param name="casilla"></param>
+        /// <returns></returns>
+        public int GetFila(string casilla)
+        {
+            int[] coordenadas = TraducirCasillaCoordenadas(casilla);
+            return coordenadas[1];
         }
 
         //METODOS BOOL://
@@ -1047,19 +1058,72 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+        /// <summary>
+        /// Metodo que verifica si un peon ha llegado a la ultima fila de el tablero y tiene que ser promocionado
+        /// </summary>
+        public void IntentarPromocion()
+        {
+            string casilla = CasillaSeleccionada;
+            //Si el ultimo movimiento realizado es un peon
+            if(GetTipoDeFicha(casilla) == 0)
+            {
+                //Miro si es un peon llegando al final 
+                if((EsPiezaBlanca(casilla) && GetFila(casilla) == 0) || (!EsPiezaBlanca(casilla) && GetFila(casilla) == 7))
+                {
+                    Promocion ventanaPromocion = new Promocion(this, EsTurnoDeBlancas);
+                    this.IsEnabled = false;
+                    ventanaPromocion.Show();
+                }
+            }
+        }
+
         //TESTEADO
         /// <summary>
         /// Mueve la pieza de casillaSeleccionadaAnterior a la casillaSeleccionada
         /// </summary>
         public void MoverPieza()
         {
-            IntentarActualizarPuntuacion();
+            IntentarActualizarPuntuacion(); //Actualiza si es posible los label de puntuacion
+            RealizarMovimiento(); //Mueve la pieza
+            IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
+            CambiarTurno();//Cambio el turno
+            RestaurarTablero();
+            DibujarRastro();
+        }
+
+        /// <summary>
+        /// Metodo que cambia el turno de el color que toca
+        /// </summary>
+        public void CambiarTurno()
+        {
+            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            ActualizarLabelTurno();
+        }
+
+        /// <summary>
+        /// Metodo que actualiza el label turno en funcion de a quien le toca jugar
+        /// </summary>
+        public void ActualizarLabelTurno()
+        {
+            LabelTurno.Content = EsTurnoDeBlancas ? "Turno: Blancas" : "Turno: Negras";
+        }
+
+        /// <summary>
+        /// Acutaliza las casillas para mover la pieza
+        /// </summary>
+        public void RealizarMovimiento()
+        {
             ActualizarCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
             ActualizarCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
-            EsTurnoDeBlancas = !EsTurnoDeBlancas; //Cambio el turno
+        }
+
+        /// <summary>
+        /// Metodo que borra el rastro y el camino
+        /// </summary>
+        public void RestaurarTablero()
+        {
             BorrarCamino(); //Borro el camino
             BorrarRastro();
-            DibujarRastro();
         }
 
         //TESTEADO
@@ -1133,6 +1197,10 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void BotonvolverInicio_Click(object sender, RoutedEventArgs e)
         {
+            BorrarCamino();
+            CasillaSeleccionada = "";
+            CasillaSeleccionadaAnterior= "";
+
             Hide();
             ventanaInicio.MostrarBotonContinuar();
             ventanaInicio.Show();
@@ -1158,7 +1226,9 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void CargarTableroDebug(object sender, RoutedEventArgs e)
         {
-            //blancas = "♔:♕♖♗♘♙
+            RestaurarTablero();
+
+            //Puzzle
             char[,] tableroMateEnUno = new char[,]
             {
                 { '•','♗','♝','•','•','•','♗','♘'},
@@ -1171,7 +1241,31 @@ namespace AjedrezMichaelPicoProyecto
                 { '•','♝','♛','•','♖','•','♜','♝'},
             };
 
+            //julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015
+            char[,] tableroPromocionMateEnUno = new char[,]
+            {
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '♟','•','•','•','•','•','•','•'},
+                { '♙','•','•','•','•','•','•','♟'},
+                { '♔','•','♞','•','•','•','•','♙'},
+                { '•','♟','♚','•','•','•','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+            };
 
+            //Edward Lasker vs. Sir George Thomas - Londres - 1911
+            char[,] tableroEnroqueParaMate = new char[,]
+            {
+                { '♜','♞','•','•','•','♜','•','•'},
+                { '♟','♝','♟','♟','♛','•','♟','•'},
+                { '•','♟','•','•','♟','♘','•','•'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','♙','•','•','♘','♙'},
+                { '•','•','•','•','•','•','♙','•'},
+                { '♙','♙','♙','•','♗','♙','•','♖'},
+                { '♖','•','•','•','♔','•','♚','•'},
+            };
 
             if (RadioDebug1.IsChecked == true)
             {
@@ -1180,6 +1274,22 @@ namespace AjedrezMichaelPicoProyecto
             else  if (RadioDebug2.IsChecked == true)
             {
                 RellenarTablero(tableroMateEnUno);
+            } 
+            else if (RadioDebug3.IsChecked == true)
+            {
+                PintarRastro("a3");
+                PintarRastro("a2");
+                EsTurnoDeBlancas = false;
+                ActualizarLabelTurno();
+                RellenarTablero(tableroPromocionMateEnUno);
+            } 
+            else if (RadioDebug4.IsChecked == true)
+            {
+                PintarRastro("g1");
+                PintarRastro("g2");
+                EsTurnoDeBlancas = true;
+                ActualizarLabelTurno();
+                RellenarTablero(tableroEnroqueParaMate);
             }
         }
 
@@ -1204,7 +1314,6 @@ namespace AjedrezMichaelPicoProyecto
                 GridDebug.Visibility = Visibility.Visible;
             }
         }
-
 
         //Botones de el tablero
         private void A1(object sender, RoutedEventArgs e)
