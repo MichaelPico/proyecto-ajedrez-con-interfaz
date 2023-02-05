@@ -143,7 +143,7 @@ namespace AjedrezMichaelPicoProyecto
                 for (int j = 0; j < 8; j++)
                 {
                     string casilla = TraducirCoordenadaToCasilla(i, j);
-                    if (EsUnaCasillaDeCamino(casilla))
+                    if (EsUnaCasillaDeCamino(casilla) || EsUnaCasillaDeEnroque(casilla))
                     {
                         PintarBase(casilla);
                     }
@@ -450,20 +450,20 @@ namespace AjedrezMichaelPicoProyecto
                             {
                                 PintarEnroque("g1");
                             }
-                            else if (SePuedeEnrocar(true, false))
+                            if (SePuedeEnrocar(true, false))
                             {
-                                PintarEnroque("b1");
+                                PintarEnroque("c1");
                             }
                         }
                         else
                         {
                             if (SePuedeEnrocar(false, true))
                             {
-                                PintarEnroque("g7");
+                                PintarEnroque("g8");
                             }
-                            else if (SePuedeEnrocar(false, false))
+                            if (SePuedeEnrocar(false, false))
                             {
-                                PintarEnroque("b7");
+                                PintarEnroque("c8");
                             }
                         }
                     }
@@ -709,14 +709,13 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         public void ActualizarBooleanosEnroque()
         {
-
             //La primera vez que el rey se mueve elimina toda posibilidad de enrocar esa partida
-            if (CasillaSeleccionada.Equals("e1"))
+            if (CasillaSeleccionadaAnterior.Equals("e1"))
             {
                 SePuedeEnroqueBlancoDerecha = false;
                 SePuedeEnroqueBlancoIzquierda = false;
             }
-            else if (CasillaSeleccionada.Equals("e7"))
+            if (CasillaSeleccionadaAnterior.Equals("e8"))
             {
                 SePuedeEnroqueNegroDerecha = false;
                 SePuedeEnroqueNegroIzquierda = false;
@@ -731,11 +730,11 @@ namespace AjedrezMichaelPicoProyecto
             {
                 SePuedeEnroqueBlancoDerecha = false;
             }
-            else if (CasillaSeleccionada.Equals("a7"))
+            else if (CasillaSeleccionada.Equals("a8"))
             {
                 SePuedeEnroqueNegroIzquierda = false;
             }
-            else if (CasillaSeleccionada.Equals("h7"))
+            else if (CasillaSeleccionada.Equals("h8"))
             {
                 SePuedeEnroqueNegroDerecha = false;
             }
@@ -750,6 +749,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="Casilla"></param>
         public void SeleccionCasilla(string Casilla)
         {
+            CambiarDebugText(GetColorFondo(Casilla));
             CasillaSeleccionadaAnterior = CasillaSeleccionada;
             CasillaSeleccionada = Casilla;
             IntentarMoverPieza();
@@ -786,8 +786,39 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
+        /// <summary>
+        /// Realiza el enroque haciendo que la torre salte el rey
+        /// </summary>
         public void IniciarEnroque()
         {
+            //Blancas = ♔♕♖♗♘♙
+            //Negras  = ♚♛♜♝♞♟
+            if (CasillaSeleccionada.Equals("g1"))
+            {
+                ActualizarCaracterCasilla("h1", EspacioVacio);
+                ActualizarCaracterCasilla("f1", "♖");
+
+            }
+            else if (CasillaSeleccionada.Equals("c1"))
+            {
+                ActualizarCaracterCasilla("a1", EspacioVacio);
+                ActualizarCaracterCasilla("d1", "♖");
+
+            }
+            else if (CasillaSeleccionada.Equals("g8"))
+            {
+                ActualizarCaracterCasilla("h8", EspacioVacio);
+                ActualizarCaracterCasilla("f8", "♜");
+
+            }
+            else if (CasillaSeleccionada.Equals("c8"))
+            {
+                ActualizarCaracterCasilla("a8", EspacioVacio);
+                ActualizarCaracterCasilla("d8", "♜");
+
+            }
+
+            IniciarMovimiento();
         }
 
         /// <summary>
@@ -1060,7 +1091,6 @@ namespace AjedrezMichaelPicoProyecto
 
 
             string Objetivo = "casilla_" + Casilla;
-            string fondo = GetColorFondo(Casilla);
             Button Boton = FindName(Objetivo) as Button;
 
 
@@ -1101,7 +1131,7 @@ namespace AjedrezMichaelPicoProyecto
                         Boton.Background = colorClaroCaminoAux;
                         break;
                     case 3:
-                        Boton.Background = Brushes.Red;
+                        Boton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#D31A38");
                         break;
                     default:
                         break;
@@ -1200,7 +1230,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EsUnaCasillaDeEnroque(string Casilla)
         {
-            if (GetColorFondo(Casilla).Equals("#FFFF0000"))
+            if (GetColorFondo(Casilla).Equals("#FFD31A38"))
             {
                 return true;
             }
@@ -1243,11 +1273,11 @@ namespace AjedrezMichaelPicoProyecto
             {
                 return true;
             }
-            else if (!esBlanco && derecha && SePuedeEnroqueNegroDerecha && EstaLaCasillaVacia("f7") && EstaLaCasillaVacia("g7"))
+            else if ((!esBlanco) && derecha && SePuedeEnroqueNegroDerecha && EstaLaCasillaVacia("f8") && EstaLaCasillaVacia("g8"))
             {
                 return true;
             }
-            else if (!esBlanco && !derecha && SePuedeEnroqueNegroIzquierda && EstaLaCasillaVacia("b7") && EstaLaCasillaVacia("c7") && EstaLaCasillaVacia("d7"))
+            else if ((!esBlanco) && !derecha && SePuedeEnroqueNegroIzquierda && EstaLaCasillaVacia("b8") && EstaLaCasillaVacia("c8") && EstaLaCasillaVacia("d8"))
             {
                 return true;
             }
