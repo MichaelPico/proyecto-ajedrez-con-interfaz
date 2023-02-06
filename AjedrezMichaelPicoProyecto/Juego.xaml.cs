@@ -21,6 +21,7 @@ namespace AjedrezMichaelPicoProyecto
         //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
         bool CheckeandoJaque = false;
+        bool empate = false;
 
         //Booleanos que definen la partida
         bool PartidaAcabada = false;
@@ -297,6 +298,15 @@ namespace AjedrezMichaelPicoProyecto
             {
                 if (0 <= i && i <= 7)
                 {
+                    //Cuando se esta chequeando por jaque, es posible que estas coordenadas lleguen a salir de los limites, con este metodo evitamos el bug
+                    if(coordenadasDibujar[1] == -1)
+                    {
+                        coordenadasDibujar[1] = 0;
+                    }
+                    else if (coordenadasDibujar[1] == 8)
+                    {
+                        coordenadasDibujar[1] = 7;
+                    }
                     string casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i); //Guardo la casilla en un string
 
                     //Si la casilla esta vacia y es un posible enpassant pinto enPassant
@@ -1135,8 +1145,7 @@ namespace AjedrezMichaelPicoProyecto
             CheckeandoJaque = false;
             BorrarCamino();
             CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
-            
-                EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            EsTurnoDeBlancas = !EsTurnoDeBlancas;
             
         }
 
@@ -1145,7 +1154,10 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         public void ChequearMate()
         {
-            FinalPartida();
+            if (EsMate() || EsMate())
+            {
+                FinalPartida();
+            }
         }
 
         /// <summary>
@@ -1154,9 +1166,15 @@ namespace AjedrezMichaelPicoProyecto
         public void FinalPartida()
         {
             string ganador;
-            if (empate)
+            if (EsEmpate())
             {
-
+                string messageBoxText = "Ha habido un empate, ninguno ha ganado";
+                string caption = "Juego acabado";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                GridTablero.IsEnabled = false;
             }
             else
             {
@@ -1172,7 +1190,7 @@ namespace AjedrezMichaelPicoProyecto
                 string messageBoxText = "EL jugador de las piezas " + ganador + " ha ganado la partida.";
                 string caption = "Juego acabado";
                 MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Exclamation;
+                MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBoxResult result;
                 result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
             }
@@ -1520,7 +1538,6 @@ namespace AjedrezMichaelPicoProyecto
             return blancas.Contains(GetContenidoCasilla(Casilla));
         }
 
-
         /// <summary>
         /// Metodo que devuelve true si el caracter de la casilla corresponde con el caracter usado en las casillas vacias
         /// </summary>
@@ -1530,7 +1547,6 @@ namespace AjedrezMichaelPicoProyecto
         {
             return EspacioVacio.Equals(GetContenidoCasilla(Casilla));
         }
-
 
         /// <summary>
         /// Metodo que devuelve true si el fondo de la casilla pasada por parametros
@@ -1654,6 +1670,24 @@ namespace AjedrezMichaelPicoProyecto
             return EsTurnoDeBlancas != EsPiezaBlanca(Casilla);
         }
 
+        /// <summary>
+        /// Metodo que en funcion de la partida detecta si hay un mate
+        /// </summary>
+        /// <returns></returns>
+        private bool EsMate()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Metodo que en funcion de la partida detecta si hay un empate
+        /// </summary>
+        /// <returns></returns>
+        private bool EsEmpate()
+        {
+            return false;
+        }
+
 
         //Metodos encargados de los sonidos//
 
@@ -1731,17 +1765,6 @@ namespace AjedrezMichaelPicoProyecto
         }
 
 
-        /// <summary>
-        /// Boton usado en el debug a la hora de testear funciones de el programa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BotonBorrarCamino(object sender, RoutedEventArgs e)
-        {
-            BorrarCamino();
-        }
-
-
         //METODOS DE DEBUG//
 
         /// <summary>
@@ -1773,6 +1796,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void CargarTableroDebug(object sender, RoutedEventArgs e)
         {
+            GridTablero.IsEnabled = true;
             RestaurarTablero();
 
             //Puzzle

@@ -88,17 +88,16 @@
         </Grid.RowDefinitions>
 
         <!-- Menu Debug -->
-        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed" Name="GridDebug">
+        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="20,0,-10,0" Name="GridDebug">
             <StackPanel>
-                <Label Content="Tableros: "/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug1" Content="Juego nuevo" IsChecked="True"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug2" Content="Mate en uno" />
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug3" Content="Promocion para Mate" />
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug4" Content="Enroque para Mate" />
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug5" Content="Tablero 5" />
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug6" Content="Tablero 6" />
-                <Button Click="CargarTableroDebug" Content="cargar"/>
-                <Button Click="BotonBorrarCamino" Content="borrar camino"/>
+                <Label Content="Tableros: " Foreground="#90D7FF" FontSize="20"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug1" Content="Juego nuevo" IsChecked="True" Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug2" Content="Mate en un Movimiento"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug3" Content="Promocion para Mate"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug4" Content="Enroque para Mate"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug5" Content="En Passant para Mate"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug6" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <Button Click="CargarTableroDebug" Content="CARGAR" Margin="30" Background="#90D7FF" Height="30" FontSize="15"/>
             </StackPanel>
         </Grid>
 

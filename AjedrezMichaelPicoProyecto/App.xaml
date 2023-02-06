@@ -56,12 +56,14 @@
             </Style>
 
             <!-- Este recurso es el que usan todas las casilla y se cambia en el menu de opciones-->
-            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#Arial</FontFamily>
+            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#NotoSans</FontFamily>
 
             <!-- Estos recursos son los usados para cambiar el de arriba -->
             <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>
             <FontFamily x:Key="Arial">pack://application:,,,/Fonts/#Arial</FontFamily>
             <FontFamily x:Key="Quivira">pack://application:,,,/Fonts/#Quivira</FontFamily>
+            <FontFamily x:Key="Gothic">pack://application:,,,/Fonts/#Gothic</FontFamily>
+            <FontFamily x:Key="NotoSans">pack://application:,,,/Fonts/#NotoSans</FontFamily>
             
             <!-- Paleta base la cual sera cambiada en el menu de opciones-->
             <SolidColorBrush x:Key="colorClaroBase" Color="#D5D2AF"></SolidColorBrush>

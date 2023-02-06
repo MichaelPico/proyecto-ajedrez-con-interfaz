@@ -115,6 +115,8 @@
     <Resource Include="Fonts\Pecita.ttf" />
     <Resource Include="Fonts\Quivira.ttf" />
     <Resource Include="Fonts\arial.ttf" />
+    <Resource Include="Fonts\Gothic.ttf" />
+    <Resource Include="Fonts\NotoSans.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -131,7 +131,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas1(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas1 = (FontFamily)App.Current.Resources["Arial"]; //Get
+            FontFamily fichas1 = (FontFamily)App.Current.Resources["NotoSans"]; //Get
             App.Current.Resources["fuentePiezas"] = fichas1; //Set
         }
 

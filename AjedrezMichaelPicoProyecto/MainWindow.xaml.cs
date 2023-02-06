@@ -23,7 +23,7 @@ namespace AjedrezMichaelPicoProyecto
         public int IndexPaletaDeColor { get; set; }
         public Opciones ventanaOpciones;
         public Juego ventanaJuego = null;
-        public bool modoDebug = true; //En la version final tiene que ser false
+        public bool modoDebug = false; //En la version final tiene que ser false
         
 
         System.Media.SoundPlayer ReproductorDeSonidoDeBoton;
