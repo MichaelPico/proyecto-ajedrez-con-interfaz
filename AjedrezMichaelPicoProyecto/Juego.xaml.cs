@@ -20,6 +20,7 @@ namespace AjedrezMichaelPicoProyecto
 
         //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
+        bool CheckeandoJaque = false;
 
         //Booleanos que definen la partida
         bool PartidaAcabada = false;
@@ -28,6 +29,8 @@ namespace AjedrezMichaelPicoProyecto
         bool SePuedeEnroqueBlancoIzquierda = true;
         bool SePuedeEnroqueNegroDerecha = true;
         bool SePuedeEnroqueNegroIzquierda = true;
+        bool JaqueReyBlanco = false;
+        bool JaqueReyNegro = false;
         int ContadorNotacion = 0;
         string casillaEnPassant;
 
@@ -122,10 +125,20 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
         public void PintarCamino(string casilla)
         {
-            if (!EsUnaCasillaDeRastro(casilla))
-            { 
+            if (!CheckeandoJaque)
+            {
                 EstaElCaminoDibujado = true;
                 SetFondo(casilla, 2);
+            } else
+            {
+                if (EsTurnoDeBlancas && GetContenidoCasilla(casilla).Equals("♚"))
+                {
+                    JaqueReyNegro = true;
+                } 
+                else if(!EsTurnoDeBlancas && GetContenidoCasilla(casilla).Equals("♔"))
+                {
+                    JaqueReyBlanco = true;
+                }
             }
         }
 
@@ -910,6 +923,7 @@ namespace AjedrezMichaelPicoProyecto
             RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
             DibujarRastro(); //Metod que dibuja el nuevo rastro
             ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
+            CheckearJaque();
         }
 
         /// <summary>
@@ -996,6 +1010,52 @@ namespace AjedrezMichaelPicoProyecto
         {
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
             ActualizarLabelTurno();
+        }
+
+        /// <summary>
+        /// Metodo que cambiara el booleano de true o false en funcion de si alguna pieza esta mirando a el rey enemigo
+        /// </summary>
+        public void CheckearJaque()
+        {
+            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            CheckeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
+            JaqueReyBlanco = false;
+            JaqueReyNegro = false;
+
+            string blancas = "♔♕♖♗♘♙";
+            string negras = "♚♛♜♝♞♟";
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+
+                    //Si acaban de jugar las blancas mirare si alguna de las piezas negras tiene vision de el rey blanco
+                    if (!EsTurnoDeBlancas)
+                    {
+                        //Llamo al metodo dibujar camino de todas las piezas de un color que al estar el booleano chequear jaque
+                        //activado no dibujaara camino sino que mirara si el rey opuesto esta en el camino de alguna pieza
+                        if (negras.Contains(GetContenidoCasilla(casilla)))
+                        {
+                            CasillaSeleccionada = casilla;
+                            IntentarDibujarCamino();
+                        }
+                    } else
+                    {
+                        if(blancas.Contains(GetContenidoCasilla(casilla)))
+                        {
+                            CasillaSeleccionada = casilla;
+                            IntentarDibujarCamino();
+                        }
+                    }
+                }
+            }
+
+            CheckeandoJaque = false;
+            BorrarCamino();
+            //CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
+            EsTurnoDeBlancas = !EsTurnoDeBlancas;
         }
 
 
