@@ -1,23 +1,8 @@
-### Ventana Inicio:
-Darle funcionalidad al boton cargar partida
-Añadir un sonido de click a los botones
+-Terminar el jaque mate
+-Implementar el empate
+-Nuevos tableros con puzzles
+-Modificar la paleta de colores
+-Encontrar nuevas fuentes de texto con piezas de ajedrez
+-Una ventana al empezar una nueva partida que explique "como jugar"
+-Se podría implementar un modo de juego con cronometro
 
-### Ventana Opciones:
-Dar style y sonidos a los botones de aplicar cambios, dar funcionalidad a todos los botones y caracteristicas añadidas
-
-### Ventana Juego: 
-Crear un style para los botones y los grid (probablemente sea bueno mirar un tutorial)
-Rediseñar la ventana
-Añadir espacio para el nombre de cada jugador
-Añadir un label debajo de cada nombre para colocar en el futuro las piezas capturadas y las puntuaciones
-Añadir un espacio para en el futuro implementar la notacion
-
-
-### Codigo Juego: 
-Implementar unas 3 paletas de colores con 6 colores cada una: 
-ColorClaroBase
-ColorClaroCamino (el camino es mas claro que el nomral) 
-ColorClaroRastro (el rastro es mas oscuro que el normal)
-ColorOscuroBase
-ColorOscuroCamino
-ColorOscuroRastro 
