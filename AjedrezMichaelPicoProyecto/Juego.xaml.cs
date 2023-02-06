@@ -928,8 +928,8 @@ namespace AjedrezMichaelPicoProyecto
                 RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
                 DibujarRastro(); //Metod que dibuja el nuevo rastro
                 ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
-                CheckearJaque(true);
-
+                CheckearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
+                //ChequearMate(); 
             }
         }
 
@@ -990,6 +990,10 @@ namespace AjedrezMichaelPicoProyecto
             ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
         }
 
+        /// <summary>
+        /// Metodo que no deja que el jugador mueva una pieza si despues de dicho movimiento sigue estando en jaque
+        /// </summary>
+        /// <returns></returns>
         public bool SigueSiendoJaque()
         {
             //En caso de jaque, muevo las piezas y miro si hay jaque, en caso de haberlo cancelo el movimiento e informo, sino hay jaque, 
@@ -1082,13 +1086,19 @@ namespace AjedrezMichaelPicoProyecto
         {
             if (movimientoHecho)
             {
-                EsTurnoDeBlancas = !EsTurnoDeBlancas;v
                 JaqueReyBlanco = false;
+                JaqueReyNegro = false;
             }
             if (JaqueReyNegro && !EsTurnoDeBlancas && !movimientoHecho)
             {
                 JaqueReyNegro = false;
             }
+            else if (JaqueReyBlanco && !EsTurnoDeBlancas && !movimientoHecho)
+            {
+                JaqueReyBlanco = false;
+            }
+
+            EsTurnoDeBlancas = !EsTurnoDeBlancas;
             CheckeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
 
             string blancas = "♔♕♖♗♘♙";
@@ -1125,12 +1135,48 @@ namespace AjedrezMichaelPicoProyecto
             CheckeandoJaque = false;
             BorrarCamino();
             CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
-            if (movimientoHecho)
-            {
+            
                 EsTurnoDeBlancas = !EsTurnoDeBlancas;
-            }
+            
         }
 
+        /// <summary>
+        /// Metodo que en caso de mate informa y para la partida
+        /// </summary>
+        public void ChequearMate()
+        {
+            FinalPartida();
+        }
+
+        /// <summary>
+        /// Metodo que informa quien gano la partida
+        /// </summary>
+        public void FinalPartida()
+        {
+            string ganador;
+            if (empate)
+            {
+
+            }
+            else
+            {
+                if (EsTurnoDeBlancas)
+                {
+                    ganador = "Negras";
+                }
+                else
+                {
+                    ganador = "Blancas";
+                }
+                GridTablero.IsEnabled = false;
+                string messageBoxText = "EL jugador de las piezas " + ganador + " ha ganado la partida.";
+                string caption = "Juego acabado";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Exclamation;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            }
+        }
 
         //METODOS PARA TRADUCIR COORDENADAS//
 
