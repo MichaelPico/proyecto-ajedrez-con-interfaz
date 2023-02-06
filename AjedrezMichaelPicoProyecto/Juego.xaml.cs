@@ -129,13 +129,14 @@ namespace AjedrezMichaelPicoProyecto
             {
                 EstaElCaminoDibujado = true;
                 SetFondo(casilla, 2);
-            } else
+            }
+            else
             {
-                if (EsTurnoDeBlancas && GetContenidoCasilla(casilla).Equals("♚"))
+                if (GetContenidoCasilla(casilla).Equals("♚"))
                 {
                     JaqueReyNegro = true;
-                } 
-                else if(!EsTurnoDeBlancas && GetContenidoCasilla(casilla).Equals("♔"))
+                }
+                if (GetContenidoCasilla(casilla).Equals("♔"))
                 {
                     JaqueReyBlanco = true;
                 }
@@ -299,7 +300,7 @@ namespace AjedrezMichaelPicoProyecto
                     string casillaObjetivo = TraducirCoordenadaToCasilla(coordenadasDibujar[1], i); //Guardo la casilla en un string
 
                     //Si la casilla esta vacia y es un posible enpassant pinto enPassant
-                    if(EstaLaCasillaVacia(casillaObjetivo) && casillaObjetivo.Equals(casillaEnPassant))
+                    if (EstaLaCasillaVacia(casillaObjetivo) && casillaObjetivo.Equals(casillaEnPassant))
                     {
                         PintarEnPassant(casillaEnPassant);
                     }
@@ -480,7 +481,8 @@ namespace AjedrezMichaelPicoProyecto
                             PintarCamino(casillaObjetivo);
                         }
                         //Si se puede enrocar y no hay ninguna pieza en medio pinto camino para enroque
-                        if (EsPiezaBlanca(CasillaSeleccionada)){
+                        if (EsPiezaBlanca(CasillaSeleccionada))
+                        {
                             if (SePuedeEnrocar(true, true))
                             {
                                 PintarEnroque("g1");
@@ -794,7 +796,8 @@ namespace AjedrezMichaelPicoProyecto
             if (EsTurnoDeBlancas)
             {
                 coordenadas[1] -= 1;
-            } else
+            }
+            else
             {
 
                 coordenadas[1] += 1;
@@ -834,11 +837,11 @@ namespace AjedrezMichaelPicoProyecto
                 if (EsUnaCasillaDeCamino(CasillaSeleccionada))
                 {
                     IniciarMovimiento();
-                } 
+                }
                 else if (EsUnaCasillaDeEnroque(CasillaSeleccionada))
                 {
                     IniciarEnroque();
-                } 
+                }
                 else if (EsUnaCasillaDeEnPassant(CasillaSeleccionada))
                 {
                     IniciarEnPassant();
@@ -897,7 +900,7 @@ namespace AjedrezMichaelPicoProyecto
             if (EsTurnoDeBlancas)
             {
                 coordenadas[1] += 1;
-                ActualizarCaracterCasilla(casillaEnPassant ,GetContenidoCasilla(TraducirCoordenadaToCasilla(coordenadas))); 
+                ActualizarCaracterCasilla(casillaEnPassant, GetContenidoCasilla(TraducirCoordenadaToCasilla(coordenadas)));
                 ActualizarCaracterCasilla(TraducirCoordenadaToCasilla(coordenadas), EspacioVacio);
             }
             else
@@ -915,15 +918,19 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         public void IniciarMovimiento()
         {
-            ActualizarLabelPuntuacion(); //Actualiza si es posible los label de puntuacion
-            CalcularNotacion(); //Calcula la notacion y la actualiza
-            RealizarMovimiento(); //Mueve la pieza
-            IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
-            CambiarTurno();//Cambio el turno
-            RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
-            DibujarRastro(); //Metod que dibuja el nuevo rastro
-            ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
-            CheckearJaque();
+            if (!SigueSiendoJaque()) //Si el nuevo movimiento no deja al rey de el color que le toca mover en jaque se puede seguir jugando, si es jaque no se realiza el movimiento
+            {
+                ActualizarLabelPuntuacion(); //Actualiza si es posible los label de puntuacion
+                CalcularNotacion(); //Calcula la notacion y la actualiza
+                RealizarMovimiento(); //Mueve la pieza
+                IntentarPromocion(); //Verifica si la pieza es un peon que tiene que promocionar
+                CambiarTurno();//Cambio el turno
+                RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
+                DibujarRastro(); //Metod que dibuja el nuevo rastro
+                ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
+                CheckearJaque(true);
+
+            }
         }
 
         /// <summary>
@@ -947,7 +954,8 @@ namespace AjedrezMichaelPicoProyecto
                 if (CasillaSeleccionada.Equals("c8") || CasillaSeleccionada.Equals("c1"))
                 {
                     notacion += GetContenidoCasilla(CasillaSeleccionadaAnterior) + "0-0-0 ";
-                } else
+                }
+                else
                 {
 
                     notacion += GetContenidoCasilla(CasillaSeleccionadaAnterior) + "0-0 ";
@@ -972,7 +980,7 @@ namespace AjedrezMichaelPicoProyecto
         }
 
         /// <summary>
-        /// Metodo quecutaliza las casillas para mover la pieza
+        /// Metodo que acutaliza las casillas para mover la pieza
         /// </summary>
         public void RealizarMovimiento()
         {
@@ -980,6 +988,59 @@ namespace AjedrezMichaelPicoProyecto
             CalcularCasillaEnPassant();
             ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
             ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+        }
+
+        public bool SigueSiendoJaque()
+        {
+            //En caso de jaque, muevo las piezas y miro si hay jaque, en caso de haberlo cancelo el movimiento e informo, sino hay jaque, 
+            if (JaqueReyNegro || JaqueReyBlanco)
+            {
+                //Primero guardo el estado de el tablero para poder restaurarlo luego y tambien el de las variables que se puedan ver alteradas
+                char[,] tableroGuardado = GetTablero();
+                bool jaqueBlanco = JaqueReyBlanco;
+                bool jaqueNegro = JaqueReyNegro;
+
+                //Hago el movimiento y chequeo si el rey sigue en jaque
+                ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+                ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+                CheckearJaque(false);
+
+                if (JaqueReyBlanco && EsTurnoDeBlancas)
+                {
+                    //Restauro el estado de la partida
+                    JaqueReyNegro = jaqueNegro;
+                    JaqueReyBlanco = jaqueBlanco;
+                    RellenarTablero(tableroGuardado);
+
+                    //Mensaje de movimiento ilegal
+                    string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
+                    string caption = "Movimiento ilegal";
+                    MessageBoxButton button = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result;
+                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                    return true;
+                }
+                if (JaqueReyNegro && !EsTurnoDeBlancas)
+                {
+                    //Restauro el estado de la partida
+                    JaqueReyBlanco = jaqueBlanco;
+                    JaqueReyNegro = jaqueNegro;
+                    RellenarTablero(tableroGuardado);
+
+                    //Mensaje de movimiento ilegal
+                    string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
+                    string caption = "Movimiento ilegal";
+                    MessageBoxButton button = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result;
+                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                    return true;
+
+                }
+            }
+            //Si no habia jaque devuelvo false
+            return false;
         }
 
         /// <summary>
@@ -992,10 +1053,10 @@ namespace AjedrezMichaelPicoProyecto
             {
                 ActualizarEnPassantPosible(CasillaSeleccionadaAnterior);
             }
-            else if(GetContenidoCasilla(CasillaSeleccionadaAnterior).Equals("♟") && GetFila(CasillaSeleccionadaAnterior) == 1 && (GetFila(CasillaSeleccionadaAnterior) + 2) == GetFila(CasillaSeleccionada))
+            else if (GetContenidoCasilla(CasillaSeleccionadaAnterior).Equals("♟") && GetFila(CasillaSeleccionadaAnterior) == 1 && (GetFila(CasillaSeleccionadaAnterior) + 2) == GetFila(CasillaSeleccionada))
             {
                 ActualizarEnPassantPosible(CasillaSeleccionadaAnterior);
-            } 
+            }
             else
             {
                 //Limpia la posible casilla anterior
@@ -1006,7 +1067,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Metodo que cambia el turno de el color que toca
         /// </summary>
-        public void CambiarTurno() 
+        public void CambiarTurno()
         {
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
             ActualizarLabelTurno();
@@ -1014,13 +1075,21 @@ namespace AjedrezMichaelPicoProyecto
 
         /// <summary>
         /// Metodo que cambiara el booleano de true o false en funcion de si alguna pieza esta mirando a el rey enemigo
+        /// tiene dos modos, cuando se llama despues de un movimiento ("CheckearJaque(true)") verifica si el ultimo movimiento
+        /// ha dejado en jaque al rey enemigo y el otro modo 
         /// </summary>
-        public void CheckearJaque()
+        public void CheckearJaque(bool movimientoHecho)
         {
-            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            if (movimientoHecho)
+            {
+                EsTurnoDeBlancas = !EsTurnoDeBlancas;v
+                JaqueReyBlanco = false;
+            }
+            if (JaqueReyNegro && !EsTurnoDeBlancas && !movimientoHecho)
+            {
+                JaqueReyNegro = false;
+            }
             CheckeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
-            JaqueReyBlanco = false;
-            JaqueReyNegro = false;
 
             string blancas = "♔♕♖♗♘♙";
             string negras = "♚♛♜♝♞♟";
@@ -1032,7 +1101,7 @@ namespace AjedrezMichaelPicoProyecto
                     string casilla = TraducirCoordenadaToCasilla(i, j);
 
                     //Si acaban de jugar las blancas mirare si alguna de las piezas negras tiene vision de el rey blanco
-                    if (!EsTurnoDeBlancas)
+                    if (!EsTurnoDeBlancas && movimientoHecho)
                     {
                         //Llamo al metodo dibujar camino de todas las piezas de un color que al estar el booleano chequear jaque
                         //activado no dibujaara camino sino que mirara si el rey opuesto esta en el camino de alguna pieza
@@ -1041,9 +1110,10 @@ namespace AjedrezMichaelPicoProyecto
                             CasillaSeleccionada = casilla;
                             IntentarDibujarCamino();
                         }
-                    } else
+                    }
+                    else
                     {
-                        if(blancas.Contains(GetContenidoCasilla(casilla)))
+                        if (blancas.Contains(GetContenidoCasilla(casilla)))
                         {
                             CasillaSeleccionada = casilla;
                             IntentarDibujarCamino();
@@ -1054,8 +1124,11 @@ namespace AjedrezMichaelPicoProyecto
 
             CheckeandoJaque = false;
             BorrarCamino();
-            //CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
-            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
+            if (movimientoHecho)
+            {
+                EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            }
         }
 
 
@@ -1260,6 +1333,22 @@ namespace AjedrezMichaelPicoProyecto
             return coordenadas[1];
         }
 
+        public char[,] GetTablero()
+        {
+            char[,] tableroRespuesta = new char[8, 8];
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    tableroRespuesta[i, j] = GetContenidoCasilla(casilla)[0];
+                }
+            }
+
+            return tableroRespuesta;
+        }
+
 
         //METODOS SET://
 
@@ -1350,7 +1439,7 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
         }
-        
+
         /// <summary>
         /// Mejtodo que establece los parametros de el juego en funcion de los pasados y actualiza el label turno y limpia la notacion
         /// </summary>
@@ -1531,7 +1620,7 @@ namespace AjedrezMichaelPicoProyecto
             ReproductorDeSonidoMoverPieza = new System.Media.SoundPlayer(recursoaudio);
             ReproductorDeSonidoMoverPieza.Load();
         }
-         
+
         /// <summary>
         /// Metodo que reproduce el sonido de moverPieza
         /// </summary>
@@ -1541,7 +1630,7 @@ namespace AjedrezMichaelPicoProyecto
         {
             ReproductorDeSonidoMoverPieza.Play();
         }
-         
+
         /// <summary>
         /// Metodo que carga y reproduce el sonido de InicioPartida
         /// </summary>
@@ -1552,7 +1641,7 @@ namespace AjedrezMichaelPicoProyecto
             ReproductorDeSonidoInicioPartida.Load();
             ReproductorDeSonidoInicioPartida.Play();
         }
-         
+
         /// <summary>
         /// Boton el cual reproduce el sonido de los botones de el programa
         /// </summary>
@@ -1698,7 +1787,7 @@ namespace AjedrezMichaelPicoProyecto
             {
                 RellenarTablero(DevolverTableroNuevo());
                 SetParametrosPartida(true, true, true, true, true);
-                
+
             }
             else if (RadioDebug2.IsChecked == true)
             {

@@ -31,6 +31,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Margin" Value="20,20,80,20" />
+            <EventSetter Event="MouseEnter" Handler="SonidoBoton_MouseEnter" />
             <Setter Property="Template">
                 <!-- Sin este Setter.Value el color de fondo de el boton nunca cambia en hover trigger -->
                 <Setter.Value>
@@ -81,10 +82,10 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button x:Name="BotonContinuarJuego" IsEnabled="False" Visibility="Hidden" Content="Continuar Juego" Grid.Row="0" MouseEnter="SonidoBoton_MouseEnter" Click="BotonContinuarJuego_Click"></Button>
-            <Button x:Name="BotonNuevoJuego" Content="Nuevo Juego" Grid.Row="1" MouseEnter="SonidoBoton_MouseEnter" Click="BotonNuevoJuego_Click"></Button>
-            <Button x:Name="BotonOpciones" Content="Opciones" Grid.Row="2" MouseEnter="SonidoBoton_MouseEnter" Click="BotonOpciones_Click"></Button>
-            <Button x:Name="BotonSalir" Content="Salir" Grid.Row="3" MouseEnter="SonidoBoton_MouseEnter" Click="BotonSalir_Click"></Button>
+            <Button x:Name="BotonContinuarJuego" IsEnabled="False" Visibility="Hidden" Content="Continuar Juego" Grid.Row="0" Click="BotonContinuarJuego_Click"></Button>
+            <Button x:Name="BotonNuevoJuego" Content="Nuevo Juego" Grid.Row="1" Click="BotonNuevoJuego_Click"></Button>
+            <Button x:Name="BotonOpciones" Content="Opciones" Grid.Row="2" Click="BotonOpciones_Click"></Button>
+            <Button x:Name="BotonSalir" Content="Salir" Grid.Row="3" Click="BotonSalir_Click"></Button>
 
         </Grid>
     </Grid>

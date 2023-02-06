@@ -32,7 +32,6 @@
         </Style>
     </Window.Resources>
 
-
     <Grid>
         <!-- Definicion de el grid de la ventana -->
         <Grid.ColumnDefinitions>
