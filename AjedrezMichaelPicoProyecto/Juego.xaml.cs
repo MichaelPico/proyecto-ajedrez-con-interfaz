@@ -20,7 +20,7 @@ namespace AjedrezMichaelPicoProyecto
 
         //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
-        bool CheckeandoJaque = false;
+        bool ChequeandoJaque = false;
 
         //Booleanos que definen la partida
         bool PartidaAcabada = false;
@@ -124,7 +124,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="Casilla">Casilla a la cual se le quiere cambiar el fondo</param>
         public void PintarCamino(string casilla)
         {
-            if (!CheckeandoJaque)
+            if (!ChequeandoJaque)
             {
                 SetFondo(casilla, 2);
                 BorrarRastro();
@@ -937,7 +937,7 @@ namespace AjedrezMichaelPicoProyecto
                 RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
                 DibujarRastro(); //Metod que dibuja el nuevo rastro
                 ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
-                CheckearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
+                ChequearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
                 //ChequearMate(); 
             }
         }
@@ -1006,53 +1006,61 @@ namespace AjedrezMichaelPicoProyecto
         public bool SigueSiendoJaque()
         {
             //En caso de jaque, muevo las piezas y miro si hay jaque, en caso de haberlo cancelo el movimiento e informo, sino hay jaque, 
-            if (JaqueReyNegro || JaqueReyBlanco)
+            
+            //Primero guardo el estado de el tablero para poder restaurarlo luego y tambien el de las variables que se puedan ver alteradas
+            char[,] tableroGuardado = GetTablero();
+            bool jaqueBlanco = JaqueReyBlanco;
+            bool jaqueNegro = JaqueReyNegro;
+            string LaCasillaSeleccionada = CasillaSeleccionada;
+
+            //Hago el movimiento y chequeo si el rey sigue en jaque
+            ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+            ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+            ChequearJaque(true);
+
+            if (JaqueReyBlanco && EsTurnoDeBlancas)
             {
-                //Primero guardo el estado de el tablero para poder restaurarlo luego y tambien el de las variables que se puedan ver alteradas
-                char[,] tableroGuardado = GetTablero();
-                bool jaqueBlanco = JaqueReyBlanco;
-                bool jaqueNegro = JaqueReyNegro;
+                //Restauro el estado de la partida
+                JaqueReyNegro = jaqueNegro;
+                JaqueReyBlanco = jaqueBlanco;
+                RellenarTablero(tableroGuardado);
+                CasillaSeleccionada = LaCasillaSeleccionada;
 
-                //Hago el movimiento y chequeo si el rey sigue en jaque
-                ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
-                ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
-                CheckearJaque(false);
+                //Mensaje de movimiento ilegal
+                string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
+                string caption = "Movimiento ilegal";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                return true;
+            }
+            if (JaqueReyNegro && !EsTurnoDeBlancas)
+            {
+                //Restauro el estado de la partida
+                JaqueReyBlanco = jaqueBlanco;
+                JaqueReyNegro = jaqueNegro;
+                RellenarTablero(tableroGuardado);
+                CasillaSeleccionada = LaCasillaSeleccionada;
 
-                if (JaqueReyBlanco && EsTurnoDeBlancas)
-                {
-                    //Restauro el estado de la partida
-                    JaqueReyNegro = jaqueNegro;
-                    JaqueReyBlanco = jaqueBlanco;
-                    RellenarTablero(tableroGuardado);
+                //Mensaje de movimiento ilegal
+                string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
+                string caption = "Movimiento ilegal";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                return true;
 
-                    //Mensaje de movimiento ilegal
-                    string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
-                    string caption = "Movimiento ilegal";
-                    MessageBoxButton button = MessageBoxButton.OK;
-                    MessageBoxImage icon = MessageBoxImage.Warning;
-                    MessageBoxResult result;
-                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-                    return true;
-                }
-                if (JaqueReyNegro && !EsTurnoDeBlancas)
-                {
-                    //Restauro el estado de la partida
-                    JaqueReyBlanco = jaqueBlanco;
-                    JaqueReyNegro = jaqueNegro;
-                    RellenarTablero(tableroGuardado);
-
-                    //Mensaje de movimiento ilegal
-                    string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
-                    string caption = "Movimiento ilegal";
-                    MessageBoxButton button = MessageBoxButton.OK;
-                    MessageBoxImage icon = MessageBoxImage.Warning;
-                    MessageBoxResult result;
-                    result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-                    return true;
-
-                }
             }
             //Si no habia jaque devuelvo false
+
+            //Restauro el estado de la partida
+            JaqueReyNegro = jaqueNegro;
+            CasillaSeleccionada = LaCasillaSeleccionada;
+            JaqueReyBlanco = jaqueBlanco;
+            RellenarTablero(tableroGuardado);
+
             return false;
         }
 
@@ -1088,10 +1096,10 @@ namespace AjedrezMichaelPicoProyecto
 
         /// <summary>
         /// Metodo que cambiara el booleano de true o false en funcion de si alguna pieza esta mirando a el rey enemigo
-        /// tiene dos modos, cuando se llama despues de un movimiento ("CheckearJaque(true)") verifica si el ultimo movimiento
+        /// tiene dos modos, cuando se llama despues de un movimiento ("ChequearJaque(true)") verifica si el ultimo movimiento
         /// ha dejado en jaque al rey enemigo y el otro modo 
         /// </summary>
-        public void CheckearJaque(bool movimientoHecho)
+        public void ChequearJaque(bool movimientoHecho)
         {
             if (movimientoHecho)
             {
@@ -1108,7 +1116,7 @@ namespace AjedrezMichaelPicoProyecto
             }
 
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
-            CheckeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
+            ChequeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
 
             string blancas = "♔♕♖♗♘♙";
             string negras = "♚♛♜♝♞♟";
@@ -1120,7 +1128,7 @@ namespace AjedrezMichaelPicoProyecto
                     string casilla = TraducirCoordenadaToCasilla(i, j);
 
                     //Si acaban de jugar las blancas mirare si alguna de las piezas negras tiene vision de el rey blanco
-                    if (!EsTurnoDeBlancas && movimientoHecho)
+                    if (!EsTurnoDeBlancas)
                     {
                         //Llamo al metodo dibujar camino de todas las piezas de un color que al estar el booleano chequear jaque
                         //activado no dibujaara camino sino que mirara si el rey opuesto esta en el camino de alguna pieza
@@ -1141,7 +1149,7 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
 
-            CheckeandoJaque = false;
+            ChequeandoJaque = false;
             BorrarCamino();
             CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
@@ -1396,6 +1404,10 @@ namespace AjedrezMichaelPicoProyecto
             return coordenadas[1];
         }
 
+        /// <summary>
+        /// Metodo que devuelve el tablero de la partida actual
+        /// </summary>
+        /// <returns></returns>
         public char[,] GetTablero()
         {
             char[,] tableroRespuesta = new char[8, 8];
@@ -1685,29 +1697,6 @@ namespace AjedrezMichaelPicoProyecto
         private bool EsEmpate()
         {
             return false;
-        }
-
-
-        private bool EsUnMovimientoQueDejaEnJaque(string casilla)
-        {
-            //Si no es el primer movimiento de la partida
-            if (!CasillaSeleccionadaAnterior.Equals(""))
-            {
-                char[,] tablero = GetTablero(); //Guardo el tablero
-                                                //Realizo el movimiento y chequeo si despues de el movimiento sigue habiendo jaque
-                ActualizarCaracterCasilla(casilla, GetContenidoCasilla(CasillaSeleccionada));
-                ActualizarCaracterCasilla(CasillaSeleccionada, EspacioVacio);
-                CheckearJaque(false);
-                RellenarTablero(tablero);
-            }
-
-            if ((!EsTurnoDeBlancas && JaqueReyBlanco) || (EsTurnoDeBlancas && JaqueReyNegro))
-            {
-                ActualizarNotacion("TRUEEEEE");
-                return true;
-            }
-            return false;
-
         }
 
 

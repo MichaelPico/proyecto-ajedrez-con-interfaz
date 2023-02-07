@@ -69,18 +69,18 @@
             
             <!-- Paleta base la cual sera cambiada en el menu de opciones-->
             <SolidColorBrush x:Key="colorClaroBase" Color="#D5D2AF"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroCamino" Color="#E3E1CF"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino" Color="#E0607E"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroRastro" Color="#156064"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase" Color="#84A27D"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroCamino" Color="#FFB6C8B1"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino" Color="#E0607E"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroRastro" Color="#156064"></SolidColorBrush>
 
             <!-- Paleta 1 -->
             <SolidColorBrush x:Key="colorClaroBase1" Color="#D5D2AF"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroCamino1" Color="#E3E1CF"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino1" Color="#E0607E"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroRastro1" Color="#156064"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase1" Color="#84A27D"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroCamino1" Color="#FFB6C8B1"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino1" Color="#E0607E"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroRastro1" Color="#156064"></SolidColorBrush>
 
             <!-- Paleta 2 -->

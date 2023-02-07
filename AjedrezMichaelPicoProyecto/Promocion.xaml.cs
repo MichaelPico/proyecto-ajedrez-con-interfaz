@@ -63,7 +63,7 @@ namespace AjedrezMichaelPicoProyecto
         public void AccionBoton(string caracter)
         {
             ventanaJuego.ActualizarCaracterCasilla(ventanaJuego.CasillaSeleccionada, caracter);
-            ventanaJuego.CheckearJaque(true);
+            ventanaJuego.ChequearJaque(true);
             CerrarVentana();
         }
 
