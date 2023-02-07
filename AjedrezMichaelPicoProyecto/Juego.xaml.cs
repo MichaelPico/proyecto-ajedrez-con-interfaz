@@ -21,7 +21,6 @@ namespace AjedrezMichaelPicoProyecto
         //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
         bool CheckeandoJaque = false;
-        bool empate = false;
 
         //Booleanos que definen la partida
         bool PartidaAcabada = false;
@@ -48,6 +47,8 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="ventanaInicioRecibida"></param>
         public Juego(MainWindow ventanaInicioRecibida)
         {
+            ReproducirSonidoInicioPartida();
+            CargarSonidoMoverPieza();
             char[,] tablero = DevolverTableroNuevo();
             InitializeComponent();
             ventanaInicio = ventanaInicioRecibida;
@@ -83,9 +84,6 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="Tablero">Tablero el cual sera usado para la partida</param>
         public void RellenarTablero(char[,] Tablero)
         {
-
-            ReproducirSonidoInicioPartida();
-            CargarSonidoMoverPieza();
 
             for (int i = 0; i < 8; i++)
             {
@@ -128,8 +126,9 @@ namespace AjedrezMichaelPicoProyecto
         {
             if (!CheckeandoJaque)
             {
-                EstaElCaminoDibujado = true;
                 SetFondo(casilla, 2);
+                BorrarRastro();
+                EstaElCaminoDibujado = true;
             }
             else
             {
@@ -299,7 +298,7 @@ namespace AjedrezMichaelPicoProyecto
                 if (0 <= i && i <= 7)
                 {
                     //Cuando se esta chequeando por jaque, es posible que estas coordenadas lleguen a salir de los limites, con este metodo evitamos el bug
-                    if(coordenadasDibujar[1] == -1)
+                    if (coordenadasDibujar[1] == -1)
                     {
                         coordenadasDibujar[1] = 0;
                     }
@@ -1146,7 +1145,7 @@ namespace AjedrezMichaelPicoProyecto
             BorrarCamino();
             CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
-            
+
         }
 
         /// <summary>
@@ -1689,6 +1688,29 @@ namespace AjedrezMichaelPicoProyecto
         }
 
 
+        private bool EsUnMovimientoQueDejaEnJaque(string casilla)
+        {
+            //Si no es el primer movimiento de la partida
+            if (!CasillaSeleccionadaAnterior.Equals(""))
+            {
+                char[,] tablero = GetTablero(); //Guardo el tablero
+                                                //Realizo el movimiento y chequeo si despues de el movimiento sigue habiendo jaque
+                ActualizarCaracterCasilla(casilla, GetContenidoCasilla(CasillaSeleccionada));
+                ActualizarCaracterCasilla(CasillaSeleccionada, EspacioVacio);
+                CheckearJaque(false);
+                RellenarTablero(tablero);
+            }
+
+            if ((!EsTurnoDeBlancas && JaqueReyBlanco) || (EsTurnoDeBlancas && JaqueReyNegro))
+            {
+                ActualizarNotacion("TRUEEEEE");
+                return true;
+            }
+            return false;
+
+        }
+
+
         //Metodos encargados de los sonidos//
 
         /// <summary>
@@ -1798,6 +1820,7 @@ namespace AjedrezMichaelPicoProyecto
         {
             GridTablero.IsEnabled = true;
             RestaurarTablero();
+            ReproducirSonidoInicioPartida();
 
             //Puzzle
             char[,] tableroMateEnUno = new char[,]

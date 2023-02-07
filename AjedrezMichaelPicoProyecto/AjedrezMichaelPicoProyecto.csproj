@@ -114,9 +114,10 @@
     </EmbeddedResource>
     <Resource Include="Fonts\Pecita.ttf" />
     <Resource Include="Fonts\Quivira.ttf" />
-    <Resource Include="Fonts\arial.ttf" />
-    <Resource Include="Fonts\Gothic.ttf" />
-    <Resource Include="Fonts\NotoSans.ttf" />
+    <Resource Include="Fonts\code2000.ttf" />
+    <Resource Include="Fonts\CaslonRoman.ttf" />
+    <Resource Include="Fonts\Gothic A1 Regular.ttf" />
+    <Resource Include="Fonts\Noto Sans Symbols 2 Regular.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

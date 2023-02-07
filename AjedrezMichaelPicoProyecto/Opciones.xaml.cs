@@ -131,7 +131,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas1(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas1 = (FontFamily)App.Current.Resources["NotoSans"]; //Get
+            FontFamily fichas1 = (FontFamily)App.Current.Resources["Code2000"]; //Get
             App.Current.Resources["fuentePiezas"] = fichas1; //Set
         }
 
@@ -142,7 +142,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas2(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas2 = (FontFamily)App.Current.Resources["Quivira"];
+            FontFamily fichas2 = (FontFamily)App.Current.Resources["NotoSans"];
             App.Current.Resources["fuentePiezas"] = fichas2;
         }
 
@@ -153,7 +153,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas3(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas3 = (FontFamily)App.Current.Resources["Pecita"];
+            FontFamily fichas3 = (FontFamily)App.Current.Resources["Gothic"];
             App.Current.Resources["fuentePiezas"] = fichas3;
         }
 

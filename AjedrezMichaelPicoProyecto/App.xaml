@@ -5,7 +5,19 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
         <ResourceDictionary>
+            <!-- Este recurso es el que usan todas las casilla y se cambia en el menu de opciones-->
+            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#Code2000</FontFamily>
+
+            <!-- Estos recursos son los usados para cambiar el de arriba -->
+            <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>
+            <FontFamily x:Key="Gothic">pack://application:,,,/Fonts/#Gothic A1 Regular</FontFamily>
+            <FontFamily x:Key="Quivira">pack://application:,,,/Fonts/#Quivira</FontFamily>
+            <FontFamily x:Key="NotoSans">pack://application:,,,/Fonts/#Noto Sans Symbols 2 Regular</FontFamily>
+            <FontFamily x:Key="Code2000">pack://application:,,,/Fonts/#Code2000</FontFamily>
+            <FontFamily x:Key="CaslonRoman">pack://application:,,,/Fonts/#CaslonRoman</FontFamily>
+            
             <!-- Recursos para la ventana de promocion -->
             <SolidColorBrush x:Key="PromocionColorFondo" Color="#000002"></SolidColorBrush>
             <SolidColorBrush x:Key="PromocionColorLetras" Color="#FFFFFA"></SolidColorBrush>
@@ -54,32 +66,22 @@
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="Height" Value="25"/>
             </Style>
-
-            <!-- Este recurso es el que usan todas las casilla y se cambia en el menu de opciones-->
-            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#NotoSans</FontFamily>
-
-            <!-- Estos recursos son los usados para cambiar el de arriba -->
-            <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>
-            <FontFamily x:Key="Arial">pack://application:,,,/Fonts/#Arial</FontFamily>
-            <FontFamily x:Key="Quivira">pack://application:,,,/Fonts/#Quivira</FontFamily>
-            <FontFamily x:Key="Gothic">pack://application:,,,/Fonts/#Gothic</FontFamily>
-            <FontFamily x:Key="NotoSans">pack://application:,,,/Fonts/#NotoSans</FontFamily>
             
             <!-- Paleta base la cual sera cambiada en el menu de opciones-->
             <SolidColorBrush x:Key="colorClaroBase" Color="#D5D2AF"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroCamino" Color="#E3E1CF"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroRastro" Color="#49472A"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro" Color="#156064"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase" Color="#84A27D"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroCamino" Color="#FFB6C8B1"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroRastro" Color="#263123"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro" Color="#156064"></SolidColorBrush>
 
             <!-- Paleta 1 -->
             <SolidColorBrush x:Key="colorClaroBase1" Color="#D5D2AF"></SolidColorBrush>
             <SolidColorBrush x:Key="colorClaroCamino1" Color="#E3E1CF"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroRastro1" Color="#49472A"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro1" Color="#156064"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase1" Color="#84A27D"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroCamino1" Color="#FFB6C8B1"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroRastro1" Color="#263123"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro1" Color="#156064"></SolidColorBrush>
 
             <!-- Paleta 2 -->
             <SolidColorBrush x:Key="colorClaroBase2" Color="#92ADC9"></SolidColorBrush>
