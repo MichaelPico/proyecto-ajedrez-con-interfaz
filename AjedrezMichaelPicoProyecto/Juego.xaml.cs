@@ -24,7 +24,6 @@ namespace AjedrezMichaelPicoProyecto
         bool ChequeandoJaque = false;
 
         //Booleanos que definen la partida
-        bool PartidaAcabada = false;
         bool EsTurnoDeBlancas = true;
         bool SePuedeEnroqueBlancoDerecha = true;
         bool SePuedeEnroqueBlancoIzquierda = true;
@@ -1161,7 +1160,6 @@ namespace AjedrezMichaelPicoProyecto
             CasillaSeleccionada = guardarCasilla; //Restauro la casilla
             ChequeandoJaque = false;
             BorrarCamino();
-            CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
 
         }
@@ -1589,7 +1587,7 @@ namespace AjedrezMichaelPicoProyecto
             RestaurarTablero(); //Borro rastro y caminos viejos
 
             //Restauro el rastro
-            if (listaRastro.Count > 0)
+            if (listaRastro != null && listaRastro.Count > 0)
             {
                 foreach (string a in listaRastro)
                 {
@@ -2041,6 +2039,7 @@ namespace AjedrezMichaelPicoProyecto
             GridTablero.IsEnabled = true;
             RestaurarTablero();
             ReproducirSonidoInicioPartida();
+            ContadorNotacion = 0;
 
             //Puzzle
             char[,] tableroMateEnUno = new char[,]
@@ -2082,8 +2081,6 @@ namespace AjedrezMichaelPicoProyecto
             };
 
             //Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023
-            //Blancas = ♔♕♖♗♘♙
-            //Negras  = ♚♛♜♝♞♟
             char[,] tableroEnPassantMate = new char[,]
             {
                 { '•','•','•','♖','•','•','•','♜'},
@@ -2095,42 +2092,120 @@ namespace AjedrezMichaelPicoProyecto
                 { '♙','•','•','•','•','♙','♙','•'},
                 { '•','•','♔','•','•','•','•','•'},
             };
+            //Solucion Kxc4
+            char[,] tableroPuezzle2 = new char[,]
+            {
+                { '♜','•','♝','•','•','♝','•','♜'},
+                { '♟','♟','•','•','•','♕','♟','•'},
+                { '•','•','♞','♚','♞','•','•','♟'},
+                { '•','•','•','♟','♟','♙','•','♟'},
+                { '♙','•','♟','•','•','•','•','•'},
+                { '•','♘','♙','•','♘','♗','•','•'},
+                { '•','♙','♙','•','♙','♙','♖','•'},
+                { '•','♔','•','♖','•','•','•','♛'},
+            };
+            //Socuion Qh5
+            char[,] tableroPuezzle3 = new char[,]
+            {
+                { '•','•','•','♖','•','♗','•','•'},
+                { '•','•','•','•','•','•','♟','•'},
+                { '♝','♟','♟','♞','•','•','♙','♟'},
+                { '♟','•','♚','•','•','•','•','•'},
+                { '♛','•','•','•','♟','♟','•','♙'},
+                { '•','•','♙','•','♙','•','♟','•'},
+                { '♙','♙','•','♙','•','•','♙','♜'},
+                { '•','•','•','♕','♔','♗','•','•'},
+            };
+            //Solucion  kd4
+            char[,] tableroPuezzle4 = new char[,]
+            {
+                { '•','•','•','•','•','•','•','♔'},
+                { '•','•','•','♙','•','♕','•','•'},
+                { '♖','•','•','•','♘','•','•','♚'},
+                { '•','♙','♙','•','•','♙','♟','♙'},
+                { '•','•','•','•','•','•','•','•'},
+                { '♙','•','•','•','•','•','•','•'},
+                { '•','♝','♙','•','•','♘','•','♕'},
+                { '•','♖','♗','•','•','♗','•','•'},
+            };
+
+            //Blancas = ♔♕♖♗♘♙
+            //Negras  = ♚♛♜♝♞♟
+            //Solucion Alfilc5
+            char[,] tableroPuezzle5 = new char[,]
+            {
+                { '•','•','•','•','•','♗','•','•'},
+                { '•','♛','•','♕','•','♘','•','♜'},
+                { '•','♚','•','•','•','•','•','♜'},
+                { '•','•','•','•','•','•','•','•'},
+                { '•','•','•','♔','•','♞','•','•'},
+                { '•','•','•','♘','•','•','•','•'},
+                { '•','•','•','♙','•','♕','•','•'},
+                { '♖','♝','•','•','•','•','♝','•'},
+            };
 
             if (RadioDebug1.IsChecked == true)
             {
-                RellenarTablero(DevolverTableroNuevo());
-                SetParametrosPartida(true, true, true, true, true);
+                SetParametrosPartida(DevolverTableroNuevo(), true, true, true, true, true, false, false, null, "", "");
+                CambiarDebugText("");
 
             }
             else if (RadioDebug2.IsChecked == true)
             {
-                RellenarTablero(tableroMateEnUno);
-                SetParametrosPartida(true, false, false, false, false);
+                SetParametrosPartida(tableroMateEnUno, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
             }
             else if (RadioDebug3.IsChecked == true)
             {
-                PintarRastro("a3");
-                PintarRastro("a2");
-                SetParametrosPartida(false, false, false, false, false);
-                RellenarTablero(tableroPromocionMateEnUno);
+                List<string> rastros = new List<string>();
+                rastros.Add("a3");
+                rastros.Add("a2");
+                SetParametrosPartida(tableroPromocionMateEnUno, false, false, false, false, false, false, false, rastros, "", "");
+                CambiarDebugText("julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015, partida en la cual se dio la ocasion de un mate por promoción.  ");
             }
             else if (RadioDebug4.IsChecked == true)
             {
-                SePuedeEnroqueBlancoIzquierda = true;
-                PintarRastro("g1");
-                PintarRastro("g2");
-                SetParametrosPartida(true, false, true, false, false);
-                ActualizarLabelTurno();
-                RellenarTablero(tableroEnroqueParaMate);
+                List<string> rastros = new List<string>();
+                rastros.Add("g1");
+                rastros.Add("g2");
+                SetParametrosPartida(tableroEnroqueParaMate, true, false, true, false, false, false, false, rastros, "", "");
+                CambiarDebugText("Edward Lasker vs. Sir George Thomas - Londres - 1911, juego historico el cual tiene dos posibilidades para acabar, una de ellas el bellisimo jaque por enroque. ");
+
             }
             else if (RadioDebug5.IsChecked == true)
             {
-                PintarRastro("f7");
-                PintarRastro("f5");
+                List<string> rastros = new List<string>();
+                rastros.Add("f7");
+                rastros.Add("f5");
+                SetParametrosPartida(tableroEnPassantMate, true, false, false, false, false, false, false, rastros, "", "");
                 casillaEnPassant = "f6";
-                SetParametrosPartida(true, false, false, false, false);
-                RellenarTablero(tableroEnPassantMate);
+                CambiarDebugText("Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023, juego bastante polemico de comienzos de el año 2023 donde el campeon de el mundo fue derrotado por un bellisimo mate por En Passant.  ");
             }
+            else if (RadioDebug6.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle2, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug7.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle3, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug8.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle4, true, false, false, false, false, true, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug9.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle5, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+
         }
 
 
