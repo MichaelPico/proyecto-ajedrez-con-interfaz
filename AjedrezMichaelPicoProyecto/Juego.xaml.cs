@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,7 +14,7 @@ namespace AjedrezMichaelPicoProyecto
     public partial class Juego : Window
     {
         //Constantes:
-        private const string EspacioVacio = "•";
+        private const string EspacioVacio = " ";
 
         //Variables para mover piezas
         public string CasillaSeleccionadaAnterior = "";
@@ -21,9 +23,9 @@ namespace AjedrezMichaelPicoProyecto
         //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
         bool ChequeandoJaque = false;
+        public bool Promocionando = false;
 
         //Booleanos que definen la partida
-        bool PartidaAcabada = false;
         bool EsTurnoDeBlancas = true;
         bool SePuedeEnroqueBlancoDerecha = true;
         bool SePuedeEnroqueBlancoIzquierda = true;
@@ -66,10 +68,10 @@ namespace AjedrezMichaelPicoProyecto
             {
                 { '♜','♞','♝','♛','♚','♝','♞','♜'},
                 { '♟','♟','♟','♟','♟','♟','♟','♟'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
                 { '♙','♙','♙','♙','♙','♙','♙','♙'}, //Blancas = ♔♕♖♗♘♙
                 { '♖','♘','♗','♕','♔','♗','♘','♖'}, //Negras  = ♚♛♜♝♞♟
             };
@@ -251,7 +253,7 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TODO: ONPASANT
+
         /// <summary>
         /// Metodo que dibuja el camino de la pieza peon
         /// </summary>
@@ -261,6 +263,13 @@ namespace AjedrezMichaelPicoProyecto
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
             int fila = 8 - coordenadasDibujar[1];
             string casillaPasoDoble;
+
+
+            //Si la pieza es un peon a el que le toca promocionar, no dibujare su camino ya que no tiene
+            if ((EsPiezaBlanca(CasillaSeleccionada) && GetFila(CasillaSeleccionada) == 0) || (!EsPiezaBlanca(CasillaSeleccionada) && GetFila(CasillaSeleccionada) == 7))
+            {
+                return;
+            }
 
             //Si la pieza es blanca
             if (EsPiezaBlanca(CasillaSeleccionada))
@@ -348,6 +357,7 @@ namespace AjedrezMichaelPicoProyecto
                 {
                     Promocion ventanaPromocion = new Promocion(this, EsTurnoDeBlancas);
                     this.IsEnabled = false;
+                    Promocionando = true;
                     ventanaPromocion.Show();
                 }
             }
@@ -467,7 +477,7 @@ namespace AjedrezMichaelPicoProyecto
             DibujarCaminoTorre();
         }
 
-        //TODO jaque, jaquemate y enroque
+
         /// <summary>
         /// Metodo que dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
@@ -937,8 +947,13 @@ namespace AjedrezMichaelPicoProyecto
                 RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
                 DibujarRastro(); //Metod que dibuja el nuevo rastro
                 ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
-                ChequearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
-                //ChequearMate(); 
+
+                //La ventana de promocion se encarga de llamar estos metodos, esto con el fin de chequarjaque y final de partida despues de actualizar la casilla con la nueva pieza
+                if (!Promocionando)
+                {
+                    ChequearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
+                    ChequaFinalPartida();
+                }
             }
         }
 
@@ -1006,7 +1021,7 @@ namespace AjedrezMichaelPicoProyecto
         public bool SigueSiendoJaque()
         {
             //En caso de jaque, muevo las piezas y miro si hay jaque, en caso de haberlo cancelo el movimiento e informo, sino hay jaque, 
-            
+
             //Primero guardo el estado de el tablero para poder restaurarlo luego y tambien el de las variables que se puedan ver alteradas
             char[,] tableroGuardado = GetTablero();
             bool jaqueBlanco = JaqueReyBlanco;
@@ -1115,7 +1130,8 @@ namespace AjedrezMichaelPicoProyecto
                 JaqueReyBlanco = false;
             }
 
-            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            string guardarCasilla = CasillaSeleccionada; //Guardo la casilla seleccionado
+            EsTurnoDeBlancas = !EsTurnoDeBlancas; //Cambio el turno para poder chequear las piezas de el color opuesto
             ChequeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
 
             string blancas = "♔♕♖♗♘♙";
@@ -1149,9 +1165,9 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
 
+            CasillaSeleccionada = guardarCasilla; //Restauro la casilla
             ChequeandoJaque = false;
             BorrarCamino();
-            CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
             EsTurnoDeBlancas = !EsTurnoDeBlancas;
 
         }
@@ -1159,9 +1175,9 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Metodo que en caso de mate informa y para la partida
         /// </summary>
-        public void ChequearMate()
+        public void ChequaFinalPartida()
         {
-            if (EsMate() || EsMate())
+            if (EsMate() || EsEmpate())
             {
                 FinalPartida();
             }
@@ -1424,6 +1440,54 @@ namespace AjedrezMichaelPicoProyecto
             return tableroRespuesta;
         }
 
+        /// <summary>
+        /// Metodo que devuelve las casillas que tienen un rastro dibujado
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetListaRastro()
+        {
+            List<string> lista = new List<string>();
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    if (EsUnaCasillaDeRastro(casilla))
+                    {
+                        lista.Add(casilla);
+                    }
+                }
+            }
+            return lista;
+        }
+
+        /// <summary>
+        /// Metodo que recorre el tablero contando la cantidad de casillas de camino que hay
+        /// </summary>
+        /// <returns></returns>
+        public int GetCantidadCamino()
+        {
+            int cantidad = 0;
+            List<string> listaRastro = GetListaRastro();
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    if (EsUnaCasillaDeCamino(casilla) || EsUnaCasillaDeEnPassant(casilla) || EsUnaCasillaDeEnroque(casilla))
+                    {
+                        cantidad++;
+                    }
+
+                }
+            }
+            BorrarCamino();
+            SetRastro(listaRastro);
+            return cantidad;
+        }
+
 
         //METODOS SET://
 
@@ -1532,6 +1596,52 @@ namespace AjedrezMichaelPicoProyecto
             SePuedeEnroqueNegroIzquierda = enroqueNegrIzq;
             ActualizarLabelTurno();
             CambiarDebugText("... ");
+        }
+
+        /// <summary>
+        /// Metodo que hace "set De una partida entera con todos sus parametros"
+        /// </summary>
+        /// <param name="tablero">Tablero de la partida</param>
+        /// <param name="turnoBlanc">A quien le toca jugar</param>
+        /// <param name="enroqueBlancDere">El blanco puede enrocar hacia la derecha</param>
+        /// <param name="enroqueBlancIzq">El blanco puede enrocar hacia la izquierda</param>
+        /// <param name="enroqueNegrDere">El negro puede enrocar hacia la derecha</param>
+        /// <param name="enroqueNegrIzq">El negro puede enrocar hacia la izquierda</param>
+        /// <param name="jaqueBlanc">El rey blanco esta en jaque</param>
+        /// <param name="jaqueNegr">El rey negro esta en jaque</param>
+        public void SetParametrosPartida(char[,] tablero, bool turnoBlanc, bool enroqueBlancDere, bool enroqueBlancIzq, bool enroqueNegrDere, bool enroqueNegrIzq, bool jaqueBlanc, bool jaqueNegr, List<string> listaRastro, string casiSelec, string casiSelecAnt)
+        {
+            RellenarTablero(tablero);
+            EsTurnoDeBlancas = turnoBlanc;
+            SePuedeEnroqueBlancoDerecha = enroqueBlancDere;
+            SePuedeEnroqueBlancoIzquierda = enroqueBlancIzq;
+            SePuedeEnroqueNegroDerecha = enroqueNegrDere;
+            SePuedeEnroqueNegroIzquierda = enroqueNegrIzq;
+            JaqueReyBlanco = jaqueBlanc;
+            JaqueReyNegro = jaqueNegr;
+            CasillaSeleccionada = casiSelec;
+            CasillaSeleccionadaAnterior = casiSelecAnt;
+
+            RestaurarTablero(); //Borro rastro y caminos viejos
+
+            SetRastro(listaRastro);
+
+            
+        }
+
+        /// <summary>
+        /// Metodo que hace set de el rastro recibido
+        /// </summary>
+        public void SetRastro(List<string> listaRastro)
+        {
+            //Restauro el rastro
+            if (listaRastro != null && listaRastro.Count > 0)
+            {
+                foreach (string a in listaRastro)
+                {
+                    PintarRastro(a);
+                }
+            }
         }
 
 
@@ -1687,7 +1797,170 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EsMate()
         {
+            if (JaqueReyBlanco && EsTurnoDeBlancas)
+            {
+                if (!HayAlgunMovimientoPosible(true))
+                {
+                    return true;
+                }
+            }
+            if (JaqueReyNegro && !EsTurnoDeBlancas)
+            {
+                if (!HayAlgunMovimientoPosible(false))
+                {
+                    return true;
+                }
+            }
+
+
             return false;
+        }
+
+        /// <summary>
+        /// Este metodo intentara realizar cada movimiento posible para las piezas de el color pasado por parametro
+        /// y devolvera true si hay algun movimiento posible
+        /// </summary>
+        /// <param name="chequearBlancas"></param>
+        /// <returns></returns>
+        private bool HayAlgunMovimientoPosible(bool chequearBlancas)
+        {
+            //Primero guardare el estado de la partida completamente para restaurarlo al final
+            char[,] tablero = GetTablero();
+            bool turnoBlanc = EsTurnoDeBlancas;
+            bool enroqueBlancDere = SePuedeEnroqueBlancoDerecha;
+            bool enroqueBlancIzq = SePuedeEnroqueBlancoIzquierda;
+            bool enroqueNegrDere = SePuedeEnroqueNegroDerecha;
+            bool enroqueNegrIzq = SePuedeEnroqueNegroIzquierda;
+            bool jaqueBlanc = JaqueReyBlanco;
+            bool jaqueNegr = JaqueReyNegro;
+            string casiSelec = CasillaSeleccionada;
+            string casiSelecAnt = CasillaSeleccionadaAnterior;
+            List<string> listaRastro = GetListaRastro();
+
+            //
+            string blancas = "♔♕♖♗♘♙";
+            string negras = "♚♛♜♝♞♟";
+
+            //Recorro todo el tablero hasta encontrar una pieza de el color que estoy intentado chequear
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, 
+                        enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt); //Cada rotacion restauro el tablero
+                    CasillaSeleccionada = TraducirCoordenadaToCasilla(i, j);
+                    
+                    //Ahora intentare realizar todo movimiento posible y si en algun movimiento el jaque es false significa que si hay un movimiento posible
+                    if (chequearBlancas)
+                    {
+                        JaqueReyBlanco = true; //Hago que el jaque sea true, movere una pieza y mirare si el jaque sigue siendo true, si en algun momento es false significa que si hay un movimiento posible
+                        EsTurnoDeBlancas = true;
+
+                        //Si encuentro una pieza de el color que intento chequear
+                        if (blancas.Contains(GetContenidoCasilla(CasillaSeleccionada)))
+                        {
+                            EstaElCaminoDibujado = false;
+                            IntentarDibujarCamino(); //Intento dibujar su camino
+
+                            //Si no hay ningun camino no hay nada que intentar
+                            if (EstaElCaminoDibujado)
+                            {
+                                for (int k = 0; k < 8; k++)
+                                {
+                                    for (int l = 0; l < 8; l++)
+                                    {
+                                        CasillaSeleccionadaAnterior = CasillaSeleccionada;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(k, l);
+
+                                        //Si la casilla seleccionada es una casilla de camino
+                                        if (EsUnaCasillaDeCamino(CasillaSeleccionada))
+                                        {
+                                            //Realizo el movimiento y miro si hay jaque
+                                            ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+                                            ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+                                            ChequearJaque(true);
+
+                                            //Si despues de el movimiento simulado no es jaque significa que hay un movimiento posible por lo que restaurare la partida y devolvere true 
+                                            if (!JaqueReyBlanco)
+                                            {
+                                                SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, enroqueNegrIzq,
+                                                    jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                                return true;
+                                            }
+                                        }
+                                        //Si la casilla no es de camino, o se simulo el movimiento y sigue siendo jaque
+                                        //Restauro la partida y sigo buscando una casilla de camino
+                                        SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere,
+                                        enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                        JaqueReyBlanco = true;
+                                        EsTurnoDeBlancas = true;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(i, j);
+                                        IntentarDibujarCamino(); //Dibujo su camino otra vez para seguir intentando
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        JaqueReyNegro = true; //Hago que el jaque sea true, movere una pieza y mirare si el jaque sigue siendo true, si en algun momento es false significa que si hay un movimiento posible
+                        EsTurnoDeBlancas = false;
+
+                        //Si encuentro una pieza de el color que intento chequear
+                        if (negras.Contains(GetContenidoCasilla(CasillaSeleccionada)))
+                        {
+                            EstaElCaminoDibujado = false;
+                            IntentarDibujarCamino(); //Intento dibujar su camino
+
+                            if (EstaElCaminoDibujado)
+                            {
+                                for (int k = 0; k < 8; k++)
+                                {
+                                    for (int l = 0; l < 8; l++)
+                                    {
+                                        CasillaSeleccionadaAnterior = CasillaSeleccionada;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(k, l);
+
+                                        //Si la casilla seleccionada es una casilla de camino
+                                        if (EsUnaCasillaDeCamino(CasillaSeleccionada))
+                                        {
+                                            //Realizo el movimiento y miro si hay jaque
+                                            ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+                                            ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+                                            ChequearJaque(true);
+
+                                            //Si despues de el movimiento simulado no es jaque significa que hay un movimiento posible por lo que restaurare la partida y devolvere true 
+                                            if (!JaqueReyNegro)
+                                            {
+                                                SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, enroqueNegrIzq,
+                                                    jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                                return true;
+                                            }
+                                        }
+                                        //Si la casilla no es de camino, o se simulo el movimiento y sigue siendo jaque
+                                        //Restauro la partida y sigo buscando una casilla de camino
+                                        SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere,
+                                        enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                        JaqueReyNegro = true;
+                                        EsTurnoDeBlancas = false;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(i, j);
+                                        IntentarDibujarCamino(); //Dibujo su camino otra vez para seguir intentando
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            //Al final de el metodo restaurare la partida y al no haber encontrado un movimiento posible devolvere false
+            SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+            return false;
+
+
+
         }
 
         /// <summary>
@@ -1696,8 +1969,40 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EsEmpate()
         {
+            if (EsReyAhogado())
+            {
+                return true;
+            }
+
             return false;
         }
+
+        /// <summary>
+        /// Metodo que comprueba si el jugador a el que le toca jugar tiene algun movimiento posible o esta ahogado
+        /// </summary>
+        /// <returns></returns>
+        private bool EsReyAhogado()
+        {
+
+
+            if (EsTurnoDeBlancas && !JaqueReyBlanco)
+            {
+                if (!HayAlgunMovimientoPosible(true))
+                {
+                    return true;
+                }
+            } 
+            else if(!EsTurnoDeBlancas && !JaqueReyNegro)
+            {
+                if (!HayAlgunMovimientoPosible(false))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        
 
 
         //Metodos encargados de los sonidos//
@@ -1740,7 +2045,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void ReproducirSonidoBotonAplicacion(object sender, MouseEventArgs e)
         {
-            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
+            ventanaInicio.ReproducirSonidoBotonSistema(sender, e);
 
         }
 
@@ -1764,6 +2069,16 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
+        /// <summary>
+        /// Metodo que cierra todas las ventanas cuando se da a la x de la ventana
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
 
         /// <summary>
         /// Boton el cual cierra el programa y todas sus ventanas
@@ -1772,7 +2087,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void BotonrSalir_Click(object sender, RoutedEventArgs e)
         {
-            ventanaInicio.BotonSalir_Click(sender, e);
+            System.Windows.Application.Current.Shutdown();
         }
 
 
@@ -1810,96 +2125,192 @@ namespace AjedrezMichaelPicoProyecto
             GridTablero.IsEnabled = true;
             RestaurarTablero();
             ReproducirSonidoInicioPartida();
+            ContadorNotacion = 0;
 
             //Puzzle
             char[,] tableroMateEnUno = new char[,]
             {
-                { '•','♗','♝','•','•','•','♗','♘'},
-                { '♖','•','•','♙','♚','•','•','♜'},
-                { '•','♕','•','•','•','•','•','♗'},
-                { '•','•','•','•','♛','•','•','•'},
-                { '•','•','♝','♘','•','•','•','•'},
-                { '•','•','•','•','♕','•','♗','♔'},
-                { '•','♟','•','•','•','•','•','•'},
-                { '•','♝','♛','•','♖','•','♜','♝'},
+                { ' ','♗','♝',' ',' ',' ','♗','♘'},
+                { '♖',' ',' ','♙','♚',' ',' ','♜'},
+                { ' ','♕',' ',' ',' ',' ',' ','♗'},
+                { ' ',' ',' ',' ','♛',' ',' ',' '},
+                { ' ',' ','♝','♘',' ',' ',' ',' '},
+                { ' ',' ',' ',' ','♕',' ','♗','♔'},
+                { ' ','♟',' ',' ',' ',' ',' ',' '},
+                { ' ','♝','♛',' ','♖',' ','♜','♝'},
             };
 
             //julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015
             char[,] tableroPromocionMateEnUno = new char[,]
             {
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '♟','•','•','•','•','•','•','•'},
-                { '♙','•','•','•','•','•','•','♟'},
-                { '♔','•','♞','•','•','•','•','♙'},
-                { '•','♟','♚','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { '♟',' ',' ',' ',' ',' ',' ',' '},
+                { '♙',' ',' ',' ',' ',' ',' ','♟'},
+                { '♔',' ','♞',' ',' ',' ',' ','♙'},
+                { ' ','♟','♚',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
             };
 
             //Edward Lasker vs. Sir George Thomas - Londres - 1911
             char[,] tableroEnroqueParaMate = new char[,]
             {
-                { '♜','♞','•','•','•','♜','•','•'},
-                { '♟','♝','♟','♟','♛','•','♟','•'},
-                { '•','♟','•','•','♟','♘','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','♙','•','•','♘','♙'},
-                { '•','•','•','•','•','•','♙','•'},
-                { '♙','♙','♙','•','♗','♙','•','♖'},
-                { '♖','•','•','•','♔','•','♚','•'},
+                { '♜','♞',' ',' ',' ','♜',' ',' '},
+                { '♟','♝','♟','♟','♛',' ','♟',' '},
+                { ' ','♟',' ',' ','♟','♘',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ','♙',' ',' ','♘','♙'},
+                { ' ',' ',' ',' ',' ',' ','♙',' '},
+                { '♙','♙','♙',' ','♗','♙',' ','♖'},
+                { '♖',' ',' ',' ','♔',' ','♚',' '},
             };
 
             //Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023
-            //Blancas = ♔♕♖♗♘♙
-            //Negras  = ♚♛♜♝♞♟
             char[,] tableroEnPassantMate = new char[,]
             {
-                { '•','•','•','♖','•','•','•','♜'},
-                { '•','•','•','•','•','•','♝','♚'},
-                { '•','♟','•','•','♟','•','•','•'},
-                { '•','•','•','•','♙','♟','♙','♟'},
-                { '•','•','•','•','♗','•','•','•'},
-                { '♜','•','♟','•','•','•','•','•'},
-                { '♙','•','•','•','•','♙','♙','•'},
-                { '•','•','♔','•','•','•','•','•'},
+                { ' ',' ',' ','♖',' ',' ',' ','♜'},
+                { ' ',' ',' ',' ',' ',' ','♝','♚'},
+                { ' ','♟',' ',' ','♟',' ',' ',' '},
+                { ' ',' ',' ',' ','♙','♟','♙','♟'},
+                { ' ',' ',' ',' ','♗',' ',' ',' '},
+                { '♜',' ','♟',' ',' ',' ',' ',' '},
+                { '♙',' ',' ',' ',' ','♙','♙',' '},
+                { ' ',' ','♔',' ',' ',' ',' ',' '},
+            };
+            //Solucion Kxc4
+            char[,] tableroPuezzle2 = new char[,]
+            {
+                { '♜',' ','♝',' ',' ','♝',' ','♜'},
+                { '♟','♟',' ',' ',' ','♕','♟',' '},
+                { ' ',' ','♞','♚','♞',' ',' ','♟'},
+                { ' ',' ',' ','♟','♟','♙',' ','♟'},
+                { '♙',' ','♟',' ',' ',' ',' ',' '},
+                { ' ','♘','♙',' ','♘','♗',' ',' '},
+                { ' ','♙','♙',' ','♙','♙','♖',' '},
+                { ' ','♔',' ','♖',' ',' ',' ','♛'},
+            };
+            //Socuion Qh5
+            char[,] tableroPuezzle3 = new char[,]
+            {
+                { ' ',' ',' ','♖',' ','♗',' ',' '},
+                { ' ',' ',' ',' ',' ',' ','♟',' '},
+                { '♝','♟','♟','♞',' ',' ','♙','♟'},
+                { '♟',' ','♚',' ',' ',' ',' ',' '},
+                { '♛',' ',' ',' ','♟','♟',' ','♙'},
+                { ' ',' ','♙',' ','♙',' ','♟',' '},
+                { '♙','♙',' ','♙',' ',' ','♙','♜'},
+                { ' ',' ',' ','♕','♔','♗',' ',' '},
+            };
+            //Solucion  kd4
+            char[,] tableroPuezzle4 = new char[,]
+            {
+                { ' ',' ',' ',' ',' ',' ',' ','♔'},
+                { ' ',' ',' ','♙',' ','♕',' ',' '},
+                { '♖',' ',' ',' ','♘',' ',' ','♚'},
+                { ' ','♙','♙',' ',' ','♙','♟','♙'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { '♙',' ',' ',' ',' ',' ',' ',' '},
+                { ' ','♝','♙',' ',' ','♘',' ','♕'},
+                { ' ','♖','♗',' ',' ','♗',' ',' '},
+            };
+            //Solucion Alfilc5
+            char[,] tableroPuezzle5 = new char[,]
+            {
+                { ' ',' ',' ',' ',' ','♗',' ',' '},
+                { ' ','♛',' ','♕',' ','♘',' ','♜'},
+                { ' ','♚',' ',' ',' ',' ',' ','♜'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ','♔',' ','♞',' ',' '},
+                { ' ',' ',' ','♘',' ',' ',' ',' '},
+                { ' ',' ',' ','♙',' ','♕',' ',' '},
+                { '♖','♝',' ',' ',' ',' ','♝',' '},
+            };
+
+            //Blancas = ♔♕♖♗♘♙
+            //Negras  = ♚♛♜♝♞♟
+            //Solucion Alfilc5
+            char[,] tableroReyAhogado = new char[,]
+            {
+                { '♚',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ','♕',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ','♔',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
             };
 
             if (RadioDebug1.IsChecked == true)
             {
-                RellenarTablero(DevolverTableroNuevo());
-                SetParametrosPartida(true, true, true, true, true);
+                SetParametrosPartida(DevolverTableroNuevo(), true, true, true, true, true, false, false, null, "", "");
+                CambiarDebugText("");
 
             }
             else if (RadioDebug2.IsChecked == true)
             {
-                RellenarTablero(tableroMateEnUno);
-                SetParametrosPartida(true, false, false, false, false);
+                SetParametrosPartida(tableroMateEnUno, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
             }
             else if (RadioDebug3.IsChecked == true)
             {
-                PintarRastro("a3");
-                PintarRastro("a2");
-                SetParametrosPartida(false, false, false, false, false);
-                RellenarTablero(tableroPromocionMateEnUno);
+                List<string> rastros = new List<string>();
+                rastros.Add("a3");
+                rastros.Add("a2");
+                SetParametrosPartida(tableroPromocionMateEnUno, false, false, false, false, false, false, false, rastros, "", "");
+                CambiarDebugText("julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015, partida en la cual se dio la ocasion de un mate por promoción.  ");
             }
             else if (RadioDebug4.IsChecked == true)
             {
-                SePuedeEnroqueBlancoIzquierda = true;
-                PintarRastro("g1");
-                PintarRastro("g2");
-                SetParametrosPartida(true, false, true, false, false);
-                ActualizarLabelTurno();
-                RellenarTablero(tableroEnroqueParaMate);
+                List<string> rastros = new List<string>();
+                rastros.Add("g1");
+                rastros.Add("g2");
+                SetParametrosPartida(tableroEnroqueParaMate, true, false, true, false, false, false, false, rastros, "", "");
+                CambiarDebugText("Edward Lasker vs. Sir George Thomas - Londres - 1911, juego historico el cual tiene dos posibilidades para acabar, una de ellas el bellisimo jaque por enroque. ");
+
             }
             else if (RadioDebug5.IsChecked == true)
             {
-                PintarRastro("f7");
-                PintarRastro("f5");
+                List<string> rastros = new List<string>();
+                rastros.Add("f7");
+                rastros.Add("f5");
+                SetParametrosPartida(tableroEnPassantMate, true, false, false, false, false, false, false, rastros, "", "");
                 casillaEnPassant = "f6";
-                SetParametrosPartida(true, false, false, false, false);
-                RellenarTablero(tableroEnPassantMate);
+                CambiarDebugText("Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023, juego bastante polemico de comienzos de el año 2023 donde el campeon de el mundo fue derrotado por un bellisimo mate por En Passant.  ");
             }
+            else if (RadioDebug6.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle2, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug7.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle3, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug8.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle4, true, false, false, false, false, true, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug9.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroPuezzle5, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug14.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroReyAhogado, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Mueve la reina a la casilla c7 para probar el empate por rey ahogado");
+                PintarEnroque("c7");
+            }
+
         }
 
 

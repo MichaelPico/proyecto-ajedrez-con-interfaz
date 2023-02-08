@@ -8,7 +8,7 @@
 
         <ResourceDictionary>
             <!-- Este recurso es el que usan todas las casilla y se cambia en el menu de opciones-->
-            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#Code2000</FontFamily>
+            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#Gothic A1 Regular</FontFamily>
 
             <!-- Estos recursos son los usados para cambiar el de arriba -->
             <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>

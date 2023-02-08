@@ -10,7 +10,8 @@
         MinHeight=" 700" MinWidth=" 1245"
         WindowStartupLocation="CenterScreen" 
         WindowState="{DynamicResource estadoVentana}" 
-        WindowStyle="{DynamicResource estiloVentana}">
+        WindowStyle="{DynamicResource estiloVentana}"
+        Closing="Window_Closing">
 
 
     <!-- Fondo de la ventana -->
@@ -31,7 +32,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Margin" Value="20,20,80,20" />
-            <EventSetter Event="MouseEnter" Handler="SonidoBoton_MouseEnter" />
+            <EventSetter Event="MouseEnter" Handler="ReproducirSonidoBotonSistema" />
             <Setter Property="Template">
                 <!-- Sin este Setter.Value el color de fondo de el boton nunca cambia en hover trigger -->
                 <Setter.Value>

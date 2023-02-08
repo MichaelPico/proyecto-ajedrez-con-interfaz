@@ -10,7 +10,8 @@
         MinHeight=" 700" MinWidth=" 1245"
         WindowStartupLocation="CenterScreen" 
         WindowState="{DynamicResource estadoVentana}" 
-        WindowStyle="{DynamicResource estiloVentana}">
+        WindowStyle="{DynamicResource estiloVentana}"
+        Closing="Window_Closing">
 
     <!-- Fondo de la ventana -->
     <Window.Background>
@@ -104,15 +105,27 @@
         </Grid.RowDefinitions>
 
         <!-- Menu Debug -->
-        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="20,0,-10,0" Name="GridDebug">
+        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="40,0,-10,0" Name="GridDebug">
             <StackPanel>
                 <Label Content="Tableros: " Foreground="#90D7FF" FontSize="20"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug1" Content="Juego nuevo" IsChecked="True" Foreground="#90D7FF"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug2" Content="Mate en un Movimiento"  Foreground="#90D7FF"/>
+                <Label Content="Mates historicos: " Foreground="#90D7FF" FontSize="16"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug3" Content="Promocion para Mate"  Foreground="#90D7FF"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug4" Content="Enroque para Mate"  Foreground="#90D7FF"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug5" Content="En Passant para Mate"  Foreground="#90D7FF"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug6" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <Label Content="Puzzles:  " Foreground="#90D7FF" FontSize="16"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug2" Content="Puzzle 1"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug6" Content="Puzzle 2"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug7" Content="Puzzle 3" Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug8" Content="Puzzle 4" Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug9" Content="Puzzle 5"  Foreground="#90D7FF"/>
+                <Label Content="Patrones de Mate:  " Foreground="#90D7FF" FontSize="16"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug10" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug11" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug12" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug13" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <Label Content="Empate:  " Foreground="#90D7FF" FontSize="16"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug14" Content="Rey ahogado"  Foreground="#90D7FF"/>
                 <Button Click="CargarTableroDebug" Content="CARGAR" Margin="30" Background="#90D7FF" Height="30" FontSize="15"/>
             </StackPanel>
         </Grid>
@@ -201,7 +214,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Content="{DynamicResource nombrePiezasNegras}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
                         <Label Name="LabelTurno" Content="Turno: Blancas" Style="{StaticResource nombreJugador}" Grid.Column="1" HorizontalAlignment="Right"/>
-                        <Label Name="CapturasNegras" Content="" Grid.Row="1" Foreground="White"/>
+                        <Label Name="CapturasNegras" Content="" Grid.Row="1" Foreground="White" FontFamily="{DynamicResource fuentePiezas}" FontSize="20" Margin="0,-10,0,0"/>
                     </Grid>
 
                     <!-- Informacion jugador abajo -->
@@ -211,7 +224,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Label Content="{DynamicResource nombrePiezasBlancas}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
-                        <Label Name="CapturasBlancas" Content="" Grid.Row="1" Foreground="Black"/>
+                        <Label Name="CapturasBlancas" Content="" Grid.Row="1" Foreground="Black" FontFamily="{DynamicResource fuentePiezas}" FontSize="20" Margin="0,-10,0,0"/>
                     </Grid>
 
                     <Grid x:Name="GridTablero" Background="Black" MinWidth="640" MinHeight="640" Grid.Row="1" Grid.RowSpan="8">
