@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -251,7 +252,7 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-        //TODO: ONPASANT
+
         /// <summary>
         /// Metodo que dibuja el camino de la pieza peon
         /// </summary>
@@ -261,6 +262,13 @@ namespace AjedrezMichaelPicoProyecto
             int[] coordenadasDibujar = TraducirCasillaCoordenadas(CasillaSeleccionada);
             int fila = 8 - coordenadasDibujar[1];
             string casillaPasoDoble;
+
+
+            //Si la pieza es un peon a el que le toca promocionar, no dibujare su camino ya que no tiene
+            if ((EsPiezaBlanca(CasillaSeleccionada) && GetFila(CasillaSeleccionada) == 0) || (!EsPiezaBlanca(CasillaSeleccionada) && GetFila(CasillaSeleccionada) == 7))
+            {
+                return;
+            }
 
             //Si la pieza es blanca
             if (EsPiezaBlanca(CasillaSeleccionada))
@@ -467,7 +475,7 @@ namespace AjedrezMichaelPicoProyecto
             DibujarCaminoTorre();
         }
 
-        //TODO jaque, jaquemate y enroque
+
         /// <summary>
         /// Metodo que dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
         /// </summary>
@@ -938,7 +946,7 @@ namespace AjedrezMichaelPicoProyecto
                 DibujarRastro(); //Metod que dibuja el nuevo rastro
                 ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
                 ChequearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
-                //ChequearMate(); 
+                ChequaFinalPartida(); 
             }
         }
 
@@ -1006,7 +1014,7 @@ namespace AjedrezMichaelPicoProyecto
         public bool SigueSiendoJaque()
         {
             //En caso de jaque, muevo las piezas y miro si hay jaque, en caso de haberlo cancelo el movimiento e informo, sino hay jaque, 
-            
+
             //Primero guardo el estado de el tablero para poder restaurarlo luego y tambien el de las variables que se puedan ver alteradas
             char[,] tableroGuardado = GetTablero();
             bool jaqueBlanco = JaqueReyBlanco;
@@ -1115,7 +1123,8 @@ namespace AjedrezMichaelPicoProyecto
                 JaqueReyBlanco = false;
             }
 
-            EsTurnoDeBlancas = !EsTurnoDeBlancas;
+            string guardarCasilla = CasillaSeleccionada; //Guardo la casilla seleccionado
+            EsTurnoDeBlancas = !EsTurnoDeBlancas; //Cambio el turno para poder chequear las piezas de el color opuesto
             ChequeandoJaque = true; //booleano que cambia el funcionamiento de el metodo dibujarcamino
 
             string blancas = "♔♕♖♗♘♙";
@@ -1149,6 +1158,7 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
 
+            CasillaSeleccionada = guardarCasilla; //Restauro la casilla
             ChequeandoJaque = false;
             BorrarCamino();
             CambiarDebugText("jaqueReyBlanco= " + JaqueReyBlanco.ToString() + "jaqueReyNegro= " + JaqueReyNegro.ToString());
@@ -1159,9 +1169,9 @@ namespace AjedrezMichaelPicoProyecto
         /// <summary>
         /// Metodo que en caso de mate informa y para la partida
         /// </summary>
-        public void ChequearMate()
+        public void ChequaFinalPartida()
         {
-            if (EsMate() || EsMate())
+            if (EsMate() || EsEmpate())
             {
                 FinalPartida();
             }
@@ -1424,6 +1434,24 @@ namespace AjedrezMichaelPicoProyecto
             return tableroRespuesta;
         }
 
+        public List<string> GetListaRastro()
+        {
+            List<string> lista = new List<string>();
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    if (EsUnaCasillaDeRastro(casilla))
+                    {
+                        lista.Add(casilla);
+                    }
+                }
+            }
+            return lista;
+        }
+
 
         //METODOS SET://
 
@@ -1532,6 +1560,44 @@ namespace AjedrezMichaelPicoProyecto
             SePuedeEnroqueNegroIzquierda = enroqueNegrIzq;
             ActualizarLabelTurno();
             CambiarDebugText("... ");
+        }
+
+        /// <summary>
+        /// Metodo que hace "set De una partida entera con todos sus parametros"
+        /// </summary>
+        /// <param name="tablero">Tablero de la partida</param>
+        /// <param name="turnoBlanc">A quien le toca jugar</param>
+        /// <param name="enroqueBlancDere">El blanco puede enrocar hacia la derecha</param>
+        /// <param name="enroqueBlancIzq">El blanco puede enrocar hacia la izquierda</param>
+        /// <param name="enroqueNegrDere">El negro puede enrocar hacia la derecha</param>
+        /// <param name="enroqueNegrIzq">El negro puede enrocar hacia la izquierda</param>
+        /// <param name="jaqueBlanc">El rey blanco esta en jaque</param>
+        /// <param name="jaqueNegr">El rey negro esta en jaque</param>
+        public void SetParametrosPartida(char[,] tablero, bool turnoBlanc, bool enroqueBlancDere, bool enroqueBlancIzq, bool enroqueNegrDere, bool enroqueNegrIzq, bool jaqueBlanc, bool jaqueNegr, List<string> listaRastro, string casiSelec, string casiSelecAnt)
+        {
+            RellenarTablero(tablero);
+            EsTurnoDeBlancas = turnoBlanc;
+            SePuedeEnroqueBlancoDerecha = enroqueBlancDere;
+            SePuedeEnroqueBlancoIzquierda = enroqueBlancIzq;
+            SePuedeEnroqueNegroDerecha = enroqueNegrDere;
+            SePuedeEnroqueNegroIzquierda = enroqueNegrIzq;
+            JaqueReyBlanco = jaqueBlanc;
+            JaqueReyNegro = jaqueNegr;
+            CasillaSeleccionada = casiSelec;
+            CasillaSeleccionadaAnterior = casiSelecAnt;
+
+            RestaurarTablero(); //Borro rastro y caminos viejos
+
+            //Restauro el rastro
+            if (listaRastro.Count > 0)
+            {
+                foreach (string a in listaRastro)
+                {
+                    PintarRastro(a);
+                }
+            }
+
+            
         }
 
 
@@ -1687,7 +1753,170 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EsMate()
         {
+            if (JaqueReyBlanco && EsTurnoDeBlancas)
+            {
+                if (!HayAlgunMovimientoPosible(true))
+                {
+                    return true;
+                }
+            }
+            if (JaqueReyNegro && !EsTurnoDeBlancas)
+            {
+                if (!HayAlgunMovimientoPosible(false))
+                {
+                    return true;
+                }
+            }
+
+
             return false;
+        }
+
+        /// <summary>
+        /// Este metodo intentara realizar cada movimiento posible para las piezas de el color pasado por parametro
+        /// y devolvera true si hay algun movimiento posible
+        /// </summary>
+        /// <param name="chequearBlancas"></param>
+        /// <returns></returns>
+        private bool HayAlgunMovimientoPosible(bool chequearBlancas)
+        {
+            //Primero guardare el estado de la partida completamente para restaurarlo al final
+            char[,] tablero = GetTablero();
+            bool turnoBlanc = EsTurnoDeBlancas;
+            bool enroqueBlancDere = SePuedeEnroqueBlancoDerecha;
+            bool enroqueBlancIzq = SePuedeEnroqueBlancoIzquierda;
+            bool enroqueNegrDere = SePuedeEnroqueNegroDerecha;
+            bool enroqueNegrIzq = SePuedeEnroqueNegroIzquierda;
+            bool jaqueBlanc = JaqueReyBlanco;
+            bool jaqueNegr = JaqueReyNegro;
+            string casiSelec = CasillaSeleccionada;
+            string casiSelecAnt = CasillaSeleccionadaAnterior;
+            List<string> listaRastro = GetListaRastro();
+
+            //
+            string blancas = "♔♕♖♗♘♙";
+            string negras = "♚♛♜♝♞♟";
+
+            //Recorro todo el tablero hasta encontrar una pieza de el color que estoy intentado chequear
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, 
+                        enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt); //Cada rotacion restauro el tablero
+                    CasillaSeleccionada = TraducirCoordenadaToCasilla(i, j);
+                    
+                    //Ahora intentare realizar todo movimiento posible y si en algun movimiento el jaque es false significa que si hay un movimiento posible
+                    if (chequearBlancas)
+                    {
+                        JaqueReyBlanco = true; //Hago que el jaque sea true, movere una pieza y mirare si el jaque sigue siendo true, si en algun momento es false significa que si hay un movimiento posible
+                        EsTurnoDeBlancas = true;
+
+                        //Si encuentro una pieza de el color que intento chequear
+                        if (blancas.Contains(GetContenidoCasilla(CasillaSeleccionada)))
+                        {
+                            EstaElCaminoDibujado = false;
+                            IntentarDibujarCamino(); //Intento dibujar su camino
+
+                            //Si no hay ningun camino no hay nada que intentar
+                            if (EstaElCaminoDibujado)
+                            {
+                                for (int k = 0; k < 8; k++)
+                                {
+                                    for (int l = 0; l < 8; l++)
+                                    {
+                                        CasillaSeleccionadaAnterior = CasillaSeleccionada;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(k, l);
+
+                                        //Si la casilla seleccionada es una casilla de camino
+                                        if (EsUnaCasillaDeCamino(CasillaSeleccionada))
+                                        {
+                                            //Realizo el movimiento y miro si hay jaque
+                                            ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+                                            ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+                                            ChequearJaque(true);
+
+                                            //Si despues de el movimiento simulado no es jaque significa que hay un movimiento posible por lo que restaurare la partida y devolvere true 
+                                            if (!JaqueReyBlanco)
+                                            {
+                                                SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, enroqueNegrIzq,
+                                                    jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                                return true;
+                                            }
+                                        }
+                                        //Si la casilla no es de camino, o se simulo el movimiento y sigue siendo jaque
+                                        //Restauro la partida y sigo buscando una casilla de camino
+                                        SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere,
+                                        enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                        JaqueReyBlanco = true;
+                                        EsTurnoDeBlancas = true;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(i, j);
+                                        IntentarDibujarCamino(); //Dibujo su camino otra vez para seguir intentando
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        JaqueReyNegro = true; //Hago que el jaque sea true, movere una pieza y mirare si el jaque sigue siendo true, si en algun momento es false significa que si hay un movimiento posible
+                        EsTurnoDeBlancas = false;
+
+                        //Si encuentro una pieza de el color que intento chequear
+                        if (negras.Contains(GetContenidoCasilla(CasillaSeleccionada)))
+                        {
+                            EstaElCaminoDibujado = false;
+                            IntentarDibujarCamino(); //Intento dibujar su camino
+
+                            if (EstaElCaminoDibujado)
+                            {
+                                for (int k = 0; k < 8; k++)
+                                {
+                                    for (int l = 0; l < 8; l++)
+                                    {
+                                        CasillaSeleccionadaAnterior = CasillaSeleccionada;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(k, l);
+
+                                        //Si la casilla seleccionada es una casilla de camino
+                                        if (EsUnaCasillaDeCamino(CasillaSeleccionada))
+                                        {
+                                            //Realizo el movimiento y miro si hay jaque
+                                            ActualizarCaracterCasilla(CasillaSeleccionada, GetContenidoCasilla(CasillaSeleccionadaAnterior));
+                                            ActualizarCaracterCasilla(CasillaSeleccionadaAnterior, EspacioVacio);
+                                            ChequearJaque(true);
+
+                                            //Si despues de el movimiento simulado no es jaque significa que hay un movimiento posible por lo que restaurare la partida y devolvere true 
+                                            if (!JaqueReyNegro)
+                                            {
+                                                SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, enroqueNegrIzq,
+                                                    jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                                return true;
+                                            }
+                                        }
+                                        //Si la casilla no es de camino, o se simulo el movimiento y sigue siendo jaque
+                                        //Restauro la partida y sigo buscando una casilla de camino
+                                        SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere,
+                                        enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+                                        JaqueReyNegro = true;
+                                        EsTurnoDeBlancas = false;
+                                        CasillaSeleccionada = TraducirCoordenadaToCasilla(i, j);
+                                        IntentarDibujarCamino(); //Dibujo su camino otra vez para seguir intentando
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            //Al final de el metodo restaurare la partida y al no haber encontrado un movimiento posible devolvere false
+            SetParametrosPartida(tablero, turnoBlanc, enroqueBlancDere, enroqueBlancIzq, enroqueNegrDere, enroqueNegrIzq, jaqueBlanc, jaqueNegr, listaRastro, casiSelec, casiSelecAnt);
+            return false;
+
+
+
         }
 
         /// <summary>
@@ -1698,6 +1927,8 @@ namespace AjedrezMichaelPicoProyecto
         {
             return false;
         }
+
+        
 
 
         //Metodos encargados de los sonidos//
