@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,7 +132,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas1(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas1 = (FontFamily)App.Current.Resources["Code2000"]; //Get
+            FontFamily fichas1 = (FontFamily)App.Current.Resources["Gothic"]; //Get
             App.Current.Resources["fuentePiezas"] = fichas1; //Set
         }
 
@@ -153,7 +154,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas3(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas3 = (FontFamily)App.Current.Resources["Gothic"];
+            FontFamily fichas3 = (FontFamily)App.Current.Resources["Code2000"];
             App.Current.Resources["fuentePiezas"] = fichas3;
         }
 
@@ -164,7 +165,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void ReproducirSonido_MouseEnter(object sender, MouseEventArgs e)
         {
-            Inicio.SonidoBoton_MouseEnter(sender, e);
+            Inicio.ReproducirSonidoBotonSistema(sender, e);
         
         }
 
@@ -290,6 +291,16 @@ namespace AjedrezMichaelPicoProyecto
         public void MoverPiezaSonido()
         {
             ReproductorDeSonidoMoverPieza.Play();
+        }
+
+        /// <summary>
+        /// Metodo que cierra todas las ventanas cuando se da a la x de la ventana
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

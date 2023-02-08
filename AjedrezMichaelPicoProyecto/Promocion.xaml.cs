@@ -54,8 +54,6 @@ namespace AjedrezMichaelPicoProyecto
             App.Current.Resources["PromocionColorLetras"] = (SolidColorBrush)App.Current.Resources["PromocionColorNegro"];
         }
 
-        
-
         /// <summary>
         /// Cambia la casilla a promocionar y cierra esta ventana
         /// </summary>
@@ -63,7 +61,9 @@ namespace AjedrezMichaelPicoProyecto
         public void AccionBoton(string caracter)
         {
             ventanaJuego.ActualizarCaracterCasilla(ventanaJuego.CasillaSeleccionada, caracter);
+            ventanaJuego.Promocionando = false;
             ventanaJuego.ChequearJaque(true);
+            ventanaJuego.ChequaFinalPartida();
             CerrarVentana();
         }
 

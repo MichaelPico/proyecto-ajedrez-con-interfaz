@@ -10,7 +10,8 @@
         MinHeight=" 700" MinWidth=" 1245"
         WindowStartupLocation="CenterScreen" 
         WindowState="{DynamicResource estadoVentana}" 
-        WindowStyle="{DynamicResource estiloVentana}">
+        WindowStyle="{DynamicResource estiloVentana}"
+        Closing="Window_Closing">
 
     <!-- Fondo de la ventana -->
     <Window.Background>

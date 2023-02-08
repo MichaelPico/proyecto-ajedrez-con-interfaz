@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,7 +14,7 @@ namespace AjedrezMichaelPicoProyecto
     public partial class Juego : Window
     {
         //Constantes:
-        private const string EspacioVacio = "•";
+        private const string EspacioVacio = " ";
 
         //Variables para mover piezas
         public string CasillaSeleccionadaAnterior = "";
@@ -22,6 +23,7 @@ namespace AjedrezMichaelPicoProyecto
         //Booleanos usados para el funcionamiento de el juego
         bool EstaElCaminoDibujado = false;
         bool ChequeandoJaque = false;
+        public bool Promocionando = false;
 
         //Booleanos que definen la partida
         bool EsTurnoDeBlancas = true;
@@ -66,10 +68,10 @@ namespace AjedrezMichaelPicoProyecto
             {
                 { '♜','♞','♝','♛','♚','♝','♞','♜'},
                 { '♟','♟','♟','♟','♟','♟','♟','♟'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
                 { '♙','♙','♙','♙','♙','♙','♙','♙'}, //Blancas = ♔♕♖♗♘♙
                 { '♖','♘','♗','♕','♔','♗','♘','♖'}, //Negras  = ♚♛♜♝♞♟
             };
@@ -355,6 +357,7 @@ namespace AjedrezMichaelPicoProyecto
                 {
                     Promocion ventanaPromocion = new Promocion(this, EsTurnoDeBlancas);
                     this.IsEnabled = false;
+                    Promocionando = true;
                     ventanaPromocion.Show();
                 }
             }
@@ -944,8 +947,13 @@ namespace AjedrezMichaelPicoProyecto
                 RestaurarTablero(); //Metodo que elimina todos los caminos y rastros
                 DibujarRastro(); //Metod que dibuja el nuevo rastro
                 ReproducirMoverPiezaSonido(); //Metodo que reproduce el sonido de mover pieza
-                ChequearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
-                ChequaFinalPartida(); 
+
+                //La ventana de promocion se encarga de llamar estos metodos, esto con el fin de chequarjaque y final de partida despues de actualizar la casilla con la nueva pieza
+                if (!Promocionando)
+                {
+                    ChequearJaque(true); //Metodo que actualiza los booleanos de jaque para asi controlar los movimientos en el siguiente turno
+                    ChequaFinalPartida();
+                }
             }
         }
 
@@ -1432,6 +1440,10 @@ namespace AjedrezMichaelPicoProyecto
             return tableroRespuesta;
         }
 
+        /// <summary>
+        /// Metodo que devuelve las casillas que tienen un rastro dibujado
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetListaRastro()
         {
             List<string> lista = new List<string>();
@@ -1448,6 +1460,32 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
             return lista;
+        }
+
+        /// <summary>
+        /// Metodo que recorre el tablero contando la cantidad de casillas de camino que hay
+        /// </summary>
+        /// <returns></returns>
+        public int GetCantidadCamino()
+        {
+            int cantidad = 0;
+            List<string> listaRastro = GetListaRastro();
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    if (EsUnaCasillaDeCamino(casilla) || EsUnaCasillaDeEnPassant(casilla) || EsUnaCasillaDeEnroque(casilla))
+                    {
+                        cantidad++;
+                    }
+
+                }
+            }
+            BorrarCamino();
+            SetRastro(listaRastro);
+            return cantidad;
         }
 
 
@@ -1586,6 +1624,16 @@ namespace AjedrezMichaelPicoProyecto
 
             RestaurarTablero(); //Borro rastro y caminos viejos
 
+            SetRastro(listaRastro);
+
+            
+        }
+
+        /// <summary>
+        /// Metodo que hace set de el rastro recibido
+        /// </summary>
+        public void SetRastro(List<string> listaRastro)
+        {
             //Restauro el rastro
             if (listaRastro != null && listaRastro.Count > 0)
             {
@@ -1594,8 +1642,6 @@ namespace AjedrezMichaelPicoProyecto
                     PintarRastro(a);
                 }
             }
-
-            
         }
 
 
@@ -1923,6 +1969,36 @@ namespace AjedrezMichaelPicoProyecto
         /// <returns></returns>
         private bool EsEmpate()
         {
+            if (EsReyAhogado())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Metodo que comprueba si el jugador a el que le toca jugar tiene algun movimiento posible o esta ahogado
+        /// </summary>
+        /// <returns></returns>
+        private bool EsReyAhogado()
+        {
+
+
+            if (EsTurnoDeBlancas && !JaqueReyBlanco)
+            {
+                if (!HayAlgunMovimientoPosible(true))
+                {
+                    return true;
+                }
+            } 
+            else if(!EsTurnoDeBlancas && !JaqueReyNegro)
+            {
+                if (!HayAlgunMovimientoPosible(false))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -1969,7 +2045,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void ReproducirSonidoBotonAplicacion(object sender, MouseEventArgs e)
         {
-            ventanaInicio.SonidoBoton_MouseEnter(sender, e);
+            ventanaInicio.ReproducirSonidoBotonSistema(sender, e);
 
         }
 
@@ -1993,6 +2069,16 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
+        /// <summary>
+        /// Metodo que cierra todas las ventanas cuando se da a la x de la ventana
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
 
         /// <summary>
         /// Boton el cual cierra el programa y todas sus ventanas
@@ -2001,7 +2087,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void BotonrSalir_Click(object sender, RoutedEventArgs e)
         {
-            ventanaInicio.BotonSalir_Click(sender, e);
+            System.Windows.Application.Current.Shutdown();
         }
 
 
@@ -2044,104 +2130,116 @@ namespace AjedrezMichaelPicoProyecto
             //Puzzle
             char[,] tableroMateEnUno = new char[,]
             {
-                { '•','♗','♝','•','•','•','♗','♘'},
-                { '♖','•','•','♙','♚','•','•','♜'},
-                { '•','♕','•','•','•','•','•','♗'},
-                { '•','•','•','•','♛','•','•','•'},
-                { '•','•','♝','♘','•','•','•','•'},
-                { '•','•','•','•','♕','•','♗','♔'},
-                { '•','♟','•','•','•','•','•','•'},
-                { '•','♝','♛','•','♖','•','♜','♝'},
+                { ' ','♗','♝',' ',' ',' ','♗','♘'},
+                { '♖',' ',' ','♙','♚',' ',' ','♜'},
+                { ' ','♕',' ',' ',' ',' ',' ','♗'},
+                { ' ',' ',' ',' ','♛',' ',' ',' '},
+                { ' ',' ','♝','♘',' ',' ',' ',' '},
+                { ' ',' ',' ',' ','♕',' ','♗','♔'},
+                { ' ','♟',' ',' ',' ',' ',' ',' '},
+                { ' ','♝','♛',' ','♖',' ','♜','♝'},
             };
 
             //julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015
             char[,] tableroPromocionMateEnUno = new char[,]
             {
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '♟','•','•','•','•','•','•','•'},
-                { '♙','•','•','•','•','•','•','♟'},
-                { '♔','•','♞','•','•','•','•','♙'},
-                { '•','♟','♚','•','•','•','•','•'},
-                { '•','•','•','•','•','•','•','•'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { '♟',' ',' ',' ',' ',' ',' ',' '},
+                { '♙',' ',' ',' ',' ',' ',' ','♟'},
+                { '♔',' ','♞',' ',' ',' ',' ','♙'},
+                { ' ','♟','♚',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
             };
 
             //Edward Lasker vs. Sir George Thomas - Londres - 1911
             char[,] tableroEnroqueParaMate = new char[,]
             {
-                { '♜','♞','•','•','•','♜','•','•'},
-                { '♟','♝','♟','♟','♛','•','♟','•'},
-                { '•','♟','•','•','♟','♘','•','•'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','♙','•','•','♘','♙'},
-                { '•','•','•','•','•','•','♙','•'},
-                { '♙','♙','♙','•','♗','♙','•','♖'},
-                { '♖','•','•','•','♔','•','♚','•'},
+                { '♜','♞',' ',' ',' ','♜',' ',' '},
+                { '♟','♝','♟','♟','♛',' ','♟',' '},
+                { ' ','♟',' ',' ','♟','♘',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ','♙',' ',' ','♘','♙'},
+                { ' ',' ',' ',' ',' ',' ','♙',' '},
+                { '♙','♙','♙',' ','♗','♙',' ','♖'},
+                { '♖',' ',' ',' ','♔',' ','♚',' '},
             };
 
             //Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023
             char[,] tableroEnPassantMate = new char[,]
             {
-                { '•','•','•','♖','•','•','•','♜'},
-                { '•','•','•','•','•','•','♝','♚'},
-                { '•','♟','•','•','♟','•','•','•'},
-                { '•','•','•','•','♙','♟','♙','♟'},
-                { '•','•','•','•','♗','•','•','•'},
-                { '♜','•','♟','•','•','•','•','•'},
-                { '♙','•','•','•','•','♙','♙','•'},
-                { '•','•','♔','•','•','•','•','•'},
+                { ' ',' ',' ','♖',' ',' ',' ','♜'},
+                { ' ',' ',' ',' ',' ',' ','♝','♚'},
+                { ' ','♟',' ',' ','♟',' ',' ',' '},
+                { ' ',' ',' ',' ','♙','♟','♙','♟'},
+                { ' ',' ',' ',' ','♗',' ',' ',' '},
+                { '♜',' ','♟',' ',' ',' ',' ',' '},
+                { '♙',' ',' ',' ',' ','♙','♙',' '},
+                { ' ',' ','♔',' ',' ',' ',' ',' '},
             };
             //Solucion Kxc4
             char[,] tableroPuezzle2 = new char[,]
             {
-                { '♜','•','♝','•','•','♝','•','♜'},
-                { '♟','♟','•','•','•','♕','♟','•'},
-                { '•','•','♞','♚','♞','•','•','♟'},
-                { '•','•','•','♟','♟','♙','•','♟'},
-                { '♙','•','♟','•','•','•','•','•'},
-                { '•','♘','♙','•','♘','♗','•','•'},
-                { '•','♙','♙','•','♙','♙','♖','•'},
-                { '•','♔','•','♖','•','•','•','♛'},
+                { '♜',' ','♝',' ',' ','♝',' ','♜'},
+                { '♟','♟',' ',' ',' ','♕','♟',' '},
+                { ' ',' ','♞','♚','♞',' ',' ','♟'},
+                { ' ',' ',' ','♟','♟','♙',' ','♟'},
+                { '♙',' ','♟',' ',' ',' ',' ',' '},
+                { ' ','♘','♙',' ','♘','♗',' ',' '},
+                { ' ','♙','♙',' ','♙','♙','♖',' '},
+                { ' ','♔',' ','♖',' ',' ',' ','♛'},
             };
             //Socuion Qh5
             char[,] tableroPuezzle3 = new char[,]
             {
-                { '•','•','•','♖','•','♗','•','•'},
-                { '•','•','•','•','•','•','♟','•'},
-                { '♝','♟','♟','♞','•','•','♙','♟'},
-                { '♟','•','♚','•','•','•','•','•'},
-                { '♛','•','•','•','♟','♟','•','♙'},
-                { '•','•','♙','•','♙','•','♟','•'},
-                { '♙','♙','•','♙','•','•','♙','♜'},
-                { '•','•','•','♕','♔','♗','•','•'},
+                { ' ',' ',' ','♖',' ','♗',' ',' '},
+                { ' ',' ',' ',' ',' ',' ','♟',' '},
+                { '♝','♟','♟','♞',' ',' ','♙','♟'},
+                { '♟',' ','♚',' ',' ',' ',' ',' '},
+                { '♛',' ',' ',' ','♟','♟',' ','♙'},
+                { ' ',' ','♙',' ','♙',' ','♟',' '},
+                { '♙','♙',' ','♙',' ',' ','♙','♜'},
+                { ' ',' ',' ','♕','♔','♗',' ',' '},
             };
             //Solucion  kd4
             char[,] tableroPuezzle4 = new char[,]
             {
-                { '•','•','•','•','•','•','•','♔'},
-                { '•','•','•','♙','•','♕','•','•'},
-                { '♖','•','•','•','♘','•','•','♚'},
-                { '•','♙','♙','•','•','♙','♟','♙'},
-                { '•','•','•','•','•','•','•','•'},
-                { '♙','•','•','•','•','•','•','•'},
-                { '•','♝','♙','•','•','♘','•','♕'},
-                { '•','♖','♗','•','•','♗','•','•'},
+                { ' ',' ',' ',' ',' ',' ',' ','♔'},
+                { ' ',' ',' ','♙',' ','♕',' ',' '},
+                { '♖',' ',' ',' ','♘',' ',' ','♚'},
+                { ' ','♙','♙',' ',' ','♙','♟','♙'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { '♙',' ',' ',' ',' ',' ',' ',' '},
+                { ' ','♝','♙',' ',' ','♘',' ','♕'},
+                { ' ','♖','♗',' ',' ','♗',' ',' '},
+            };
+            //Solucion Alfilc5
+            char[,] tableroPuezzle5 = new char[,]
+            {
+                { ' ',' ',' ',' ',' ','♗',' ',' '},
+                { ' ','♛',' ','♕',' ','♘',' ','♜'},
+                { ' ','♚',' ',' ',' ',' ',' ','♜'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ','♔',' ','♞',' ',' '},
+                { ' ',' ',' ','♘',' ',' ',' ',' '},
+                { ' ',' ',' ','♙',' ','♕',' ',' '},
+                { '♖','♝',' ',' ',' ',' ','♝',' '},
             };
 
             //Blancas = ♔♕♖♗♘♙
             //Negras  = ♚♛♜♝♞♟
             //Solucion Alfilc5
-            char[,] tableroPuezzle5 = new char[,]
+            char[,] tableroReyAhogado = new char[,]
             {
-                { '•','•','•','•','•','♗','•','•'},
-                { '•','♛','•','♕','•','♘','•','♜'},
-                { '•','♚','•','•','•','•','•','♜'},
-                { '•','•','•','•','•','•','•','•'},
-                { '•','•','•','♔','•','♞','•','•'},
-                { '•','•','•','♘','•','•','•','•'},
-                { '•','•','•','♙','•','♕','•','•'},
-                { '♖','♝','•','•','•','•','♝','•'},
+                { '♚',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ','♕',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ','♔',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
             };
 
             if (RadioDebug1.IsChecked == true)
@@ -2204,6 +2302,13 @@ namespace AjedrezMichaelPicoProyecto
                 List<string> rastros = new List<string>();
                 SetParametrosPartida(tableroPuezzle5, true, false, false, false, false, false, false, null, "", "");
                 CambiarDebugText("Puzzle en el que solo hay un movimiento que termine en jaque mate, ¿podras encontrarlo?  ");
+            }
+            else if (RadioDebug14.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroReyAhogado, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Mueve la reina a la casilla c7 para probar el empate por rey ahogado");
+                PintarEnroque("c7");
             }
 
         }

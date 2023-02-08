@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,14 +37,28 @@ namespace AjedrezMichaelPicoProyecto
             IndexPaletaDeColor = 0;
         }
 
-        
+        /// <summary>
+        /// Metodo que cierra todas las ventanas cuando se da a la x de la ventana
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Metodo que habilita la visibilidad de el boton continuar
+        /// </summary>
         public void MostrarBotonContinuar()
         {
             BotonContinuarJuego.Visibility = Visibility.Visible;
             BotonContinuarJuego.IsEnabled = true;
         }
 
-        //Carga el sonido de el boton 
+        /// <summary>
+        /// Metodo que carga el sonido de los botones
+        /// </summary>
         public void CargarSonidoBotones()
         {
             System.IO.Stream recursoaudio = Properties.Resources.sonidoBoton;
@@ -51,7 +66,11 @@ namespace AjedrezMichaelPicoProyecto
             ReproductorDeSonidoDeBoton.Load();
         }
 
-        //Crea la ventana de Juego, y le da el modo de ventana seleccionado
+        /// <summary>
+        /// Boton que crea la ventana de Juego, y le da el modo de ventana seleccionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BotonNuevoJuego_Click(object sender, RoutedEventArgs e)
         {
             ventanaJuego = new Juego(this);
@@ -64,41 +83,44 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
-        
-
-        //Muestra la ventana de opciones
+        /// <summary>
+        /// Boton que cambia a la ventana de opciones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BotonOpciones_Click(object sender, RoutedEventArgs e)
         {
             ventanaOpciones.Show();
             this.Hide();
         }
 
-        //Si el juego ha sido creado, este boton se habilitara automaticamente y al dar click abrira la ventana de juego
+        /// <summary>
+        /// Boton que si el juego ha sido creado, este boton se habilitara automaticamente y al dar click abrira la ventana de juego
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BotonContinuarJuego_Click(object sender, RoutedEventArgs e)
         {
             ventanaJuego.Show();
             this.Hide();
         }
 
-        //Cierra todas las ventanas
+        /// <summary>
+        /// Boton que termina la aplicacion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BotonSalir_Click(object sender, RoutedEventArgs e)
         {
-            CerrarTodasLasVentanas();
+            Application.Current.Shutdown();
         }
 
-        //Cierra todas las ventanas
-        public void CerrarTodasLasVentanas()
-        {
-            if(ventanaJuego != null)
-            {
-                ventanaJuego.Close();
-            }
-            ventanaOpciones.Close();
-            this.Close();
-        }
-
-        //Emite el sonido cargado
-        public void SonidoBoton_MouseEnter(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Metodo que emite el sonido cargado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ReproducirSonidoBotonSistema(object sender, MouseEventArgs e)
         {
             ReproductorDeSonidoDeBoton.Play();
 
