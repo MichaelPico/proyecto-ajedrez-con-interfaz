@@ -211,6 +211,25 @@ namespace AjedrezMichaelPicoProyecto
             BorrarRastro();
         }
 
+        /// <summary>
+        /// Metodo que pinta cada casilla para asegurarse que cambian de color
+        /// </summary>
+        public void RepintarTablero()
+        {
+            List<string> rastros = GetListaRastro();
+
+            for(int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    string casilla = TraducirCoordenadaToCasilla(i, j);
+                    PintarBase(casilla);
+                }
+            }
+
+            SetRastro(rastros);
+        }
+
 
         //METODOS DE DIBUJAR//
 
@@ -251,7 +270,6 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
         }
-
 
         /// <summary>
         /// Metodo que dibuja el camino de la pieza peon
@@ -362,7 +380,6 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-
         /// <summary>
         /// Metodo que dibuja camino en lineas diagonales
         /// </summary>
@@ -373,7 +390,6 @@ namespace AjedrezMichaelPicoProyecto
             DibujarLineaDiagonal(false, true, CasillaSeleccionada);
             DibujarLineaDiagonal(false, false, CasillaSeleccionada);
         }
-
 
         /// <summary>
         /// Metodo que dibuja casillas de camino cada al final de una L desde el origen
@@ -453,7 +469,6 @@ namespace AjedrezMichaelPicoProyecto
 
         }
 
-
         /// <summary>
         /// Metodo que dibuja el camino de una torre
         /// (linea recta hasta antes de encontrar una pieza amiga o hasta encontrar una pieza enemiga)
@@ -466,7 +481,6 @@ namespace AjedrezMichaelPicoProyecto
             DibujarLineaRecta(false, false, CasillaSeleccionada);
         }
 
-
         /// <summary>
         /// Metodo que dibuja el camino de la reina el cual es el camino de un alfil y de una torre juntos
         /// </summary>
@@ -475,7 +489,6 @@ namespace AjedrezMichaelPicoProyecto
             DibujarCaminoAlfil();
             DibujarCaminoTorre();
         }
-
 
         /// <summary>
         /// Metodo que dibuja el camino de la pieza de rey (una casilla en cada direccion siempre que no haya una pieza amiga
@@ -525,7 +538,6 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
         }
-
 
         /// <summary>
         /// Metodo que dibuja una linea de camino recta partiendo de la casilla pasada por parametro
@@ -614,7 +626,6 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-
         /// <summary>
         /// Metodo que dibuja una linea de camino diagonal partiendo de la casilla pasado por parametros 
         /// El sentido de esta linea depende de los booleanos
@@ -693,7 +704,6 @@ namespace AjedrezMichaelPicoProyecto
                 }
             }
         }
-
 
         /// <summary>
         /// Metodo que cambia el fondo de las dos ultmias casillas seleccionadas a rastro
@@ -997,9 +1007,14 @@ namespace AjedrezMichaelPicoProyecto
             if (!EsTurnoDeBlancas)
             {
                 notacion += "  ";
+                if (ContadorNotacion % 2 == 0)
+                {
+                    notacion += "\n";
+                }
             }
 
             ActualizarNotacion(notacion);
+
         }
 
         /// <summary>
@@ -1041,7 +1056,7 @@ namespace AjedrezMichaelPicoProyecto
                 CasillaSeleccionada = LaCasillaSeleccionada;
 
                 //Mensaje de movimiento ilegal
-                string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
+                string messageBoxText = "Este movimiento es ilegal ya que dejaria a tu rey en jaque";
                 string caption = "Movimiento ilegal";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Warning;
@@ -1058,7 +1073,7 @@ namespace AjedrezMichaelPicoProyecto
                 CasillaSeleccionada = LaCasillaSeleccionada;
 
                 //Mensaje de movimiento ilegal
-                string messageBoxText = "Este movimiento es ilegal ya que sigues estando en jaque";
+                string messageBoxText = "Este movimiento es ilegal ya que dejaria a tu rey en jaque";
                 string caption = "Movimiento ilegal";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Warning;

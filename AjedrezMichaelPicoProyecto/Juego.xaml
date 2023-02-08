@@ -168,7 +168,7 @@
                         <TextBlock TextDecorations="Underline" FontSize="20" Foreground="#d7d8d8">Movimientos:</TextBlock>
                     </Label>
                     <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalScrollBarVisibility="Auto" >
-                        <TextBlock x:Name="labelNotacion" FontSize="18" Foreground="#d7d8d8" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" FontFamily="{DynamicResource fuentePiezas}"></TextBlock>
+                        <TextBlock x:Name="labelNotacion" FontSize="16" Foreground="#d7d8d8" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" FontFamily="{DynamicResource fuentePiezas}"></TextBlock>
                     </ScrollViewer>
                 </Grid>
 

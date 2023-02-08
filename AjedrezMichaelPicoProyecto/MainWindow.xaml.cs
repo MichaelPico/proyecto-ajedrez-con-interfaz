@@ -102,7 +102,7 @@ namespace AjedrezMichaelPicoProyecto
         private void BotonContinuarJuego_Click(object sender, RoutedEventArgs e)
         {
             ventanaJuego.Show();
-            ventanaJuego.BorrarCamino();
+            ventanaJuego.RepintarTablero(); //Nuevo metodo restaurar camino
             this.Hide();
         }
 
