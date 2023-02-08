@@ -85,19 +85,19 @@
 
             <!-- Paleta 2 -->
             <SolidColorBrush x:Key="colorClaroBase2" Color="#92ADC9"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroCamino2" Color="#94b9de"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroRastro2" Color="#4e6c8d"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino2" Color="#E0607E"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro2" Color="#156064"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase2" Color="#555555"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroCamino2" Color="#767676"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroRastro2" Color="#333333"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino2" Color="#E0607E"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro2" Color="#156064"></SolidColorBrush>
 
             <!-- Paleta 3 -->
             <SolidColorBrush x:Key="colorClaroBase3" Color="#CCCCCC"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroCamino3" Color="#e3b784"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorClaroRastro3" Color="#1a535c"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroCamino3" Color="#E0607E"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorClaroRastro3" Color="#156064"></SolidColorBrush>
             <SolidColorBrush x:Key="colorOscuroBase3" Color="#f9a23c"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroCamino3" Color="#e3b784"></SolidColorBrush>
-            <SolidColorBrush x:Key="colorOscuroRastro3" Color="#1a535c"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroCamino3" Color="#E0607E"></SolidColorBrush>
+            <SolidColorBrush x:Key="colorOscuroRastro3" Color="#156064"></SolidColorBrush>
             
             <!-- Paleta 3 
             <SolidColorBrush x:Key="colorClaroBase3" Color="#CCCCCC"></SolidColorBrush>
