@@ -8,7 +8,7 @@
 
         <ResourceDictionary>
             <!-- Este recurso es el que usan todas las casilla y se cambia en el menu de opciones-->
-            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#Gothic A1 Regular</FontFamily>
+            <FontFamily x:Key="fuentePiezas">pack://application:,,,/Fonts/#Quivira</FontFamily>
 
             <!-- Estos recursos son los usados para cambiar el de arriba -->
             <FontFamily x:Key="Pecita">pack://application:,,,/Fonts/#Pecita</FontFamily>
@@ -25,12 +25,12 @@
             <SolidColorBrush x:Key="PromocionColorBlanco" Color="#FFFFFE"></SolidColorBrush>
 
             <!-- Recursos para que asi todas las ventanas esten en el mismo modo y estado -->
-            <WindowState x:Key="estadoVentana">Normal</WindowState>
-            <WindowStyle x:Key="estiloVentana">SingleBorderWindow</WindowStyle>
+            <WindowState x:Key="estadoVentana">Maximized</WindowState>
+            <WindowStyle x:Key="estiloVentana">None</WindowStyle>
 
             <!-- Strings para la ventana de juego -->
-            <system:String x:Key="nombrePiezasNegras">Jugador piezas negras</system:String>
-            <system:String x:Key="nombrePiezasBlancas">Jugador piezas blancas</system:String>
+            <system:String x:Key="nombrePiezasNegras">JUGADOR DE PIEZAS NEGRAS</system:String>
+            <system:String x:Key="nombrePiezasBlancas">JUGADOR DE PIEZAS BLANCAS</system:String>
 
             <!-- Colores para los botones de la ventana de inicio y de opciones -->
             <SolidColorBrush x:Key="colorBotonSistema" Color="#E87B18"></SolidColorBrush>

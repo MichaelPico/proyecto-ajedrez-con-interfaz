@@ -20,7 +20,15 @@
 
     <!-- Recursos de la ventana -->
     <Window.Resources>
+        
+        <!-- El siguiente bloque cambia la fuente de toda la ventana -->
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Georgia" />
+        </Style>
+
         <Style x:Key="labelNumero" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -30,6 +38,8 @@
         </Style>
 
         <Style x:Key="labelLetra" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="15"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalContentAlignment" Value="Right"/>
@@ -40,7 +50,8 @@
 
         <Style x:Key="nombreJugador" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <!-- Estilo de las casillas de el juego -->
@@ -105,7 +116,7 @@
         </Grid.RowDefinitions>
 
         <!-- Menu Debug -->
-        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="40,0,-10,0" Name="GridDebug">
+        <Grid Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="40,0,-10,0" Name="GridDebug" Visibility="Hidden">
             <StackPanel>
                 <Label Content="Tableros: " Foreground="#90D7FF" FontSize="20"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug1" Content="Juego nuevo" IsChecked="True" Foreground="#90D7FF"/>
@@ -157,7 +168,7 @@
                         <TextBlock TextDecorations="Underline" FontSize="20" Foreground="#d7d8d8">Movimientos:</TextBlock>
                     </Label>
                     <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalScrollBarVisibility="Auto" >
-                        <TextBlock x:Name="labelNotacion" FontSize="12" Foreground="#d7d8d8" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True"></TextBlock>
+                        <TextBlock x:Name="labelNotacion" FontSize="18" Foreground="#d7d8d8" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" FontFamily="{DynamicResource fuentePiezas}"></TextBlock>
                     </ScrollViewer>
                 </Grid>
 
@@ -213,7 +224,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label Content="{DynamicResource nombrePiezasNegras}" Style="{StaticResource nombreJugador}" Grid.Row="0"/>
-                        <Label Name="LabelTurno" Content="Turno: Blancas" Style="{StaticResource nombreJugador}" Grid.Column="1" HorizontalAlignment="Right"/>
+                        <Label Name="LabelTurno" Content="TURNO: BLANCAS" Style="{StaticResource nombreJugador}" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="30" Foreground="{DynamicResource colorBotonSistema}"/>
                         <Label Name="CapturasNegras" Content="" Grid.Row="1" Foreground="White" FontFamily="{DynamicResource fuentePiezas}" FontSize="20" Margin="0,-10,0,0"/>
                     </Grid>
 
@@ -441,36 +452,36 @@
                         <!-- Row 7 -->
                         <Grid Grid.Row="7" Grid.Column="0">
                             <Button x:Name="casilla_a1"  Click="A1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                            <Label   Content="a"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="A"  Style="{StaticResource labelLetra}"/>
                             <Label  Content="1" Style="{StaticResource labelNumero}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="1">
                             <Button x:Name="casilla_b1"  Click="B1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                            <Label   Content="b"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="B"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="2">
                             <Button x:Name="casilla_c1"  Click="C1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                            <Label   Content="c"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="C"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="3">
                             <Button x:Name="casilla_d1"  Click="D1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                            <Label   Content="d"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="D"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="4">
                             <Button x:Name="casilla_e1"  Click="E1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                            <Label   Content="e"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="E"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="5">
                             <Button x:Name="casilla_f1"  Click="F1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                            <Label   Content="f"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="F"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="6">
                             <Button x:Name="casilla_g1"  Click="G1" Style="{StaticResource Casilla}" Background="{DynamicResource colorOscuroBase}"/>
-                            <Label   Content="g"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="G"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                         <Grid Grid.Row="7" Grid.Column="7">
                             <Button x:Name="casilla_h1"  Click="H1" Style="{StaticResource Casilla}" Background="{DynamicResource colorClaroBase}"/>
-                            <Label   Content="h"  Style="{StaticResource labelLetra}"/>
+                            <Label   Content="H"  Style="{StaticResource labelLetra}"/>
                         </Grid>
                     </Grid>
                 </Grid>

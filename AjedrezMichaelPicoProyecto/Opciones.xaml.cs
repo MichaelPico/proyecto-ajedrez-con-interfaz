@@ -143,7 +143,7 @@ namespace AjedrezMichaelPicoProyecto
         /// <param name="e"></param>
         private void RadioBotonFichas2(object sender, RoutedEventArgs e)
         {
-            FontFamily fichas2 = (FontFamily)App.Current.Resources["NotoSans"];
+            FontFamily fichas2 = (FontFamily)App.Current.Resources["Quivira"];
             App.Current.Resources["fuentePiezas"] = fichas2;
         }
 
@@ -192,34 +192,14 @@ namespace AjedrezMichaelPicoProyecto
             switch (modoPantalla)
             {
                 case 0:
-                    //if (Inicio.ventanaJuego != null)
-                    //{
-                    //    Inicio.ventanaJuego.WindowStyle = WindowStyle.SingleBorderWindow;
-                    //}
-                    //Inicio.WindowStyle = WindowStyle.SingleBorderWindow;
-                    //this.WindowStyle = WindowStyle.SingleBorderWindow;
                     App.Current.Resources["estiloVentana"] = WindowStyle.SingleBorderWindow;
                     App.Current.Resources["estadoVentana"] = WindowState.Normal;
                     break;
                 case 1:
-                    //if (Inicio.ventanaJuego != null)
-                    //{
-                    //    Inicio.ventanaJuego.WindowStyle = WindowStyle.None;
-                    //}
-                    //Inicio.WindowStyle = WindowStyle.None;
-                    //this.WindowStyle = WindowStyle.None;
                     App.Current.Resources["estiloVentana"] = WindowStyle.None;
                     App.Current.Resources["estadoVentana"] = WindowState.Normal;
                     break;
                 case 2:
-                    //if (Inicio.ventanaJuego != null)
-                    //{
-                    //    Inicio.ventanaJuego.WindowStyle = WindowStyle.None;
-                    //    Inicio.ventanaJuego.WindowState = WindowState.Maximized;
-                    //}
-                    //Inicio.WindowStyle = WindowStyle.None;
-                    //this.WindowStyle = WindowStyle.None;
-                    //this.WindowState = WindowState.Maximized;
                     App.Current.Resources["estiloVentana"] = WindowStyle.None;
                     App.Current.Resources["estadoVentana"] = WindowState.Maximized;
                     break;

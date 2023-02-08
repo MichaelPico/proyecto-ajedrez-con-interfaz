@@ -55,7 +55,6 @@ namespace AjedrezMichaelPicoProyecto
             InitializeComponent();
             ventanaInicio = ventanaInicioRecibida;
             RellenarTablero(tablero);
-
         }
 
         /// <summary>
@@ -2001,9 +2000,6 @@ namespace AjedrezMichaelPicoProyecto
             }
             return false;
         }
-
-        
-
 
         //Metodos encargados de los sonidos//
 

@@ -9,7 +9,7 @@
         Height="720" Width="1280" 
         MinHeight=" 700" MinWidth=" 1245"
         WindowStartupLocation="CenterScreen" 
-        WindowState="{DynamicResource estadoVentana}" 
+        WindowState="{DynamicResource estadoVentana}"
         WindowStyle="{DynamicResource estiloVentana}"
         Closing="Window_Closing">
 
@@ -105,7 +105,7 @@
                                 <RowDefinition MinHeight="40"/>
                             </Grid.RowDefinitions>
                             <Viewbox Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,10,0,0">
-                                <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonContraLaMaquina">Contra la Maquina</RadioButton>
+                                <RadioButton GroupName="RadioGrupoModoJuego" Checked="RadioBotonContraLaMaquina" IsEnabled="False">Contra la Maquina</RadioButton>
                             </Viewbox>
                             <Label Content="Dificultad:" FontSize="20" Grid.Row="1" Margin="0,5,0,0" Grid.ColumnSpan="2"></Label>
                             <ComboBox Name="ComboBoxOpcionDificultad" FontSize="17" IsEnabled="False" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Grid.Row="1" Margin="90,10,0,0" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOpcionDificultad_SelectionChanged" Grid.Column="1">
@@ -136,9 +136,9 @@
                     </Label>
                     <!-- Para dar funcionalidad hay que cambiar el Window.style de cada clase de cada ventana, sin bordes = none, ventana es defecto, full screen no recuerdo-->
                     <ComboBox Name="ComboBoxModoPantalla" Grid.Row="1" FontSize="17" MaxWidth="350" HorizontalAlignment="Left" MinWidth="200" Margin="30,5,20,20" VerticalContentAlignment="Center" SelectionChanged="ComboBoxModoPantalla_SelectionChanged">
-                        <ComboBoxItem IsSelected="True">Modo Ventana</ComboBoxItem>
+                        <ComboBoxItem>Modo Ventana</ComboBoxItem>
                         <ComboBoxItem>Ventana sin Bordes</ComboBoxItem>
-                        <ComboBoxItem>Pantalla Completa</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">Pantalla Completa</ComboBoxItem>
                     </ComboBox>
                 </Grid>
 
