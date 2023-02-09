@@ -810,7 +810,7 @@ namespace AjedrezMichaelPicoProyecto
         /// </summary>
         public void ActualizarNotacion(string nuevaNotacion)
         {
-            labelNotacion.Text = labelNotacion.Text + nuevaNotacion;
+            labelNotacion.Text += nuevaNotacion;
         }
 
         /// <summary>
@@ -1060,8 +1060,7 @@ namespace AjedrezMichaelPicoProyecto
                 string caption = "Movimiento ilegal";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result;
-                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
                 return true;
             }
             if (JaqueReyNegro && !EsTurnoDeBlancas)
@@ -1231,6 +1230,8 @@ namespace AjedrezMichaelPicoProyecto
                 MessageBoxResult result;
                 result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
             }
+
+            GridDebug.Visibility = Visibility.Visible;
         }
 
         //METODOS PARA TRADUCIR COORDENADAS//
@@ -2090,7 +2091,6 @@ namespace AjedrezMichaelPicoProyecto
             Application.Current.Shutdown();
         }
 
-
         /// <summary>
         /// Boton el cual cierra el programa y todas sus ventanas
         /// </summary>
@@ -2115,7 +2115,6 @@ namespace AjedrezMichaelPicoProyecto
             }
         }
 
-
         /// <summary>
         /// Metodo que cambia el contenido de el label debug
         /// </summary>
@@ -2124,7 +2123,6 @@ namespace AjedrezMichaelPicoProyecto
         {
             labelNotacion.Text = laString;
         }
-
 
         /// <summary>
         /// Boton que carga el tablero recibido
@@ -2238,9 +2236,6 @@ namespace AjedrezMichaelPicoProyecto
                 { '♖','♝',' ',' ',' ',' ','♝',' '},
             };
 
-            //Blancas = ♔♕♖♗♘♙
-            //Negras  = ♚♛♜♝♞♟
-            //Solucion Alfilc5
             char[,] tableroReyAhogado = new char[,]
             {
                 { '♚',' ',' ',' ',' ',' ',' ',' '},
@@ -2251,6 +2246,90 @@ namespace AjedrezMichaelPicoProyecto
                 { ' ',' ',' ',' ',' ',' ',' ',' '},
                 { ' ',' ',' ',' ',' ',' ',' ',' '},
                 { ' ',' ',' ',' ',' ',' ',' ',' '},
+            };
+
+            char[,] tableroMateAnastasia = new char[,]
+            {
+                { ' ',' ',' ',' ',' ','♜','♚',' '},
+                { ' ',' ',' ',' ',' ','♟','♟',' '},
+                { ' ',' ','♘',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ','♔',' ',' ',' ','♖'},
+            };
+
+            char[,] tableroMateAlfilCaballo = new char[,]
+            {
+                { ' ',' ',' ',' ',' ',' ',' ','♚'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ','♔','♘'},
+                { ' ',' ',' ',' ',' ',' ','♗',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+            };
+
+            char[,] tableroMateEsquina = new char[,]
+            {
+                { ' ',' ',' ',' ',' ',' ','♜','♚'},
+                { ' ',' ',' ',' ',' ',' ','♟','♟'},
+                { ' ',' ',' ','♘',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ','♔',' '},
+            };
+
+            char[,] tableroMateDosTorres= new char[,]
+            {
+                { ' ',' ',' ','♚',' ',' ',' ',' '},
+                { '♖',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ','♔','♖'},
+            };
+            
+            char[,] tableroMatePasillo = new char[,]
+            {
+                { ' ',' ',' ',' ',' ',' ','♚',' '},
+                { ' ',' ',' ',' ',' ','♟','♟','♟'},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ','♖',' ',' ','♔',' ',' ',' '},
+            };
+
+            char[,] tableroMateBoden = new char[,]
+            {
+                { ' ',' ','♚','♜',' ',' ',' ',' '},
+                { ' ',' ',' ','♟',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ','♗',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ','♗',' ','♔'},
+            };
+
+            char[,] tableroMateDavidGoliath = new char[,]
+            {
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ','♖'},
+                { '♟','♚','♟',' ',' ',' ',' ',' '},
+                { ' ','♞',' ',' ',' ',' ',' ',' '},
+                { '♙','♙',' ',' ',' ',' ',' ',' '},
+                { ' ',' ',' ',' ',' ',' ',' ','♔'},
             };
 
             if (RadioDebug1.IsChecked == true)
@@ -2270,7 +2349,8 @@ namespace AjedrezMichaelPicoProyecto
                 rastros.Add("a3");
                 rastros.Add("a2");
                 SetParametrosPartida(tableroPromocionMateEnUno, false, false, false, false, false, false, false, rastros, "", "");
-                CambiarDebugText("julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015, partida en la cual se dio la ocasion de un mate por promoción.  ");
+                CambiarDebugText("julitoflo (1613) vs. Loefwing (1666) - New Years Challenge 2015 - 26 Jan 2015, partida " +
+                    "en la cual se dio la ocasion de un mate por promoción.  ");
             }
             else if (RadioDebug4.IsChecked == true)
             {
@@ -2278,7 +2358,8 @@ namespace AjedrezMichaelPicoProyecto
                 rastros.Add("g1");
                 rastros.Add("g2");
                 SetParametrosPartida(tableroEnroqueParaMate, true, false, true, false, false, false, false, rastros, "", "");
-                CambiarDebugText("Edward Lasker vs. Sir George Thomas - Londres - 1911, juego historico el cual tiene dos posibilidades para acabar, una de ellas el bellisimo jaque por enroque. ");
+                CambiarDebugText("Edward Lasker vs. Sir George Thomas - Londres - 1911, juego historico el cual tiene dos " +
+                    "posibilidades para acabar, una de ellas el bellisimo jaque por enroque. ");
 
             }
             else if (RadioDebug5.IsChecked == true)
@@ -2288,7 +2369,8 @@ namespace AjedrezMichaelPicoProyecto
                 rastros.Add("f5");
                 SetParametrosPartida(tableroEnPassantMate, true, false, false, false, false, false, false, rastros, "", "");
                 casillaEnPassant = "f6";
-                CambiarDebugText("Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023, juego bastante polemico de comienzos de el año 2023 donde el campeon de el mundo fue derrotado por un bellisimo mate por En Passant.  ");
+                CambiarDebugText("Jon Ludvig Hammer vs Magnus Carlsen (top 1 de el mundo) - Live Chess - 2023, juego bastante " +
+                    "polemico de comienzos de el año 2023 donde el campeon de el mundo fue derrotado por un bellisimo mate por En Passant.  ");
             }
             else if (RadioDebug6.IsChecked == true)
             {
@@ -2320,6 +2402,64 @@ namespace AjedrezMichaelPicoProyecto
                 SetParametrosPartida(tableroReyAhogado, true, false, false, false, false, false, false, null, "", "");
                 CambiarDebugText("Mueve la reina a la casilla c7 para probar el empate por rey ahogado");
                 PintarEnroque("c7");
+            }
+            else if (RadioDebug10.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMateAnastasia, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("El nombre de este mate es más bien enigmático. Proviene de la novela " +
+                    "\"Anastasia y el juego de ajedrez, carta desde Italia\" obra del poeta alemán Wilhelm " +
+                    "Heinse, publicada en 1803.");
+                PintarEnroque("e7");
+            }
+            else if (RadioDebug11.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMateAlfilCaballo, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("El mate de rey, alfil y caballo contra rey es el más complejo de los mates " +
+                    "básicos y de los finales sin peones en ajedrez. Con el turno y un juego perfecto, el " +
+                    "bando superior en material puede forzar el mate en unas treinta y cinco jugadas.");
+                PintarEnroque("f6");
+            }
+            else if (RadioDebug12.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMateEsquina, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("En ajedrez, el mate de la coz es un jaque mate en el que el caballo ataca al rey " +
+                    "contrario, que no puede escapar de la amenaza al encontrarse rodeado por sus propias piezas.");
+                PintarEnroque("f7");
+            }
+            else if (RadioDebug13.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMateDosTorres, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("Este es el primer mate que debe practicar el principiante, ya que es el más sencillo " +
+                    "y fácil de comprender. Se debe llevar al rey enemigo a la banda con dos torres usando el método conocido como \"la escalera\".");
+                PintarEnroque("h8");
+            }
+            else if (RadioDebug15.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMatePasillo, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("En ajedrez, el mate del pasillo, Callejón de la Muerte, del tubo o de casita es un " +
+                    "jaque mate que se produce cuando una torre o dama amenaza al rey enemigo en la octava fila.");
+                PintarEnroque("b8");
+            }
+            else if (RadioDebug16.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMateBoden, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("En el mate de Boden, dos alfiles atacan por diagonales cruzadas al rey contrario, " +
+                    "obstruido por piezas de su bando; usualmente una torre y un peón.");
+                PintarEnroque("a6");
+            }
+            else if (RadioDebug16.IsChecked == true)
+            {
+                List<string> rastros = new List<string>();
+                SetParametrosPartida(tableroMateDavidGoliath, true, false, false, false, false, false, false, null, "", "");
+                CambiarDebugText("El Mate de David y Goliath puede tomar muchas formas, aunque generalmente se " +
+                    "caracteriza por ser ejecutado por un peón y en el cual los peones enemigos están cerca.");
+                PintarEnroque("a3");
             }
 
         }

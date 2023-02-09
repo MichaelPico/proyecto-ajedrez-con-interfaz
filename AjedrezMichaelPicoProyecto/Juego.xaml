@@ -131,10 +131,13 @@
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug8" Content="Puzzle 4" Foreground="#90D7FF"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug9" Content="Puzzle 5"  Foreground="#90D7FF"/>
                 <Label Content="Patrones de Mate:  " Foreground="#90D7FF" FontSize="16"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug10" Content="Tablero 6"  Foreground="#90D7FF"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug11" Content="Tablero 6"  Foreground="#90D7FF"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug12" Content="Tablero 6"  Foreground="#90D7FF"/>
-                <RadioButton GroupName="grupoTablero" Name="RadioDebug13" Content="Tablero 6"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug10" Content="Mate Anastasia: "  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug11" Content="Mate de Alfil y Caballo"  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug12" Content="Mate de la coz: "  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug13" Content="Mate de dos Torres: "  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug15" Content="Mate de Pasillo: "  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug16" Content="Mate de Boden: "  Foreground="#90D7FF"/>
+                <RadioButton GroupName="grupoTablero" Name="RadioDebug17" Content="Mate de David y Goliath: "  Foreground="#90D7FF"/>
                 <Label Content="Empate:  " Foreground="#90D7FF" FontSize="16"/>
                 <RadioButton GroupName="grupoTablero" Name="RadioDebug14" Content="Rey ahogado"  Foreground="#90D7FF"/>
                 <Button Click="CargarTableroDebug" Content="CARGAR" Margin="30" Background="#90D7FF" Height="30" FontSize="15"/>
